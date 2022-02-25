@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class TwoNumbersSumTest {
 
+
     @Test
     public void summation1() {
         TwoNumbersSum.Util util = new TwoNumbersSum.Util();
