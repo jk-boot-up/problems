@@ -10,6 +10,7 @@ import java.util.List;
 
 public class TwoNumbersSum {
 
+
     @Getter
     @Setter
     @NoArgsConstructor
