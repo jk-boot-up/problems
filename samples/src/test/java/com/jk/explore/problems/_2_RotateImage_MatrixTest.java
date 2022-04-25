@@ -35,14 +35,21 @@ public class _2_RotateImage_MatrixTest {
         @Test
         public void clockwiseRotate() {
             Integer[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-            System.out.println("Before Rotate: ");
+            System.out.println("Before clockwise Rotate: ");
             PrintUtils.print(matrix);
             cut.clockwiseRotate(matrix);
-            System.out.println("After Rotate: ");
+            System.out.println("After clockwise Rotate: ");
             PrintUtils.print(matrix);
-
         }
 
-
+    @Test
+    public void antiClockwiseRotate() {
+        Integer[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        System.out.println("Before anticlockwise Rotate: ");
+        PrintUtils.print(matrix);
+        cut.antiClockwiseRotate(matrix);
+        System.out.println("After anticlockwise Rotate: ");
+        PrintUtils.print(matrix);
+    }
 
 }
