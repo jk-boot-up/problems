@@ -1,8 +1,6 @@
 package com.jk.explore.problems.samples.numeric.level.a;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.OptionalInt;
+import java.util.*;
 import java.util.function.IntPredicate;
 import java.util.stream.IntStream;
 
@@ -42,4 +40,20 @@ public class FindIndicesForSum {
         }
         return null;
     }
+
+
+    public int[] getIndicesForSum(List<Integer> numbers, Integer sum) {
+        final Map<Integer, Integer> numberIndexMap = new HashMap<>();
+        numbers.stream().forEach(i-> {
+            int number1 = i;
+            int number2 = sum - i;
+            numberIndexMap.containsKey(number2) ;
+
+        });
+
+        return null;
+
+    }
+
+
 }

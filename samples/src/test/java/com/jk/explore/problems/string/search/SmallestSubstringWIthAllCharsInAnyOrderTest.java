@@ -10,6 +10,5 @@ public class SmallestSubstringWIthAllCharsInAnyOrderTest {
         SmallestSubstringWIthAllCharsInAnyOrder cut = new SmallestSubstringWIthAllCharsInAnyOrder();
         String smallest = cut.shortestSubstringWindow("abcdaacxayz", "aacd");
         Assertions.assertEquals( "cdaa", smallest);
-
     }
 }
