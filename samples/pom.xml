@@ -21,7 +21,6 @@
 
     <groupId>com.jk.explore.problems</groupId>
     <artifactId>samples</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>samples</name>
     <description>Demo project for Spring Boot</description>
 
