@@ -7,6 +7,12 @@
         <version>1.0-SNAPSHOT</version>
         <artifactId>problems</artifactId>
     </parent>
+
+    <groupId>com.jk.explore.problems</groupId>
+    <artifactId>problem-samples</artifactId>
+    <name>problem-samples</name>
+    <description>Problems exploration</description>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -18,11 +24,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <groupId>com.jk.explore.problems</groupId>
-    <artifactId>samples</artifactId>
-    <name>samples</name>
-    <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
