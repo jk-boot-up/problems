@@ -6,6 +6,10 @@ import java.util.Map;
 public class TwoSumProblem {
 
     public int[] findIndices(int [] numbers, int twoSum) {
+        if(numbers == null || numbers.length > 104 || numbers.length < 2) {
+            System.out.println("Numbers length should be >= 2 and <= 104");
+            return null;
+        }
         // Space - O(n)
         Map<Integer, Integer> numbersIndexMap = new HashMap<>();
         // Time - O(n)

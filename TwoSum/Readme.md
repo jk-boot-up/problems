@@ -1,5 +1,31 @@
 # Two Sum Problem solution in Java
 
+## github link
+
+    https://github.com/jk-boot-up/problems
+
+## Maven Project root
+
+    problems
+
+## Maven commands to run from project root
+
+    mvn clean install
+
+## Maven commands to run from Module root
+
+    mvn clean install
+
+## Prerequisites to run/debug
+
+    Java version 8+ 
+    Maven version: 3.8.6+ 
+    IDE of your choice or command line
+
+## Maven Module root
+
+    TwoSum
+
 ## Problem description
 
 Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
