@@ -37,6 +37,7 @@ public class LongestSubStringWithoutRepeatingChars {
             if(visitedCharAndIndex.containsKey(current)) {
                 start = Math.max(visitedCharAndIndex.get(current)+1, start);
             }
+            // it will faile for abcded
             if(longestSubstring.length() < end - start + 1) {
                 longestSubstring = input.substring(start, end + 1);
             }
