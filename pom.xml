@@ -19,6 +19,7 @@
   <modules>
     <module>problem-samples</module>
     <module>TwoSum</module>
+    <module>palindrome-number</module>
   </modules>
 
 </project>
