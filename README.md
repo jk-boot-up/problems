@@ -1,2 +1,2 @@
 # problems
-Explore general problems and soultions
+Explore general problems and solutions
