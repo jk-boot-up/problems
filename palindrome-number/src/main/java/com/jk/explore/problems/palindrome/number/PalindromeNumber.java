@@ -2,6 +2,11 @@ package com.jk.explore.problems.palindrome.number;
 
 public class PalindromeNumber {
 
+    /**
+     * Time complexity: O(m) where m is the length of the given input number n
+     * @param n
+     * @return true if the number is palindrome
+     */
     public boolean isPalindrome(int n) {
         if(n < 0) {
             return false;
@@ -10,6 +15,12 @@ public class PalindromeNumber {
         return reversedNumber == n;
     }
 
+
+    /**
+     * Time complexity: O(m) where m is the length of the given input number
+     * @param number
+     * @return reversed number
+     */
     public int reverse(int number) {
         int reversed = 0;
         while (number > 0) {

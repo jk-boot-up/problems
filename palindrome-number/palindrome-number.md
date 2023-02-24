@@ -37,12 +37,18 @@ A palindromic number (also known as a numeral palindrome or a numeric palindrome
 ## Github location
 
     https://github.com/jk-boot-up/problems.git
-    Path: 
+    Module: palindrome-number
+
 ### Prerequisites to run Java solution
     Java 8+
     Junit 5 - optional - for tests only
     Maven
     Any IDE
+
+### How to run the Maven build
+
+    cd problems/palindrome-number
+    mvn clean install
 
 
 

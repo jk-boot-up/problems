@@ -20,6 +20,7 @@
     <module>problem-samples</module>
     <module>TwoSum</module>
     <module>palindrome-number</module>
+    <module>palindrome-string</module>
   </modules>
 
 </project>
