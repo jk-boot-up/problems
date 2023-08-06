@@ -21,6 +21,7 @@
     <module>TwoSum</module>
     <module>palindrome-number</module>
     <module>palindrome-string</module>
+    <module>add-two-numbers</module>
   </modules>
 
 </project>
