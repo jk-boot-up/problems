@@ -583,3 +583,13 @@ includeBuild("1381-design-a-stack-with-increment-operation/v1-lazy-increments") 
 includeBuild("1396-design-underground-system/v1-two-hash-maps") { name = "1396-design-underground-system-v1-two-hash-maps" }
 includeBuild("1405-longest-happy-string/v1-greedy-by-remaining-count") { name = "1405-longest-happy-string-v1-greedy-by-remaining-count" }
 includeBuild("1424-diagonal-traverse-ii/v1-buckets-by-i-j") { name = "1424-diagonal-traverse-ii-v1-buckets-by-i-j" }
+includeBuild("1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/v1-window-with-max-min-deques") { name = "1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit-v1-window-with-max-min-deques" }
+includeBuild("1462-course-schedule-iv/v1-transitive-closure") { name = "1462-course-schedule-iv-v1-transitive-closure" }
+includeBuild("1470-shuffle-the-array/v1-interleave-halves") { name = "1470-shuffle-the-array-v1-interleave-halves" }
+includeBuild("1475-final-prices-with-a-special-discount-in-a-shop/v1-next-smaller-or-equal-with-a-stack") { name = "1475-final-prices-with-a-special-discount-in-a-shop-v1-next-smaller-or-equal-with-a-stack" }
+includeBuild("1491-average-salary-excluding-the-minimum-and-maximum-salary/v1-single-pass") { name = "1491-average-salary-excluding-the-minimum-and-maximum-salary-v1-single-pass" }
+includeBuild("1498-number-of-subsequences-that-satisfy-the-given-sum-condition/v1-sort-two-pointers-powers-of-two") { name = "1498-number-of-subsequences-that-satisfy-the-given-sum-condition-v1-sort-two-pointers-powers-of-two" }
+includeBuild("1514-path-with-maximum-probability/v1-dijkstra-with-a-max-heap") { name = "1514-path-with-maximum-probability-v1-dijkstra-with-a-max-heap" }
+includeBuild("1523-count-odd-numbers-in-an-interval-range/v1-prefix-count-formula") { name = "1523-count-odd-numbers-in-an-interval-range-v1-prefix-count-formula" }
+includeBuild("1539-kth-missing-positive-number/v1-binary-search-on-missing-counts") { name = "1539-kth-missing-positive-number-v1-binary-search-on-missing-counts" }
+includeBuild("1544-make-the-string-great/v1-stack-of-letters") { name = "1544-make-the-string-great-v1-stack-of-letters" }
