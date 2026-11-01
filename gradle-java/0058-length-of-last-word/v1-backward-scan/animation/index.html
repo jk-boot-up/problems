@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#58</span><h1>Length of Last Word</h1><span class="badge Easy">Easy</span><span class="topic">Array / String</span><span class="vtag">v1 · Optimal</span>
+    <span class="hnum">#58</span><h1>Length of Last Word</h1><span class="badge Easy">Easy</span><span class="topic">Array / String</span><span class="vtag">v1 · Backward scan</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/length-of-last-word/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -202,7 +202,7 @@ Output: 4</code></pre>
 <ul><li><code>1 &lt;= s.length &lt;= 10^4</code></li><li><code>s</code> has only English letters and spaces, and at least one word.</li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Optimal)</h3>
+          <h3>💡 Key idea (v1 · Backward scan)</h3>
           <div class="idea">Scan from the end: skip trailing spaces, then count letters until the next space.</div>
           <p><strong>Backward scan.</strong> Start at the end, skip spaces, then count characters until a space or the start of the string.</p>
 <ul><li>Time: <strong>O(n)</strong> — at worst we scan the whole string once.</li><li>Space: <strong>O(1)</strong> — an index and a counter.</li></ul>
