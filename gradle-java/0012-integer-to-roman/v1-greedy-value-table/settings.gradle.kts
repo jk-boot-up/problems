@@ -3,7 +3,4 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "0012-integer-to-roman"
-
-// Each solution variant (v1 = simplest ... vN = most efficient) is its own subproject.
-include("v1")
+rootProject.name = "0012-integer-to-roman-v1-greedy-value-table"
