@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>289. Game of Life (v1) · Animated walkthrough</title>
+<title>289. Game of Life (v2) · Animated walkthrough</title>
 <style>
 /* ---------- themes ---------- */
 :root,[data-theme="dark"]{
@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#289</span><h1>Game of Life</h1><span class="badge Medium">Medium</span><span class="topic">Matrix</span><span class="vtag">v1 · Copy of the board</span>
+    <span class="hnum">#289</span><h1>Game of Life</h1><span class="badge Medium">Medium</span><span class="topic">Matrix</span><span class="vtag">v2 · In-place two-bit states</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/game-of-life/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="on" href="../../v1/animation/index.html">v1 · Copy of the board</a><a class="" href="../../v2/animation/index.html">v2 · In-place two-bit states</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1-copy-of-the-board/animation/index.html">v1 · Copy of the board</a><a class="on" href="../../v2-in-place-two-bit-states/animation/index.html">v2 · In-place two-bit states</a></nav>
   </nav>
 </header>
 <main>
@@ -202,11 +202,11 @@ Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]</code></pre>
 <p><strong>Follow-up:</strong> solve it in place.</p></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Copy of the board)</h3>
-          <div class="idea">Read neighbours from an untouched copy and write the new states into the board.</div>
-          <p><strong>Snapshot.</strong> Copy the board; count neighbours in the copy and write each cell's next state into the original.</p>
-<ul><li>Time: <strong>O(m·n)</strong> — 8 neighbour checks per cell.</li><li>Space: <strong>O(m·n)</strong> — the copy.</li></ul>
-          <div class="chips"><span class="chip">⏱ O(m·n)</span><span class="chip">🧠 O(m·n)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
+          <h3>💡 Key idea (v2 · In-place two-bit states)</h3>
+          <div class="idea">Update in place by encoding both the old and new state in each cell (bit 0 = now, bit 1 = next).</div>
+          <p><strong>Two bits per cell.</strong> Bit 0 is the current state, bit 1 the next state. Count live neighbours using <code>cell &amp; 1</code>, so cells already updated still report their old state. Set bit 1 when the cell lives next round. Finally shift every cell right by one.</p>
+<ul><li>Time: <strong>O(m·n)</strong> — 8 neighbour checks per cell.</li><li>Space: <strong>O(1)</strong> — the board stores both generations.</li></ul>
+          <div class="chips"><span class="chip">⏱ O(m·n)</span><span class="chip">🧠 O(1)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
           <button class="cta" data-goto="walk">▶ Start the animated walkthrough</button>
         </div>
       </div>
@@ -231,7 +231,7 @@ Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]</code></pre>
     <div id="timeline" title="Jump to a step"></div>
     <div class="legend"><span style="--c:var(--cur)">current</span><span style="--c:var(--sel)">selected / window</span><span style="--c:var(--ok)">done / match</span><span style="--c:var(--bad)">rejected</span><span style="--c:var(--alt)">special</span></div>
     <div class="kbd"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>1</kbd>–<kbd>9</kbd> pick scenario</div>
-    <details class="code card"><summary>☕ Java solution (v1)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0289.v1;
+    <details class="code card"><summary>☕ Java solution (v2)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0289.v2;
 
 import java.util.*;
 
@@ -239,20 +239,23 @@ public class GameOfLife {
 
     public void gameOfLife(int[][] board) {
         int m = board.length, n = board[0].length;
-        int[][] old = new int[m][];
-        for (int i = 0; i &lt; m; i++) old[i] = board[i].clone();
         for (int i = 0; i &lt; m; i++) {
             for (int j = 0; j &lt; n; j++) {
                 int live = 0;
                 for (int di = -1; di &lt;= 1; di++) {
                     for (int dj = -1; dj &lt;= 1; dj++) {
                         if ((di != 0 || dj != 0) &amp;&amp; i + di &gt;= 0 &amp;&amp; i + di &lt; m &amp;&amp; j + dj &gt;= 0 &amp;&amp; j + dj &lt; n) {
-                            live += old[i + di][j + dj];
+                            live += board[i + di][j + dj] &amp; 1;
                         }
                     }
                 }
-                board[i][j] = (live == 3 || (live == 2 &amp;&amp; old[i][j] == 1)) ? 1 : 0;
+                if (live == 3 || (live == 2 &amp;&amp; (board[i][j] &amp; 1) == 1)) {
+                    board[i][j] |= 2;
+                }
             }
+        }
+        for (int[] row : board) {
+            for (int j = 0; j &lt; n; j++) row[j] &gt;&gt;= 1;
         }
     }
 }
@@ -261,13 +264,13 @@ public class GameOfLife {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class="on"><td><a href="../../v1/animation/index.html">v1</a></td><td>Copy of the board</td><td><code>O(m·n)</code></td><td><code>O(m·n)</code></td></tr><tr class=""><td><a href="../../v2/animation/index.html">v2</a></td><td>In-place two-bit states</td><td><code>O(m·n)</code></td><td><code>O(1)</code></td></tr></table></div>
-    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Snapshot.</strong> Copy the board; count neighbours in the copy and write each cell's next state into the original.</p>
-<ul><li>Time: <strong>O(m·n)</strong> — 8 neighbour checks per cell.</li><li>Space: <strong>O(m·n)</strong> — the copy.</li></ul></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1-copy-of-the-board/animation/index.html">v1</a></td><td>Copy of the board</td><td><code>O(m·n)</code></td><td><code>O(m·n)</code></td></tr><tr class="on"><td><a href="../../v2-in-place-two-bit-states/animation/index.html">v2</a></td><td>In-place two-bit states</td><td><code>O(m·n)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Two bits per cell.</strong> Bit 0 is the current state, bit 1 the next state. Count live neighbours using <code>cell &amp; 1</code>, so cells already updated still report their old state. Set bit 1 when the cell lives next round. Finally shift every cell right by one.</p>
+<ul><li>Time: <strong>O(m·n)</strong> — 8 neighbour checks per cell.</li><li>Space: <strong>O(1)</strong> — the board stores both generations.</li></ul></div>
   </section>
 </main>
 <script>
-window.PROBLEM = {"num": 289, "title": "Game of Life", "idea": "Read neighbours from an untouched copy and write the new states into the board.", "time": "O(m\u00b7n)", "timeWhy": "8 neighbour checks per cell.", "space": "O(m\u00b7n)", "spaceWhy": "the copy.", "tc": "n2", "sc": "n2"};
+window.PROBLEM = {"num": 289, "title": "Game of Life", "idea": "Update in place by encoding both the old and new state in each cell (bit 0 = now, bit 1 = next).", "time": "O(m\u00b7n)", "timeWhy": "8 neighbour checks per cell.", "space": "O(1)", "spaceWhy": "the board stores both generations.", "tc": "n2", "sc": "1"};
 /*
  * Step-by-step algorithm animator with spoken narration.
  *
@@ -602,18 +605,21 @@ window.PROBLEM = {"num": 289, "title": "Game of Life", "idea": "Read neighbours 
 <script>
 function trace(A) {
 function run(b) {
-  const old = b.map(r => r.slice()), m = b.length, n = b[0].length;
-  const g = (x, i, j) => x.flatMap((r, a) => r.map((v, c) => [`${a},${c}`, a === i && c === j ? 'cur' : v ? 'ok' : '']));
-  A.step('Keep a snapshot of the current generation; write the next generation into the board.', A.grid('snapshot', old, { hl: g(old, -1, -1) }), A.grid('board', b, { hl: g(b, -1, -1) }));
+  const m = b.length, n = b[0].length;
+  const view = (i, j) => A.grid('board (bit1 = next, bit0 = now)', b.map(r => r.map(v => ['0', '1', '2', '3'][v])), { hl: b.flatMap((r, x) => r.map((v, y) => [`${x},${y}`, x === i && y === j ? 'cur' : v & 1 ? 'ok' : v & 2 ? 'sel' : ''])) });
+  A.step('Green cells are alive. Each cell stores two bits: bit 0 is now, bit 1 is the next state. Neighbours are counted with bit 0 only.', view(-1, -1));
   for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) {
     let live = 0;
-    for (let di = -1; di <= 1; di++) for (let dj = -1; dj <= 1; dj++) if ((di || dj) && old[i + di] && old[i + di][j + dj] !== undefined) live += old[i + di][j + dj];
-    b[i][j] = live === 3 || (live === 2 && old[i][j]) ? 1 : 0;
-    A.step(`(${i},${j}) has ${live} live neighbours in the snapshot, so it becomes ${b[i][j] ? 'alive' : 'dead'}.`, A.grid('snapshot', old, { hl: g(old, i, j) }), A.grid('board', b, { hl: g(b, i, j) }));
+    for (let di = -1; di <= 1; di++) for (let dj = -1; dj <= 1; dj++) if ((di || dj) && b[i + di] && b[i + di][j + dj] !== undefined) live += b[i + di][j + dj] & 1;
+    const alive = b[i][j] & 1, next = live === 3 || (live === 2 && alive);
+    if (next) b[i][j] |= 2;
+    A.step(`(${i},${j}) is ${alive ? 'alive' : 'dead'} with ${live} live neighbour${live === 1 ? '' : 's'}, so next round it is ${next ? 'alive' : 'dead'}${next ? '. Set bit 1' : ''}.`, view(i, j));
   }
-  A.step('Done. The snapshot cost O(m·n) extra space.', A.grid('board', b, { hl: g(b, -1, -1) }));
+  b.forEach(r => r.forEach((v, j) => (r[j] = v >> 1)));
+  A.step('Shift every cell right by one bit: the next state becomes the current state.', A.grid('board', b, { hl: b.flatMap((r, x) => r.map((v, y) => [`${x},${y}`, v ? 'ok' : ''])) }));
 }
 A.scenario('Blinker', 'board = [[0,0,0],[1,1,1],[0,0,0]]', () => run([[0, 0, 0], [1, 1, 1], [0, 0, 0]]));
+A.scenario('Glider', 'board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]', () => run([[0, 1, 0], [0, 0, 1], [1, 1, 1], [0, 0, 0]]));
 }
 </script>
 </body>

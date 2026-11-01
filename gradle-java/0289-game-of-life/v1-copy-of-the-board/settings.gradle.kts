@@ -3,8 +3,4 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "0289-game-of-life"
-
-// Each solution variant (v1 = simplest ... vN = most efficient) is its own subproject.
-include("v1")
-include("v2")
+rootProject.name = "0289-game-of-life-v1-copy-of-the-board"
