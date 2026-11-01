@@ -514,6 +514,13 @@ rootProject.name = "leetcode-top-500"
 """)
     write(ROOT / ".gitignore", GITIGNORE)
     shutil.copytree(TOOLS / "wrapper", ROOT, dirs_exist_ok=True)
+    data = []
+    for i, p in enumerate(probs, 1):
+        data.append({"i": i, "num": p["num"], "title": p["title"], "diff": p["diff"], "topic": p["topic"], "dir": dir_name(p),
+                     "versions": [{"v": v["v"], "dir": v["dir"], "name": v["name"], "time": v["cx"]["time"]} for v in variants(p)]})
+    page = (TOOLS / "engine" / "index_template.html").read_text()
+    page = page.replace("__DATA__", json.dumps(data)).replace("__JAVA__", str(JAVA)).replace("__GRADLE__", GRADLE)
+    write(ROOT / "index.html", page)
     rows = []
     for i, p in enumerate(probs, 1):
         d = dir_name(p)
@@ -551,6 +558,11 @@ Each `animation/index.html` is self-contained and works offline:
   with the browser's Web Speech API (no audio files needed). Hash maps are drawn as real bucket arrays.
 * **Complexity** tab: time and space complexity with a growth chart, compared across the problem's approaches.
 * Light / Medium / Dark themes (remembered between visits), keyboard shortcuts, and links between approaches.
+
+## Index
+
+Open [`index.html`](index.html) in a browser for a searchable, filterable index that links to every problem, every
+approach project and every animation. The table at the end of this file lists the same links.
 
 ## Build
 

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeetCode problem index · Java __JAVA__</title>
+<style>
+:root,[data-theme="dark"]{--bg:#0b1020;--panel:#151c2f;--panel2:#1c2540;--line:#2c3757;--fg:#e6ebf5;--mut:#93a0bd;--accent:#6d8cff;--ok:#2fc46b;--okbg:#103d24;--cur:#f5a524;--curbg:#5a3a06;--bad:#f0525b;--badbg:#4a1418}
+[data-theme="medium"]{--bg:#2a3142;--panel:#353d51;--panel2:#3f485e;--line:#566079;--fg:#eef1f7;--mut:#b5bdd0;--accent:#7f9cff;--ok:#45d483;--okbg:#1f5236;--cur:#ffb340;--curbg:#6b4a14;--bad:#ff6b73;--badbg:#622a2f}
+[data-theme="light"]{--bg:#f4f6fb;--panel:#fff;--panel2:#eef2fa;--line:#d5dbe8;--fg:#1b2333;--mut:#5d6880;--accent:#3d63f2;--ok:#138a45;--okbg:#d3f5e1;--cur:#c77700;--curbg:#ffe9c2;--bad:#cc2b35;--badbg:#fde0e2}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg)}
+header{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--line)}
+.wrap{max-width:1200px;margin:0 auto;padding:14px 20px}
+h1{margin:0 0 4px;font-size:22px}
+.sub{color:var(--mut);font-size:14px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+input,select{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px}
+input{flex:1;min-width:220px}
+.themes{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-left:auto}
+.themes button{background:var(--panel);color:var(--mut);border:0;padding:7px 11px;cursor:pointer}
+.themes button.on{background:var(--accent);color:#fff}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--mut)}
+table{width:100%;border-collapse:collapse;margin:16px 0 40px;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:14px;vertical-align:top}
+th{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.06em;background:var(--panel2);cursor:pointer;user-select:none}
+tr:hover td{background:var(--panel2)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.d{font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px}
+.Easy{background:var(--okbg);color:var(--ok)}.Medium{background:var(--curbg);color:var(--cur)}.Hard{background:var(--badbg);color:var(--bad)}
+.v{display:inline-block;margin:0 6px 4px 0;font-size:13px;white-space:nowrap}
+.v small{color:var(--mut)}
+.num{color:var(--mut);font-variant-numeric:tabular-nums}
+.empty{padding:30px;text-align:center;color:var(--mut)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>LeetCode problem index</h1>
+  <div class="sub">Every problem is its own folder; every approach (v1, v2, …) is a standalone Java __JAVA__ / Gradle __GRADLE__ project with tests and a narrated animation.</div>
+  <div class="bar">
+    <input id="q" placeholder="Search by number, title, topic or approach…" autofocus>
+    <select id="diff"><option value="">All difficulties</option><option>Easy</option><option>Medium</option><option>Hard</option></select>
+    <select id="topic"><option value="">All topics</option></select>
+    <div class="themes"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
+  </div>
+  <div class="stats" id="stats"></div>
+</div></header>
+<main class="wrap">
+  <table>
+    <thead><tr><th data-k="i">#</th><th data-k="num">LeetCode</th><th data-k="title">Problem</th><th data-k="diff">Difficulty</th><th data-k="topic">Topic</th><th>Approaches (project · animation)</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+</main>
+<script>
+const DATA = __DATA__;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const order = { Easy: 0, Medium: 1, Hard: 2 };
+let sortKey = 'i', sortDir = 1;
+[...new Set(DATA.map(p => p.topic))].sort().forEach(t => $('topic').insertAdjacentHTML('beforeend', `<option>${esc(t)}</option>`));
+function render() {
+  const q = $('q').value.trim().toLowerCase(), d = $('diff').value, t = $('topic').value;
+  const rows = DATA.filter(p => (!d || p.diff === d) && (!t || p.topic === t) &&
+    (!q || `${p.num} ${p.title} ${p.topic} ${p.versions.map(v => v.name).join(' ')}`.toLowerCase().includes(q)));
+  rows.sort((a, b) => { const x = sortKey === 'diff' ? order[a.diff] - order[b.diff] : a[sortKey] < b[sortKey] ? -1 : a[sortKey] > b[sortKey] ? 1 : 0; return x * sortDir; });
+  $('rows').innerHTML = rows.map(p => `<tr><td class="num">${p.i}</td><td class="num">${p.num}</td><td><a href="${p.dir}/README.md">${esc(p.title)}</a></td><td><span class="d ${p.diff}">${p.diff}</span></td><td>${esc(p.topic)}</td><td>${p.versions.map(v => `<span class="v"><a href="${p.dir}/${v.dir}/README.md">${v.v}</a> <small>${esc(v.name)} · ${esc(v.time)}</small> <a href="${p.dir}/${v.dir}/animation/index.html" title="Open the animation">▶</a></span>`).join('<br>')}</td></tr>`).join('') || '<tr><td colspan="6" class="empty">No problems match.</td></tr>';
+  const by = k => DATA.filter(p => p.diff === k).length;
+  $('stats').innerHTML = `<span class="chip">${rows.length} of ${DATA.length} problems</span><span class="chip">${DATA.reduce((s, p) => s + p.versions.length, 0)} projects</span><span class="chip">Easy ${by('Easy')}</span><span class="chip">Medium ${by('Medium')}</span><span class="chip">Hard ${by('Hard')}</span>`;
+}
+document.querySelectorAll('th[data-k]').forEach(th => (th.onclick = () => { const k = th.dataset.k; sortDir = sortKey === k ? -sortDir : 1; sortKey = k; render(); }));
+['q', 'diff', 'topic'].forEach(id => ($(id).oninput = render));
+function setTheme(t) { document.documentElement.dataset.theme = t; try { localStorage.setItem('algo-theme', t); } catch (e) { } document.querySelectorAll('.themes button').forEach(b => b.classList.toggle('on', b.dataset.theme === t)); }
+document.querySelectorAll('.themes button').forEach(b => (b.onclick = () => setTheme(b.dataset.theme)));
+let saved = 'dark'; try { saved = localStorage.getItem('algo-theme') || saved; } catch (e) { }
+setTheme(saved);
+render();
+</script>
+</body>
+</html>
