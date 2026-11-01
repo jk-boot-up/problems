@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>73. Set Matrix Zeroes (v2) · Animated walkthrough</title>
+<style>
+/* ---------- themes ---------- */
+:root,[data-theme="dark"]{
+  --bg:#0b1020;--panel:#151c2f;--panel2:#1c2540;--line:#2c3757;--fg:#e6ebf5;--mut:#93a0bd;--accent:#6d8cff;--accent-fg:#fff;
+  --cell:#0f1528;--cur:#f5a524;--cur-bg:#5a3a06;--ok:#2fc46b;--ok-bg:#103d24;--bad:#f0525b;--bad-bg:#4a1418;
+  --sel:#4f8cff;--sel-bg:#173066;--alt:#b073ff;--alt-bg:#3d1d63;--glow:rgba(109,140,255,.55);--shadow:0 8px 30px rgba(0,0,0,.35);--code:#0d1324}
+[data-theme="medium"]{
+  --bg:#2a3142;--panel:#353d51;--panel2:#3f485e;--line:#566079;--fg:#eef1f7;--mut:#b5bdd0;--accent:#7f9cff;--accent-fg:#fff;
+  --cell:#2b3244;--cur:#ffb340;--cur-bg:#6b4a14;--ok:#45d483;--ok-bg:#1f5236;--bad:#ff6b73;--bad-bg:#622a2f;
+  --sel:#6aa1ff;--sel-bg:#2b4a85;--alt:#c08cff;--alt-bg:#523177;--glow:rgba(127,156,255,.6);--shadow:0 8px 28px rgba(0,0,0,.28);--code:#262c3b}
+[data-theme="light"]{
+  --bg:#f4f6fb;--panel:#ffffff;--panel2:#eef2fa;--line:#d5dbe8;--fg:#1b2333;--mut:#5d6880;--accent:#3d63f2;--accent-fg:#fff;
+  --cell:#ffffff;--cur:#c77700;--cur-bg:#ffe9c2;--ok:#138a45;--ok-bg:#d3f5e1;--bad:#cc2b35;--bad-bg:#fde0e2;
+  --sel:#2563eb;--sel-bg:#dbe7ff;--alt:#7c3aed;--alt-bg:#ece2ff;--glow:rgba(61,99,242,.45);--shadow:0 6px 24px rgba(30,45,90,.10);--code:#f6f8fc}
+
+*{box-sizing:border-box}
+html{color-scheme:dark}[data-theme="light"]{color-scheme:light}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg);transition:background .3s,color .3s}
+a{color:var(--accent)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;background:var(--panel2);padding:1px 5px;border-radius:5px}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hwrap{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.hnum{font-weight:800;color:var(--accent);font-size:20px}
+header h1{font-size:20px;margin:0;font-weight:700}
+.badge{font-size:12px;padding:3px 10px;border-radius:999px;font-weight:700;letter-spacing:.02em}
+.Easy{background:var(--ok-bg);color:var(--ok)}.Medium{background:var(--cur-bg);color:var(--cur)}.Hard{background:var(--bad-bg);color:var(--bad)}
+.topic{color:var(--mut);font-size:13px;border:1px solid var(--line);padding:2px 9px;border-radius:999px}
+.spacer{flex:1}
+.lc{font-size:13px;text-decoration:none;font-weight:600}
+.themes{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.themes button{background:var(--panel);color:var(--mut);border:0;padding:6px 11px;font-size:13px;cursor:pointer}
+.themes button.on{background:var(--accent);color:var(--accent-fg)}
+
+/* ---------- tabs ---------- */
+nav.tabs{max-width:1180px;margin:0 auto;padding:0 20px;display:flex;gap:4px}
+nav.tabs button{background:none;border:0;border-bottom:3px solid transparent;color:var(--mut);font-size:15px;font-weight:600;padding:10px 14px;cursor:pointer}
+nav.tabs button.on{color:var(--fg);border-bottom-color:var(--accent)}
+nav.tabs button .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--panel2);font-size:11px;margin-right:6px}
+nav.tabs button.on .n{background:var(--accent);color:var(--accent-fg)}
+main{max-width:1180px;margin:0 auto;padding:18px 20px 40px}
+.tab{display:none;animation:fade .35s}.tab.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- cards / problem tab ---------- */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px;box-shadow:var(--shadow)}
+.two{display:grid;grid-template-columns:1.25fr 1fr;gap:18px}
+@media (max-width:900px){.two{grid-template-columns:1fr}}
+.md h2,.md h3{margin:.2em 0 .5em}
+.md p,.md li{line-height:1.6}
+.md pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:10px 14px;overflow:auto;font-size:13.5px}
+.md pre code{background:none;padding:0}
+.idea{border-left:4px solid var(--accent);background:var(--panel2);padding:12px 14px;border-radius:10px;font-size:16px;line-height:1.5;margin-bottom:12px}
+.cta{margin-top:14px;background:var(--accent);color:var(--accent-fg);border:0;border-radius:10px;padding:11px 18px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px var(--glow)}
+.cta:hover{filter:brightness(1.08)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;gap:6px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600}
+
+/* ---------- walkthrough ---------- */
+.scen{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.scen button{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:8px 14px;cursor:pointer;text-align:left;font-size:14px;font-weight:600;max-width:340px}
+.scen button small{display:block;color:var(--mut);font-weight:400;font-size:12px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scen button.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--glow)}
+#stage{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;min-height:300px;display:flex;flex-direction:column;gap:20px;box-shadow:var(--shadow);overflow:auto;position:relative}
+#stage .comp{animation:fade .3s}
+.comp-label{font-size:11.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:5px;align-items:flex-end}
+.cellwrap{display:flex;flex-direction:column;align-items:center;min-width:44px}
+.ptr{height:20px;font-size:12px;color:var(--cur);font-weight:800;white-space:nowrap;display:flex;align-items:flex-end}
+.ptr.has::after{content:"▼";font-size:9px;margin-left:2px}
+.cell{min-width:44px;height:44px;padding:0 7px;border:2px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;background:var(--cell);transition:background .35s,border-color .35s,transform .35s,opacity .35s,box-shadow .35s}
+.idx{font-size:11px;color:var(--mut);margin-top:4px}
+.cell.cur{border-color:var(--cur);background:var(--cur-bg);transform:translateY(-3px)}
+.cell.ok{border-color:var(--ok);background:var(--ok-bg)}
+.cell.bad{border-color:var(--bad);background:var(--bad-bg);animation:shake .4s}
+.cell.sel{border-color:var(--sel);background:var(--sel-bg)}
+.cell.alt{border-color:var(--alt);background:var(--alt-bg)}
+.cell.dim{opacity:.32}
+.cell.win{box-shadow:inset 0 -4px 0 var(--sel)}
+.cell.chg{animation:chg .7s}
+@keyframes chg{0%{transform:scale(1.25);box-shadow:0 0 0 6px var(--glow)}100%{transform:scale(1);box-shadow:0 0 0 0 transparent}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.grid{display:inline-grid;gap:4px}
+.grid .cell{min-width:40px;height:40px;font-size:14px}
+.cell.empty{border-color:transparent;background:transparent}
+.cell.bar{background:var(--mut);border-color:var(--mut);opacity:.75}
+.cell.bar.cur{background:var(--cur);border-color:var(--cur);opacity:1}
+.cell.water{background:var(--sel);border-color:var(--sel);opacity:.8}
+.cell.water.cur{background:var(--cur);border-color:var(--cur)}
+.arrow{color:var(--mut);font-size:20px;margin:0 2px;align-self:center;padding-bottom:22px}
+.vars{display:flex;flex-wrap:wrap;gap:8px}
+.kv{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:6px 11px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px}
+.kv b{color:var(--accent);font-weight:700}
+.kv.chg{animation:chg .7s}
+.stack{display:flex;flex-direction:column-reverse;gap:4px;align-items:stretch;border:3px solid var(--line);border-top:0;border-radius:0 0 10px 10px;padding:6px;min-width:80px;min-height:46px;width:max-content}
+.textc{font-size:16px;padding:10px 14px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);font-family:ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;display:inline-block}
+.textc.ok{border-color:var(--ok);color:var(--ok);background:var(--ok-bg);font-weight:700}.textc.bad{border-color:var(--bad);color:var(--bad);background:var(--bad-bg);font-weight:700}.textc.cur{border-color:var(--cur);color:var(--cur);background:var(--cur-bg)}
+svg text{fill:var(--fg);font:700 14px system-ui,sans-serif;text-anchor:middle;dominant-baseline:central}
+svg .edge{stroke:var(--mut);stroke-width:2;fill:none;opacity:.7;transition:all .35s}
+svg .edge.cur{stroke:var(--cur);stroke-width:3.5;opacity:1}svg .edge.ok{stroke:var(--ok);stroke-width:3.5;opacity:1}svg .edge.sel{stroke:var(--sel);stroke-width:3.5;opacity:1}svg .edge.bad{stroke:var(--bad);stroke-width:3.5;opacity:1}svg .edge.dim{opacity:.2}
+svg .nextp{stroke:var(--alt);stroke-width:2;stroke-dasharray:5 4;fill:none}
+svg circle{fill:var(--cell);stroke:var(--mut);stroke-width:2;transition:all .35s}
+svg circle.cur{fill:var(--cur-bg);stroke:var(--cur);stroke-width:3}svg circle.ok{fill:var(--ok-bg);stroke:var(--ok);stroke-width:3}svg circle.bad{fill:var(--bad-bg);stroke:var(--bad);stroke-width:3}svg circle.sel{fill:var(--sel-bg);stroke:var(--sel);stroke-width:3}svg circle.alt{fill:var(--alt-bg);stroke:var(--alt);stroke-width:3}svg circle.dim{opacity:.3}
+svg .elabel{font-size:11px;fill:var(--mut)}
+.narr{display:flex;gap:12px;align-items:flex-start;margin:14px 0;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;font-size:17px;line-height:1.55;min-height:62px;box-shadow:var(--shadow)}
+.narr .spk{font-size:20px;line-height:1.3}
+.narr.speaking .spk{animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.35}}
+#controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#controls button{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:15px;cursor:pointer}
+#controls button:hover{border-color:var(--accent)}
+#controls button.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);min-width:100px;font-weight:700;box-shadow:0 4px 14px var(--glow)}
+#controls select,#controls label{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:7px 9px;font-size:14px}
+#counter{color:var(--mut);font-size:14px;margin-left:auto;font-variant-numeric:tabular-nums}
+#timeline{display:flex;gap:3px;margin-top:12px;cursor:pointer}
+#timeline i{flex:1;height:8px;border-radius:4px;background:var(--line);transition:background .25s}
+#timeline i.done{background:color-mix(in srgb,var(--accent) 55%,var(--line))}
+#timeline i.now{background:var(--accent);transform:scaleY(1.5)}
+#timeline i.cx{background:var(--alt)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:12px}
+.legend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+details.code{margin-top:16px}
+details.code summary{cursor:pointer;font-weight:700}
+pre.java{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:12px 14px;overflow:auto;font-size:13px;line-height:1.5;font-family:ui-monospace,Menlo,Consolas,monospace}
+.kw{color:var(--alt);font-weight:700}.cm{color:var(--mut);font-style:italic}.st{color:var(--ok)}.nu{color:var(--cur)}
+
+/* ---------- complexity ---------- */
+.cxgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:900px){.cxgrid{grid-template-columns:1fr}}
+.cxcard h3{margin:0 0 4px;font-size:14px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+.big{font-size:38px;font-weight:800;color:var(--accent);margin:2px 0 8px;font-family:ui-monospace,Menlo,Consolas,monospace}
+.why{line-height:1.55;margin:0 0 10px}
+.chart text{font:600 11px system-ui,sans-serif;fill:var(--mut);text-anchor:start}
+.chart .ax{stroke:var(--line);stroke-width:1.5}
+.chart .curve{fill:none;stroke:var(--line);stroke-width:2}
+.chart .curve.me{stroke:var(--accent);stroke-width:4;filter:drop-shadow(0 0 6px var(--glow))}
+.chart text.me{fill:var(--accent);font-weight:800}
+.scale{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.scale span{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--mut);font-family:ui-monospace,Menlo,Consolas,monospace}
+.scale span.me{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.cxstage{display:flex;gap:18px;flex-wrap:wrap}
+.cxstage .card{flex:1;min-width:260px;box-shadow:none}
+.kbd{font-size:12px;color:var(--mut);margin-top:10px}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font-size:11px;background:var(--panel)}
+
+/* ---------- solution versions ---------- */
+nav.tabs .spacer{flex:1}
+.vtag{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--alt-bg);color:var(--alt)}
+nav.variants{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:6px 0}
+nav.variants a{font-size:13px;font-weight:600;text-decoration:none;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:4px 11px;background:var(--panel)}
+nav.variants a:hover{border-color:var(--accent);color:var(--fg)}
+nav.variants a.on{background:var(--alt);border-color:var(--alt);color:#fff}
+table.cmp{border-collapse:collapse;width:100%;font-size:14px}
+table.cmp th,table.cmp td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+table.cmp th{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+table.cmp tr.on td{background:var(--panel2);font-weight:700}
+</style>
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <span class="hnum">#73</span><h1>Set Matrix Zeroes</h1><span class="badge Medium">Medium</span><span class="topic">Matrix</span><span class="vtag">v2 · Markers in row/column 0</span>
+    <span class="spacer"></span>
+    <a class="lc" href="https://leetcode.com/problems/set-matrix-zeroes/" target="_blank" rel="noopener">LeetCode ↗</a>
+    <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
+  </div>
+  <nav class="tabs">
+    <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
+    <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
+    <button data-tab="cx"><span class="n">3</span>Complexity</button>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1/animation/index.html">v1 · Row and column sets</a><a class="on" href="../../v2/animation/index.html">v2 · Markers in row/column 0</a></nav>
+  </nav>
+</header>
+<main>
+  <section class="tab on" id="tab-problem">
+    <div class="two">
+      <div class="card md"><p>Given an <code>m × n</code> integer matrix, if a cell is <code>0</code>, set its entire row and column to <code>0</code>. Do it <strong>in place</strong>.</p>
+<p><strong>Example 1</strong></p>
+<pre><code>Input:  [[1,1,1],[1,0,1],[1,1,1]]
+Output: [[1,0,1],[0,0,0],[1,0,1]]</code></pre>
+<p><strong>Example 2</strong></p>
+<pre><code>Input:  [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]</code></pre>
+<p><strong>Constraints</strong></p>
+<ul><li><code>1 &lt;= m, n &lt;= 200</code>, <code>-2^31 &lt;= matrix[i][j] &lt;= 2^31 - 1</code></li></ul>
+<p><strong>Follow-up:</strong> a constant-space solution.</p></div>
+      <div>
+        <div class="card md">
+          <h3>💡 Key idea (v2 · Markers in row/column 0)</h3>
+          <div class="idea">Use the first row and first column as the zero markers, with two flags for the first row and column themselves.</div>
+          <p><strong>Reuse the first row and column.</strong> First remember whether row 0 and column 0 contain a zero. Then, for every zero at <code>(i, j)</code> with <code>i, j &gt;= 1</code>, mark <code>matrix[i][0] = 0</code> and <code>matrix[0][j] = 0</code>. Zero every inner cell whose row or column is marked. Finally zero row 0 and column 0 if their flags are set.</p>
+<ul><li>Time: <strong>O(m·n)</strong> — a few passes over the matrix.</li><li>Space: <strong>O(1)</strong> — two boolean flags.</li></ul>
+          <div class="chips"><span class="chip">⏱ O(m·n)</span><span class="chip">🧠 O(1)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
+          <button class="cta" data-goto="walk">▶ Start the animated walkthrough</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tab" id="tab-walk">
+    <div class="scen" id="scen"></div>
+    <section id="stage" aria-live="polite"></section>
+    <div class="narr" id="narr"><span class="spk">🔊</span><span id="say"></span></div>
+    <div id="controls">
+      <button id="first" title="First step">⏮</button>
+      <button id="prev" title="Previous step (←)">◀</button>
+      <button id="play" class="primary" title="Play / pause (space)">▶ Play</button>
+      <button id="next" title="Next step (→)">▶</button>
+      <button id="last" title="Last step">⏭</button>
+      <select id="speed" title="Speed"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
+      <label title="Spoken narration"><input type="checkbox" id="voiceOn" checked> Narration</label>
+      <select id="voice" title="Voice"></select>
+      <span id="counter"></span>
+    </div>
+    <div id="timeline" title="Jump to a step"></div>
+    <div class="legend"><span style="--c:var(--cur)">current</span><span style="--c:var(--sel)">selected / window</span><span style="--c:var(--ok)">done / match</span><span style="--c:var(--bad)">rejected</span><span style="--c:var(--alt)">special</span></div>
+    <div class="kbd"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>1</kbd>–<kbd>9</kbd> pick scenario</div>
+    <details class="code card"><summary>☕ Java solution (v2)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0073.v2;
+
+import java.util.*;
+
+public class SetMatrixZeroes {
+
+    public void setZeroes(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        boolean firstRow = false, firstCol = false;
+        for (int j = 0; j &lt; n; j++) if (matrix[0][j] == 0) firstRow = true;
+        for (int i = 0; i &lt; m; i++) if (matrix[i][0] == 0) firstCol = true;
+        for (int i = 1; i &lt; m; i++) {
+            for (int j = 1; j &lt; n; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+        for (int i = 1; i &lt; m; i++) {
+            for (int j = 1; j &lt; n; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) matrix[i][j] = 0;
+            }
+        }
+        if (firstRow) Arrays.fill(matrix[0], 0);
+        if (firstCol) for (int i = 0; i &lt; m; i++) matrix[i][0] = 0;
+    }
+}
+</code></pre></details>
+  </section>
+
+  <section class="tab" id="tab-cx">
+    <div class="cxgrid" id="cx-cards"></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1/animation/index.html">v1</a></td><td>Row and column sets</td><td><code>O(m·n)</code></td><td><code>O(m + n)</code></td></tr><tr class="on"><td><a href="../../v2/animation/index.html">v2</a></td><td>Markers in row/column 0</td><td><code>O(m·n)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Reuse the first row and column.</strong> First remember whether row 0 and column 0 contain a zero. Then, for every zero at <code>(i, j)</code> with <code>i, j &gt;= 1</code>, mark <code>matrix[i][0] = 0</code> and <code>matrix[0][j] = 0</code>. Zero every inner cell whose row or column is marked. Finally zero row 0 and column 0 if their flags are set.</p>
+<ul><li>Time: <strong>O(m·n)</strong> — a few passes over the matrix.</li><li>Space: <strong>O(1)</strong> — two boolean flags.</li></ul></div>
+  </section>
+</main>
+<script>
+window.PROBLEM = {"num": 73, "title": "Set Matrix Zeroes", "idea": "Use the first row and first column as the zero markers, with two flags for the first row and column themselves.", "time": "O(m\u00b7n)", "timeWhy": "a few passes over the matrix.", "space": "O(1)", "spaceWhy": "two boolean flags.", "tc": "n2", "sc": "1"};
+/*
+ * Step-by-step algorithm animator with spoken narration.
+ *
+ * A problem page defines `trace(A)` and a global PROBLEM object (title, complexity...).
+ * The tracer registers one or more scenarios:
+ *     A.scenario('Example 1', 'nums = [1,2,3]', () => { ... A.step('narration', A.arr(...)) ... });
+ * Each scenario automatically gets an intro step and a closing "complexity" step.
+ * Narration uses the browser's built-in Web Speech API (speechSynthesis), so no audio files are needed.
+ */
+(function () {
+  const P = window.PROBLEM || {};
+  const scenarios = [];
+  let frames = [];
+  const clone = v => (v === undefined ? undefined : JSON.parse(JSON.stringify(v, (k, x) => x instanceof Set ? [...x] : x instanceof Map ? Object.fromEntries(x) : x)));
+  const toMap = o => {
+    const m = new Map();
+    if (!o) return m;
+    const list = Array.isArray(o) ? o : Object.entries(o);
+    for (const [k, v] of list) {
+      const key = String(k);
+      m.set(key, m.has(key) ? m.get(key) + ',' + v : String(v));
+    }
+    return m;
+  };
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const show = v => (v === null || v === undefined ? '' : typeof v === 'object' ? JSON.stringify(v) : String(v));
+  const cls = s => (s || '').split(',').join(' ');
+  let nodeSeq = 100000;
+
+  /* ---------- tree helpers ---------- */
+  function mkTree(arr) {
+    if (!arr.length || arr[0] === null) return null;
+    const nodes = arr.map((v, i) => (v === null ? null : { val: v, left: null, right: null, id: i }));
+    let q = [nodes[0]], i = 1;
+    while (q.length && i < nodes.length) {
+      const n = q.shift();
+      if (i < nodes.length) { n.left = nodes[i++]; if (n.left) q.push(n.left); }
+      if (i < nodes.length) { n.right = nodes[i++]; if (n.right) q.push(n.right); }
+    }
+    return nodes[0];
+  }
+  function layoutTree(root, nextPtrs) {
+    const out = [], edges = [], nexts = [];
+    let x = 0;
+    const seen = new Set();
+    (function walk(n, d, p) {
+      if (!n || seen.has(n)) return;
+      seen.add(n);
+      walk(n.left, d + 1, n);
+      out.push({ id: n.id, val: n.val, x: x++, y: d });
+      if (p) edges.push([p.id, n.id]);
+      walk(n.right, d + 1, n);
+      if (nextPtrs && n.next) nexts.push([n.id, n.next.id]);
+    })(root, 0, null);
+    return { nodes: out, edges, nexts };
+  }
+
+  /* ---------- tracer API ---------- */
+  const A = {
+    scenario(title, desc, fn) { scenarios.push({ title, desc: desc || '', fn }); },
+    step(say, ...comps) { frames.push({ say: String(say), comps: comps.flat().filter(Boolean) }); },
+    arr(label, values, o = {}) { return { t: 'arr', label, values: clone([...values]), hl: [...toMap(o.hl)], ptr: [...toMap(o.ptr)], range: o.range, noIdx: !!o.noIdx }; },
+    chars(label, str, o = {}) { return A.arr(label, [...str], o); },
+    grid(label, m, o = {}) { return { t: 'grid', label, m: clone(m), hl: [...toMap(o.hl)] }; },
+    list(label, values, o = {}) { return { t: 'list', label, values: clone([...values]), hl: [...toMap(o.hl)], ptr: [...toMap(o.ptr)], note: o.note }; },
+    tree(label, root, o = {}) { return { t: 'tree', label, L: layoutTree(root, o.next), hl: [...toMap(o.hl)] }; },
+    graph(label, nodes, edges, o = {}) { return { t: 'graph', label, nodes: clone(nodes), edges: clone(edges), hl: [...toMap(o.hl)], directed: !!o.directed }; },
+    vars(obj, label = 'Variables') { return { t: 'vars', label, obj: clone(obj) }; },
+    map(label, m) {
+      const obj = {};
+      if (m instanceof Map) for (const [k, v] of m) obj[show(k)] = v instanceof Set ? [...v] : v;
+      else if (m instanceof Set) [...m].forEach(k => (obj[show(k)] = '✓'));
+      else Object.assign(obj, m);
+      return { t: 'vars', label, obj: clone(obj) };
+    },
+    stack(label, items, o = {}) { return { t: 'stack', label, items: clone([...items]), top: o.top !== false }; },
+    text(label, s, c = '') { return { t: 'text', label, s: String(s), cls: c }; },
+    mkTree,
+    node(val) { return { val, left: null, right: null, id: nodeSeq++ }; }
+  };
+
+  /* ---------- complexity chart ---------- */
+  const CLASSES = [
+    ['1', 'O(1)', n => 1], ['log', 'O(log n)', n => Math.log2(n)], ['n', 'O(n)', n => n],
+    ['nlogn', 'O(n log n)', n => n * Math.log2(n)], ['n2', 'O(n²)', n => n * n], ['exp', 'O(2ⁿ)', n => 2 ** n]
+  ];
+  function chartSvg(me) {
+    const W = 360, H = 200, pad = 28, maxN = 12, maxY = 36;
+    let s = `<svg class="chart" width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="growth curves">`;
+    s += `<line class="ax" x1="${pad}" y1="${H - pad}" x2="${W - 8}" y2="${H - pad}"/><line class="ax" x1="${pad}" y1="8" x2="${pad}" y2="${H - pad}"/>`;
+    s += `<text x="${W - 70}" y="${H - 10}">input size n</text><text x="4" y="14">ops</text>`;
+    CLASSES.forEach(([k, label, f]) => {
+      const pts = [];
+      for (let n = 1; n <= maxN; n += 0.25) { const y = f(n); if (y > maxY) break; pts.push([pad + (n / maxN) * (W - pad - 12), H - pad - (y / maxY) * (H - pad - 12)]); }
+      const last = pts[pts.length - 1];
+      s += `<polyline class="curve ${k === me ? 'me' : ''}" points="${pts.map(p => p.map(v => v.toFixed(1)).join(',')).join(' ')}"/>`;
+      s += `<text class="${k === me ? 'me' : ''}" x="${k === 'exp' ? last[0] - 44 : Math.min(last[0] + 4, W - 64)}" y="${Math.max(last[1] - 6, 12)}">${label}</text>`;
+    });
+    return s + '</svg>';
+  }
+  function scaleHtml(me) { return '<div class="scale">' + CLASSES.map(([k, l]) => `<span class="${k === me ? 'me' : ''}">${l}</span>`).join('') + '</div>'; }
+  function cxCard(kind) {
+    const big = kind === 'time' ? P.time : P.space, why = kind === 'time' ? P.timeWhy : P.spaceWhy, k = kind === 'time' ? P.tc : P.sc;
+    return `<div class="card cxcard"><h3>${kind === 'time' ? '⏱ Time' : '🧠 Extra space'}</h3><div class="big">${esc(big || '?')}</div><p class="why">${esc(why || '')}</p>${chartSvg(k)}${scaleHtml(k)}</div>`;
+  }
+
+  /* ---------- renderers ---------- */
+  function cellsRow(c, kind, prev) {
+    const hl = new Map(c.hl), ptr = new Map(c.ptr);
+    let h = '<div class="row">';
+    c.values.forEach((v, i) => {
+      const k = String(i);
+      let cl = cls(hl.get(k));
+      if (c.range && (i < c.range[0] || i > c.range[1])) cl += ' dim';
+      else if (c.range) cl += ' win';
+      if (prev && prev.values && i < prev.values.length && show(prev.values[i]) !== show(v)) cl += ' chg';
+      if (kind === 'list' && i > 0) h += '<span class="arrow">→</span>';
+      const p = ptr.get(k) || '';
+      h += `<div class="cellwrap"><div class="ptr ${p ? 'has' : ''}">${esc(p)}</div><div class="cell ${cl}">${esc(show(v))}</div>${c.noIdx || kind === 'list' ? '<div class="idx">&nbsp;</div>' : `<div class="idx">${i}</div>`}</div>`;
+    });
+    if (kind === 'list') h += `<span class="arrow">→ ${esc(c.note || 'null')}</span>`;
+    if (!c.values.length) h += '<div class="cell dim">∅</div>';
+    return h + '</div>';
+  }
+  function gridHtml(c, prev) {
+    const hl = new Map(c.hl);
+    const cols = Math.max(1, ...c.m.map(r => r.length));
+    let h = `<div class="grid" style="grid-template-columns:repeat(${cols},auto)">`;
+    c.m.forEach((r, i) => r.forEach((v, j) => {
+      const ch = prev && prev.m && prev.m[i] && show(prev.m[i][j]) !== show(v) ? ' chg' : '';
+      const hc = cls(hl.get(i + ',' + j));
+      h += `<div class="cell ${hc}${ch}${!hc && show(v) === '' ? ' empty' : ''}">${esc(show(v))}</div>`;
+    }));
+    return h + '</div>';
+  }
+  function treeSvg(c) {
+    const { nodes, edges, nexts } = c.L, hl = new Map(c.hl);
+    if (!nodes.length) return '<div class="textc">(empty tree)</div>';
+    const W = 54, H = 66, pos = new Map();
+    nodes.forEach(n => pos.set(n.id, [n.x * W + 30, n.y * H + 30]));
+    const w = nodes.length * W + 20, ht = (Math.max(...nodes.map(n => n.y)) + 1) * H + 10;
+    let s = `<svg width="${w}" height="${ht}" viewBox="0 0 ${w} ${ht}"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0L10,5L0,10z" fill="var(--alt)"/></marker></defs>`;
+    edges.forEach(([a, b]) => { const p = pos.get(a), q = pos.get(b); const ec = hl.get(String(b)); s += `<line class="edge ${ec && /ok|cur|sel/.test(ec) && hl.get(String(a)) ? cls(ec) : ''}" x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}"/>`; });
+    (nexts || []).forEach(([a, b]) => { const p = pos.get(a), q = pos.get(b); if (p && q) s += `<path class="nextp" marker-end="url(#ah)" d="M${p[0] + 18},${p[1] - 8} Q${(p[0] + q[0]) / 2},${p[1] - 34} ${q[0] - 18},${q[1] - 8}"/>`; });
+    nodes.forEach(n => { const [x, y] = pos.get(n.id); s += `<circle class="${cls(hl.get(String(n.id)))}" cx="${x}" cy="${y}" r="20"/><text x="${x}" y="${y}">${esc(n.val)}</text>`; });
+    return s + '</svg>';
+  }
+  function graphSvg(c) {
+    const hl = new Map(c.hl), N = c.nodes.length, R = Math.max(90, N * 16), pos = new Map();
+    const w = 2 * R + 80, h = 2 * R + 60;
+    c.nodes.forEach((n, i) => {
+      const a = (2 * Math.PI * i) / N - Math.PI / 2;
+      pos.set(String(n.id), n.x !== undefined ? [n.x, n.y] : [w / 2 + R * Math.cos(a), h / 2 + R * Math.sin(a)]);
+    });
+    let s = `<svg width="${w}" height="${h}"><defs><marker id="ga" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="var(--mut)"/></marker></defs>`;
+    c.edges.forEach(e => {
+      const [a, b, lab, ec] = e, p = pos.get(String(a)), q = pos.get(String(b));
+      if (!p || !q) return;
+      const dx = q[0] - p[0], dy = q[1] - p[1], L = Math.hypot(dx, dy) || 1, ux = dx / L, uy = dy / L;
+      const x1 = p[0] + ux * 23, y1 = p[1] + uy * 23, x2 = q[0] - ux * 23, y2 = q[1] - uy * 23;
+      s += `<line class="edge ${ec || ''}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" ${c.directed ? 'marker-end="url(#ga)"' : ''}/>`;
+      if (lab !== undefined && lab !== null && lab !== '') s += `<text class="elabel" x="${(x1 + x2) / 2 + uy * 10}" y="${(y1 + y2) / 2 - ux * 10}">${esc(lab)}</text>`;
+    });
+    c.nodes.forEach(n => { const [x, y] = pos.get(String(n.id)); s += `<circle class="${cls(hl.get(String(n.id)))}" cx="${x}" cy="${y}" r="21"/><text x="${x}" y="${y}">${esc(n.label ?? n.id)}</text>`; });
+    return s + '</svg>';
+  }
+  function render(c, prev) {
+    let body = '';
+    switch (c.t) {
+      case 'arr': body = cellsRow(c, 'arr', prev); break;
+      case 'list': body = cellsRow(c, 'list', prev); break;
+      case 'grid': body = gridHtml(c, prev); break;
+      case 'tree': body = treeSvg(c); break;
+      case 'graph': body = graphSvg(c); break;
+      case 'vars': body = '<div class="vars">' + (Object.keys(c.obj).length ? Object.entries(c.obj).map(([k, v]) => `<div class="kv ${prev && prev.obj && show(prev.obj[k]) !== show(v) ? 'chg' : ''}"><b>${esc(k)}</b> = ${esc(show(v))}</div>`).join('') : '<div class="kv">(empty)</div>') + '</div>'; break;
+      case 'stack': body = '<div class="stack">' + c.items.map((v, i) => `<div class="cell ${i === c.items.length - 1 && c.top ? 'cur' : ''}">${esc(show(v))}</div>`).join('') + '</div>'; break;
+      case 'text': body = `<div class="textc ${c.cls}">${esc(c.s)}</div>`; break;
+      case 'cx': body = `<div class="cxstage">${cxCard('time')}${cxCard('space')}</div>`; break;
+      case 'intro': body = `<div class="idea">${esc(c.s)}</div>`; break;
+    }
+    return `<div class="comp">${c.label ? `<div class="comp-label">${esc(c.label)}</div>` : ''}${body}</div>`;
+  }
+
+  /* ---------- build scenarios ---------- */
+  function build(sc) {
+    frames = [];
+    try { sc.fn(); } catch (e) { frames.push({ say: 'Tracer error: ' + e.message, comps: [] }); console.error(e); }
+    const first = frames[0] ? frames[0].comps : [];
+    frames.unshift({ say: `Scenario: ${sc.title}. ${sc.desc}`.trim(), comps: [{ t: 'intro', label: 'Scenario · ' + sc.title, s: (sc.desc ? sc.desc + '\n' : '') + (P.idea || '') }, ...first], kind: 'intro' });
+    frames.push({ say: `Complexity. Time is ${spoken(P.time)}: ${P.timeWhy || ''} Extra space is ${spoken(P.space)}: ${P.spaceWhy || ''}`, comps: [{ t: 'cx', label: 'Cost of this solution' }], kind: 'cx' });
+    return frames;
+  }
+  const spoken = s => String(s || '').replace(/O\(/g, 'big O of ').replace(/\)/g, '').replace(/\^2|²/g, ' squared').replace(/·|\*/g, ' times ').replace(/\blog\b/g, 'log');
+
+  /* ---------- player ---------- */
+  let cur = 0, playing = false, token = 0, voiceOn = true, rate = 1, voice = null, timer = null, scIdx = 0;
+  const $ = id => document.getElementById(id);
+  const synth = 'speechSynthesis' in window ? window.speechSynthesis : null;
+
+  function compPrev(i, c) {
+    if (i <= 0) return null;
+    return frames[i - 1].comps.find(p => p.t === c.t && p.label === c.label) || null;
+  }
+  function draw(i) {
+    cur = Math.max(0, Math.min(frames.length - 1, i));
+    const f = frames[cur];
+    $('stage').innerHTML = f.comps.map(c => render(c, compPrev(cur, c))).join('');
+    $('say').textContent = f.say;
+    $('counter').textContent = `Step ${cur + 1} / ${frames.length}`;
+    [...$('timeline').children].forEach((el, k) => (el.className = (k < cur ? 'done' : k === cur ? 'now' : '') + (frames[k].kind === 'cx' ? ' cx' : '')));
+  }
+  function stopAudio() { token++; clearTimeout(timer); if (synth) synth.cancel(); $('narr').classList.remove('speaking'); }
+  function speak(text, done) {
+    const my = token;
+    const est = Math.max(1500, text.split(/\s+/).length * 400) / rate;
+    const finish = () => { if (my !== token) return; $('narr').classList.remove('speaking'); clearTimeout(timer); timer = setTimeout(() => my === token && done && done(), 450 / rate); };
+    if (voiceOn && synth) {
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = rate; if (voice) u.voice = voice;
+      let ended = false;
+      u.onstart = () => my === token && $('narr').classList.add('speaking');
+      u.onend = u.onerror = () => { if (!ended) { ended = true; finish(); } };
+      synth.speak(u);
+      timer = setTimeout(() => { if (!ended) { ended = true; finish(); } }, est * 2.5 + 3000); // safety net
+    } else timer = setTimeout(finish, est);
+  }
+  function loop() {
+    if (!playing) return;
+    speak(frames[cur].say, () => {
+      if (!playing) return;
+      if (cur < frames.length - 1) { draw(cur + 1); loop(); } else setPlaying(false);
+    });
+  }
+  function setPlaying(p) {
+    playing = p;
+    $('play').textContent = p ? '⏸ Pause' : '▶ Play';
+    stopAudio();
+    if (p) { if (cur >= frames.length - 1) draw(0); loop(); }
+  }
+  function go(i) { const was = playing; stopAudio(); draw(i); if (was) loop(); else if (voiceOn) speak(frames[cur].say, null); }
+  function selectScenario(i) {
+    setPlaying(false);
+    scIdx = i;
+    build(scenarios[i]);
+    [...$('scen').children].forEach((b, k) => b.classList.toggle('on', k === i));
+    $('timeline').innerHTML = frames.map(() => '<i></i>').join('');
+    [...$('timeline').children].forEach((el, k) => (el.onclick = () => go(k)));
+    draw(0);
+  }
+  function tab(name) {
+    document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === name));
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.id === 'tab-' + name));
+    if (name !== 'walk') setPlaying(false);
+  }
+  function setTheme(t) {
+    document.documentElement.dataset.theme = t;
+    try { localStorage.setItem('algo-theme', t); } catch (e) { }
+    document.querySelectorAll('.themes button').forEach(b => b.classList.toggle('on', b.dataset.theme === t));
+  }
+  function loadVoices() {
+    if (!synth) return;
+    const vs = synth.getVoices().filter(v => /^en/i.test(v.lang));
+    const sel = $('voice');
+    sel.innerHTML = vs.map((v, i) => `<option value="${i}">${esc(v.name)}</option>`).join('') || '<option>default voice</option>';
+    voice = vs.find(v => v.default) || vs[0] || null;
+    if (voice) sel.value = String(vs.indexOf(voice));
+    sel.onchange = () => (voice = vs[+sel.value] || null);
+  }
+  function highlightJava(src) {
+    return esc(src)
+      .replace(/(\/\/[^\n]*|\/\*[\s\S]*?\*\/)/g, '<span class="cm">$1</span>')
+      .replace(/\b(public|private|protected|static|final|class|record|interface|new|return|if|else|for|while|do|int|long|double|boolean|char|void|var|null|true|false|this|import|package|break|continue|switch|case|default|throw|throws|try|catch|extends|implements|String)\b(?![^<]*<\/span>)/g, '<span class="kw">$1</span>');
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    let saved = 'dark';
+    try { saved = localStorage.getItem('algo-theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); } catch (e) { }
+    setTheme(saved);
+    document.querySelectorAll('.themes button').forEach(b => (b.onclick = () => setTheme(b.dataset.theme)));
+    document.querySelectorAll('nav.tabs button').forEach(b => (b.onclick = () => tab(b.dataset.tab)));
+    document.querySelectorAll('[data-goto]').forEach(b => (b.onclick = () => tab(b.dataset.goto)));
+    $('javacode').innerHTML = highlightJava($('javacode').textContent);
+    $('cx-cards').innerHTML = cxCard('time') + cxCard('space');
+
+    try { window.trace(A); } catch (e) { console.error(e); }
+    if (!scenarios.length && frames.length) { const fr = frames; scenarios.push({ title: 'Example', desc: '', fn: () => frames.push(...fr) }); }
+    if (!scenarios.length) scenarios.push({ title: 'Example', desc: '', fn: () => A.step('No steps.') });
+    $('scen').innerHTML = scenarios.map((s, i) => `<button title="${esc(s.desc)}">${i + 1}. ${esc(s.title)}<small>${esc(s.desc)}</small></button>`).join('');
+    [...$('scen').children].forEach((b, i) => (b.onclick = () => selectScenario(i)));
+    $('scount').textContent = scenarios.length;
+    window.__scenarios = scenarios.map((s, i) => () => { selectScenario(i); return frames; });
+
+    $('play').onclick = () => setPlaying(!playing);
+    $('prev').onclick = () => go(cur - 1);
+    $('next').onclick = () => go(cur + 1);
+    $('first').onclick = () => go(0);
+    $('last').onclick = () => go(frames.length - 1);
+    $('speed').onchange = e => (rate = +e.target.value);
+    $('voiceOn').onchange = e => { voiceOn = e.target.checked; if (!voiceOn && synth) synth.cancel(); };
+    document.addEventListener('keydown', e => {
+      if (/SELECT|INPUT|TEXTAREA/.test(e.target.tagName) || !$('tab-walk').classList.contains('on')) return;
+      if (e.key === ' ') { e.preventDefault(); setPlaying(!playing); }
+      if (e.key === 'ArrowRight') go(cur + 1);
+      if (e.key === 'ArrowLeft') go(cur - 1);
+      if (/^[1-9]$/.test(e.key) && +e.key <= scenarios.length) selectScenario(+e.key - 1);
+    });
+    if (synth) { loadVoices(); synth.onvoiceschanged = loadVoices; } else { $('voiceOn').checked = false; voiceOn = false; }
+    selectScenario(0);
+  });
+})();
+</script>
+<script>
+function trace(A) {
+function run(m) {
+  const R = m.length, C = m[0].length;
+  const fr = m[0].includes(0), fc = m.some(r => r[0] === 0);
+  const marks = () => [...Array(C).keys()].map(j => [`0,${j}`, 'alt']).concat([...Array(R).keys()].map(i => [`${i},0`, 'alt']));
+  A.step(`Row 0 and column 0 (purple) will store the markers. First note whether they hold a zero themselves: row 0 ${fr ? 'does' : 'does not'}, column 0 ${fc ? 'does' : 'does not'}.`, A.grid('matrix', m, { hl: marks() }), A.vars({ firstRowHasZero: fr, firstColHasZero: fc }));
+  for (let i = 1; i < R; i++) for (let j = 1; j < C; j++) if (m[i][j] === 0) {
+    m[i][0] = 0; m[0][j] = 0;
+    A.step(`Zero at (${i},${j}): mark row ${i} in column 0 and column ${j} in row 0.`, A.grid('matrix', m, { hl: marks().concat([[`${i},${j}`, 'bad'], [`${i},0`, 'cur'], [`0,${j}`, 'cur']]) }));
+  }
+  const z = [];
+  for (let i = 1; i < R; i++) for (let j = 1; j < C; j++) if ((m[i][0] === 0 || m[0][j] === 0) && m[i][j] !== 0) { m[i][j] = 0; z.push([`${i},${j}`, 'bad']); }
+  A.step('Zero every inner cell whose row or column is marked.', A.grid('matrix', m, { hl: marks().concat(z) }));
+  if (fr) { m[0].fill(0); A.step('Row 0 had a zero originally, so zero all of row 0.', A.grid('matrix', m, { hl: m[0].map((_, j) => [`0,${j}`, 'bad']) })); }
+  if (fc) { m.forEach(r => (r[0] = 0)); A.step('Column 0 had a zero originally, so zero all of column 0.', A.grid('matrix', m, { hl: m.map((_, i) => [`${i},0`, 'bad']) })); }
+  A.step('Done, using only two extra flags.', A.grid('matrix', m), A.text('Result', JSON.stringify(m), 'ok'));
+}
+A.scenario('Centre zero', 'matrix = [[1,1,1],[1,0,1],[1,1,1]]', () => run([[1, 1, 1], [1, 0, 1], [1, 1, 1]]));
+A.scenario('Zeros in row 0', 'matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]', () => run([[0, 1, 2, 0], [3, 4, 5, 2], [1, 3, 1, 5]]));
+}
+</script>
+</body>
+</html>
