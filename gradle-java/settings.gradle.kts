@@ -357,3 +357,13 @@ includeBuild("1657-determine-if-two-strings-are-close/v1-letter-set-sorted-count
 includeBuild("2352-equal-row-and-column-pairs/v1-hash-rows-look-up-columns") { name = "2352-equal-row-and-column-pairs-v1-hash-rows-look-up-columns" }
 includeBuild("2390-removing-stars-from-a-string/v1-stack-via-stringbuilder") { name = "2390-removing-stars-from-a-string-v1-stack-via-stringbuilder" }
 includeBuild("0735-asteroid-collision/v1-stack-of-survivors") { name = "0735-asteroid-collision-v1-stack-of-survivors" }
+includeBuild("0394-decode-string/v1-two-stacks") { name = "0394-decode-string-v1-two-stacks" }
+includeBuild("0933-number-of-recent-calls/v1-sliding-queue") { name = "0933-number-of-recent-calls-v1-sliding-queue" }
+includeBuild("0649-dota2-senate/v1-two-queues-by-turn-order") { name = "0649-dota2-senate-v1-two-queues-by-turn-order" }
+includeBuild("2095-delete-the-middle-node-of-a-linked-list/v1-slow-and-fast-pointers") { name = "2095-delete-the-middle-node-of-a-linked-list-v1-slow-and-fast-pointers" }
+includeBuild("2130-maximum-twin-sum-of-a-linked-list/v1-reverse-second-half") { name = "2130-maximum-twin-sum-of-a-linked-list-v1-reverse-second-half" }
+includeBuild("0872-leaf-similar-trees/v1-collect-leaf-sequences") { name = "0872-leaf-similar-trees-v1-collect-leaf-sequences" }
+includeBuild("1448-count-good-nodes-in-binary-tree/v1-dfs-with-path-maximum") { name = "1448-count-good-nodes-in-binary-tree-v1-dfs-with-path-maximum" }
+includeBuild("0437-path-sum-iii/v1-prefix-sums-on-the-path") { name = "0437-path-sum-iii-v1-prefix-sums-on-the-path" }
+includeBuild("1372-longest-zigzag-path-in-a-binary-tree/v1-dfs-with-two-lengths") { name = "1372-longest-zigzag-path-in-a-binary-tree-v1-dfs-with-two-lengths" }
+includeBuild("1161-maximum-level-sum-of-a-binary-tree/v1-level-order-bfs") { name = "1161-maximum-level-sum-of-a-binary-tree-v1-level-order-bfs" }
