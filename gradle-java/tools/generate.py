@@ -98,7 +98,21 @@ public class TreeNode {
 }
 """
 
-HELPERS = {"ListNode": LIST_NODE, "TreeNode": TREE_NODE}
+HELPERS = {"ListNode": LIST_NODE, "TreeNode": TREE_NODE,
+           "MyHashMap": (TOOLS / "helpers" / "MyHashMap.java").read_text(),
+           "MyHashSet": (TOOLS / "helpers" / "MyHashSet.java").read_text()}
+HASH_TEST = (TOOLS / "helpers" / "MyHashMapTest.java").read_text()
+# Solutions must use our own hash map / hash set, never the java.util ones.
+FORBIDDEN = re.compile(r"\b(HashMap|HashSet|LinkedHashMap|LinkedHashSet|Hashtable|IdentityHashMap|WeakHashMap|ConcurrentHashMap)\b")
+
+
+def helpers_for(v):
+    hs = list(v["helpers"])
+    if "MyHashSet" in v["java"] and "MyHashSet" not in hs:
+        hs.append("MyHashSet")
+    if ("MyHashMap" in v["java"] or "MyHashSet" in hs) and "MyHashMap" not in hs:
+        hs.append("MyHashMap")
+    return hs
 
 BUILD = f"""plugins {{
     java
@@ -469,10 +483,15 @@ def generate_project(p):
         vd = d / v["v"]
         src = vd / "src/main/java" / pkg(p, v).replace(".", "/")
         tst = vd / "src/test/java" / pkg(p, v).replace(".", "/")
+        bad = FORBIDDEN.search(v["java"])
+        assert not bad, f"{p['num']} {v['v']}: uses java.util {bad.group(1)}; use MyHashMap / MyHashSet instead"
         solution = java_file(p, v, v["java"], SOLUTION_IMPORTS)
         write(src / f"{p['cls']}.java", solution)
-        for h in v["helpers"]:
-            write(src / f"{h}.java", java_file(p, v, HELPERS[h], "import java.util.*;\n"))
+        hs = helpers_for(v)
+        for h in hs:
+            write(src / f"{h}.java", java_file(p, v, HELPERS[h], "import java.util.*;\n" if h in ("ListNode", "TreeNode") else ""))
+        if "MyHashMap" in hs:
+            write(tst / "MyHashMapTest.java", java_file(p, v, HASH_TEST, TEST_IMPORTS))
         write(tst / f"{p['cls']}Test.java", java_file(p, v, v["test"], TEST_IMPORTS))
         write(vd / "build.gradle.kts", BUILD)
         write(vd / "README.md", variant_readme(p, v))

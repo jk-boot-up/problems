@@ -45,7 +45,7 @@ java=r'''
 public class MajorityElement {
 
     public int majorityElement(int[] nums) {
-        Map<Integer, Integer> count = new HashMap<>();
+        MyHashMap<Integer, Integer> count = new MyHashMap<>();
         for (int x : nums) {
             if (count.merge(x, 1, Integer::sum) > nums.length / 2) {
                 return x;
@@ -58,11 +58,11 @@ public class MajorityElement {
 trace=r'''
 function run(a) {
   const c = new Map();
-  A.step(`Count each value. The majority must appear more than ${Math.floor(a.length / 2)} times.`, A.arr('nums', a), A.map('count', c));
+  A.step(`Count each value. The majority must appear more than ${Math.floor(a.length / 2)} times.`, A.arr('nums', a), A.hashTable('count', c));
   for (let i = 0; i < a.length; i++) {
     c.set(a[i], (c.get(a[i]) || 0) + 1);
     const done = c.get(a[i]) > a.length / 2;
-    A.step(`${a[i]} has now been seen ${c.get(a[i])} time${c.get(a[i]) > 1 ? 's' : ''}.${done ? ' That is more than half, so it is the answer.' : ''}`, A.arr('nums', a, { hl: { [i]: done ? 'ok' : 'cur' } }), A.map('count', c));
+    A.step(`${a[i]} has now been seen ${c.get(a[i])} time${c.get(a[i]) > 1 ? 's' : ''}.${done ? ' That is more than half, so it is the answer.' : ''}`, A.arr('nums', a, { hl: { [i]: done ? 'ok' : 'cur' } }), A.hashTable('count', c));
     if (done) { A.step(`The majority element is ${a[i]}.`, A.text('Result', a[i], 'ok')); return; }
   }
 }
@@ -540,9 +540,9 @@ public class ThreeSum {
     public List<List<Integer>> threeSum(int[] nums) {
         int[] a = nums.clone();
         Arrays.sort(a);
-        Set<List<Integer>> found = new LinkedHashSet<>();
+        MyHashSet<List<Integer>> found = new MyHashSet<>();
         for (int i = 0; i < a.length - 2; i++) {
-            Set<Integer> seen = new HashSet<>();
+            MyHashSet<Integer> seen = new MyHashSet<>();
             for (int j = i + 1; j < a.length; j++) {
                 int need = -a[i] - a[j];
                 if (seen.contains(need)) {
@@ -551,7 +551,9 @@ public class ThreeSum {
                 seen.add(a[j]);
             }
         }
-        return new ArrayList<>(found);
+        List<List<Integer>> out = new ArrayList<>();
+        for (List<Integer> triplet : found) out.add(triplet);
+        return out;
     }
 }
 ''',
@@ -564,7 +566,7 @@ function run(orig) {
     for (let j = i + 1; j < a.length; j++) {
       const need = -a[i] - a[j], hit = seen.has(need);
       if (hit) found.add(`[${a[i]},${need},${a[j]}]`);
-      A.step(`Fixed ${a[i]}, current ${a[j]}: we need ${need}. ${hit ? 'It was seen, so record the triplet.' : 'Not seen yet.'}`, A.arr('sorted', a, { hl: { [i]: 'alt', [j]: hit ? 'ok' : 'cur' } }), A.map('seen', seen), A.arr('triplets', [...found]));
+      A.step(`Fixed ${a[i]}, current ${a[j]}: we need ${need}. ${hit ? 'It was seen, so record the triplet.' : 'Not seen yet.'}`, A.arr('sorted', a, { hl: { [i]: 'alt', [j]: hit ? 'ok' : 'cur' } }), A.hashTable('seen', seen), A.arr('triplets', [...found]));
       seen.add(a[j]);
     }
   }

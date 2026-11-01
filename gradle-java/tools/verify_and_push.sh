@@ -20,6 +20,7 @@ for d in "$@"; do
   versions=$(ls -d "$d"/v*/ | wc -l)
   if git cat-file -e "HEAD:gradle-java/$d/README.md" 2>/dev/null; then verb=Update; else verb=Add; fi
   msg="$verb $title"
+  [ "$verb" = Update ] && [ -n "${UPDATE_NOTE:-}" ] && msg="$title: $UPDATE_NOTE"
   [ "$versions" -gt 1 ] && msg="$msg ($versions solution versions)"
   git commit -q -m "$msg"
   for wait in 2 4 8 16 0; do

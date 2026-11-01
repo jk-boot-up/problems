@@ -154,3 +154,13 @@ table.cmp{border-collapse:collapse;width:100%;font-size:14px}
 table.cmp th,table.cmp td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
 table.cmp th{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
 table.cmp tr.on td{background:var(--panel2);font-weight:700}
+
+/* ---------- hash table internals ---------- */
+.htable{display:flex;gap:5px;align-items:flex-start;flex-wrap:wrap}
+.hcol{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:46px}
+.hidx{width:100%;min-width:46px;height:26px;border-radius:7px 7px 3px 3px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-size:11px;color:var(--mut);font-family:ui-monospace,Menlo,Consolas,monospace}
+.hentry{height:auto;min-height:34px;min-width:46px;font-size:13px;flex-direction:column;padding:3px 6px;line-height:1.15}
+.hentry small{color:var(--mut);font-weight:600;font-size:11px}
+.hdown{color:var(--mut);font-size:11px;line-height:1}
+.hnull{color:var(--mut);font-size:11px;opacity:.5}
+.hnote{font-size:12px;color:var(--mut);margin-top:6px}

@@ -106,7 +106,7 @@ java=r'''
 public class LongestSubstring {
 
     public int lengthOfLongestSubstring(String s) {
-        Set<Character> window = new HashSet<>();
+        MyHashSet<Character> window = new MyHashSet<>();
         int left = 0, best = 0;
         for (int right = 0; right < s.length(); right++) {
             char c = s.charAt(right);
@@ -124,11 +124,11 @@ trace=r'''
 function run(s) {
   const win = new Set();
   let left = 0, best = 0;
-  A.step('The set holds the characters inside the window.', A.chars('s', s), A.map('window set', win), A.vars({ best }));
+  A.step('The set holds the characters inside the window.', A.chars('s', s), A.hashTable('window set', win), A.vars({ best }));
   for (let r = 0; r < s.length; r++) {
-    while (win.has(s[r])) { A.step(`'${s[r]}' is already in the window. Remove '${s[left]}' from the left.`, A.chars('s', s, { range: [left, r - 1], hl: { [left]: 'bad', [r]: 'cur' } }), A.map('window set', win)); win.delete(s[left++]); }
+    while (win.has(s[r])) { A.step(`'${s[r]}' is already in the window. Remove '${s[left]}' from the left.`, A.chars('s', s, { range: [left, r - 1], hl: { [left]: 'bad', [r]: 'cur' } }), A.hashTable('window set', win)); win.delete(s[left++]); }
     win.add(s[r]); best = Math.max(best, r - left + 1);
-    A.step(`Add '${s[r]}'. Window "${s.slice(left, r + 1)}", best ${best}.`, A.chars('s', s, { range: [left, r], hl: { [r]: 'ok' } }), A.map('window set', win), A.vars({ best }));
+    A.step(`Add '${s[r]}'. Window "${s.slice(left, r + 1)}", best ${best}.`, A.chars('s', s, { range: [left, r], hl: { [r]: 'ok' } }), A.hashTable('window set', win), A.vars({ best }));
   }
   A.step(`Longest length: ${best}. Characters may be removed one by one, but each only once.`, A.text('Result', best, 'ok'));
 }
@@ -179,10 +179,10 @@ public class SubstringConcatenation {
     public List<Integer> findSubstring(String s, String[] words) {
         List<Integer> out = new ArrayList<>();
         int L = words[0].length(), k = words.length, n = s.length();
-        Map<String, Integer> need = new HashMap<>();
+        MyHashMap<String, Integer> need = new MyHashMap<>();
         for (String w : words) need.merge(w, 1, Integer::sum);
         for (int offset = 0; offset < L; offset++) {
-            Map<String, Integer> have = new HashMap<>();
+            MyHashMap<String, Integer> have = new MyHashMap<>();
             int left = offset, count = 0;
             for (int right = offset; right + L <= n; right += L) {
                 String w = s.substring(right, right + L);
@@ -242,16 +242,16 @@ trace=r'''
 function run(s, words) {
   const L = words[0].length, k = words.length, need = new Map(), out = [];
   words.forEach(w => need.set(w, (need.get(w) || 0) + 1));
-  A.step(`Every word has length ${L}, so we scan s in chunks of ${L}, once for each of the ${L} possible offsets.`, A.chars('s', s), A.map('need', need));
+  A.step(`Every word has length ${L}, so we scan s in chunks of ${L}, once for each of the ${L} possible offsets.`, A.chars('s', s), A.hashTable('need', need));
   for (let off = 0; off < L; off++) {
     const have = new Map(); let left = off, count = 0;
     for (let r = off; r + L <= s.length; r += L) {
       const w = s.slice(r, r + L);
       const chunk = []; for (let t = r; t < r + L; t++) chunk.push([t, 'cur']);
-      if (!need.has(w)) { A.step(`Offset ${off}: "${w}" is not a word, so reset the window past it.`, A.chars('s', s, { hl: chunk.map(([t]) => [t, 'bad']) }), A.map('have', have)); have.clear(); count = 0; left = r + L; continue; }
+      if (!need.has(w)) { A.step(`Offset ${off}: "${w}" is not a word, so reset the window past it.`, A.chars('s', s, { hl: chunk.map(([t]) => [t, 'bad']) }), A.hashTable('have', have)); have.clear(); count = 0; left = r + L; continue; }
       have.set(w, (have.get(w) || 0) + 1); count++;
       while (have.get(w) > need.get(w)) { const d = s.slice(left, left + L); have.set(d, have.get(d) - 1); left += L; count--; }
-      A.step(`Offset ${off}: add "${w}". The window holds ${count} of ${k} words.`, A.chars('s', s, { range: [left, r + L - 1], hl: chunk }), A.map('have', have), A.arr('found', out));
+      A.step(`Offset ${off}: add "${w}". The window holds ${count} of ${k} words.`, A.chars('s', s, { range: [left, r + L - 1], hl: chunk }), A.hashTable('have', have), A.arr('found', out));
       if (count === k) {
         out.push(left);
         A.step(`All ${k} words are present, so record start ${left}. Then slide past the first word.`, A.chars('s', s, { range: [left, r + L - 1], hl: [...Array(k * L).keys()].map(t => [left + t, 'ok']) }), A.arr('found', out, { hl: { [out.length - 1]: 'ok' } }));
@@ -282,10 +282,10 @@ public class SubstringConcatenation {
     public List<Integer> findSubstring(String s, String[] words) {
         List<Integer> out = new ArrayList<>();
         int L = words[0].length(), k = words.length;
-        Map<String, Integer> need = new HashMap<>();
+        MyHashMap<String, Integer> need = new MyHashMap<>();
         for (String w : words) need.merge(w, 1, Integer::sum);
         for (int i = 0; i + k * L <= s.length(); i++) {
-            Map<String, Integer> seen = new HashMap<>();
+            MyHashMap<String, Integer> seen = new MyHashMap<>();
             int j = 0;
             for (; j < k; j++) {
                 String w = s.substring(i + j * L, i + (j + 1) * L);

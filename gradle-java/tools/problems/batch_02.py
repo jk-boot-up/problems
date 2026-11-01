@@ -113,7 +113,7 @@ remove(1) → true, insert(2) → false, getRandom() → 2
 * At most `2 * 10^5` calls in total.
 ''',
 approach=r'''
-**ArrayList + HashMap.** The list stores values so `getRandom` picks a random index. The map stores each value's index.
+**ArrayList + hash map.** We use our own `MyHashMap` (bucket array + chaining). The list stores values so `getRandom` picks a random index. The map stores each value's index.
 To remove `val`, move the **last** value into `val`'s slot, update that value's index, and drop the last slot. Nothing shifts.
 
 * Time: **O(1)** — average per operation (hash map + array end operations).
@@ -123,7 +123,7 @@ java=r'''
 public class RandomizedSet {
 
     private final List<Integer> values = new ArrayList<>();
-    private final Map<Integer, Integer> indexOf = new HashMap<>();
+    private final MyHashMap<Integer, Integer> indexOf = new MyHashMap<>();
     private final Random random;
 
     public RandomizedSet() {
@@ -189,7 +189,7 @@ class RandomizedSetTest {
 ''',
 trace=r'''
 const vals = [], idx = new Map();
-const view = (hl = {}) => [A.arr('values (ArrayList)', vals, { hl }), A.map('indexOf (HashMap)', idx)];
+const view = (hl = {}) => [A.arr('values (ArrayList)', vals, { hl }), A.hashTable('indexOf (MyHashMap)', idx)];
 A.step('We keep values in an array for random access, and a map from each value to its index for constant-time lookups.', view());
 function insert(v) {
   if (idx.has(v)) { A.step(`insert(${v}): ${v} is already in the map, so return false.`, view({ [idx.get(v)]: 'bad' })); return; }

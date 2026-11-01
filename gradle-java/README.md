@@ -80,3 +80,13 @@ The shared animation player lives in `tools/engine/`.
 | 38 | 289 | [Game of Life](0289-game-of-life/README.md) | Medium | Matrix | 2 | `O(m·n)` | [v1](0289-game-of-life/v1/animation/index.html) [v2](0289-game-of-life/v2/animation/index.html) |
 | 39 | 383 | [Ransom Note](0383-ransom-note/README.md) | Easy | Hashmap | 1 | `O(m + n)` | [v1](0383-ransom-note/v1/animation/index.html) |
 | 40 | 205 | [Isomorphic Strings](0205-isomorphic-strings/README.md) | Easy | Hashmap | 1 | `O(n)` | [v1](0205-isomorphic-strings/v1/animation/index.html) |
+| 41 | 290 | [Word Pattern](0290-word-pattern/README.md) | Easy | Hashmap | 1 | `O(n)` | [v1](0290-word-pattern/v1/animation/index.html) |
+| 42 | 242 | [Valid Anagram](0242-valid-anagram/README.md) | Easy | Hashmap | 2 | `O(n)` | [v1](0242-valid-anagram/v1/animation/index.html) [v2](0242-valid-anagram/v2/animation/index.html) |
+| 43 | 49 | [Group Anagrams](0049-group-anagrams/README.md) | Medium | Hashmap | 2 | `O(n·k)` | [v1](0049-group-anagrams/v1/animation/index.html) [v2](0049-group-anagrams/v2/animation/index.html) |
+| 44 | 1 | [Two Sum](0001-two-sum/README.md) | Easy | Hashmap | 2 | `O(n)` | [v1](0001-two-sum/v1/animation/index.html) [v2](0001-two-sum/v2/animation/index.html) |
+| 45 | 202 | [Happy Number](0202-happy-number/README.md) | Easy | Hashmap | 2 | `O(log n)` | [v1](0202-happy-number/v1/animation/index.html) [v2](0202-happy-number/v2/animation/index.html) |
+| 46 | 219 | [Contains Duplicate II](0219-contains-duplicate-ii/README.md) | Easy | Hashmap | 2 | `O(n)` | [v1](0219-contains-duplicate-ii/v1/animation/index.html) [v2](0219-contains-duplicate-ii/v2/animation/index.html) |
+| 47 | 128 | [Longest Consecutive Sequence](0128-longest-consecutive-sequence/README.md) | Medium | Hashmap | 2 | `O(n)` | [v1](0128-longest-consecutive-sequence/v1/animation/index.html) [v2](0128-longest-consecutive-sequence/v2/animation/index.html) |
+| 48 | 228 | [Summary Ranges](0228-summary-ranges/README.md) | Easy | Intervals | 1 | `O(n)` | [v1](0228-summary-ranges/v1/animation/index.html) |
+| 49 | 56 | [Merge Intervals](0056-merge-intervals/README.md) | Medium | Intervals | 1 | `O(n log n)` | [v1](0056-merge-intervals/v1/animation/index.html) |
+| 50 | 57 | [Insert Interval](0057-insert-interval/README.md) | Medium | Intervals | 1 | `O(n)` | [v1](0057-insert-interval/v1/animation/index.html) |
