@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="on" href="../../v1/animation/index.html">v1 · Simulate every start</a><a class="" href="../../v2/animation/index.html">v2 · Greedy single pass</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="on" href="../../v1-simulate-every-start/animation/index.html">v1 · Simulate every start</a><a class="" href="../../v2-greedy-single-pass/animation/index.html">v2 · Greedy single pass</a></nav>
   </nav>
 </header>
 <main>
@@ -257,7 +257,7 @@ public class GasStation {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class="on"><td><a href="../../v1/animation/index.html">v1</a></td><td>Simulate every start</td><td><code>O(n²)</code></td><td><code>O(1)</code></td></tr><tr class=""><td><a href="../../v2/animation/index.html">v2</a></td><td>Greedy single pass</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class="on"><td><a href="../../v1-simulate-every-start/animation/index.html">v1</a></td><td>Simulate every start</td><td><code>O(n²)</code></td><td><code>O(1)</code></td></tr><tr class=""><td><a href="../../v2-greedy-single-pass/animation/index.html">v2</a></td><td>Greedy single pass</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
     <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Brute force.</strong> For every start <code>s</code>, drive <code>n</code> legs, adding <code>gas</code> and subtracting <code>cost</code>. If the tank never drops below zero, <code>s</code> works.</p>
 <ul><li>Time: <strong>O(n²)</strong> — n starts × up to n legs.</li><li>Space: <strong>O(1)</strong> — a tank counter.</li></ul></div>
   </section>
