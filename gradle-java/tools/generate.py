@@ -499,7 +499,7 @@ def generate_project(p):
 
 
 def generate_root(probs):
-    includes = "\n".join(f'includeBuild("{dir_name(p)}/{v["dir"]}")' for p in probs for v in variants(p))
+    includes = "\n".join(f'includeBuild("{dir_name(p)}/{v["dir"]}") {{ name = "{dir_name(p)}-{v["dir"]}" }}' for p in probs for v in variants(p))
     write(ROOT / "settings.gradle.kts", f"""// Composite build for convenience only: every solution folder is a standalone Gradle project.
 // Including them here lets `./gradlew testAll` (run from gradle-java/) test all of them in one go.
 rootProject.name = "leetcode-top-interview"

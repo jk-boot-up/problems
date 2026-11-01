@@ -2,227 +2,227 @@
 // Including them here lets `./gradlew testAll` (run from gradle-java/) test all of them in one go.
 rootProject.name = "leetcode-top-interview"
 
-includeBuild("0088-merge-sorted-array/v1-copy-and-sort")
-includeBuild("0088-merge-sorted-array/v2-three-pointers-from-the-back")
-includeBuild("0027-remove-element/v1-read-write-pointers")
-includeBuild("0026-remove-duplicates-from-sorted-array/v1-two-pointers")
-includeBuild("0080-remove-duplicates-from-sorted-array-ii/v1-compare-two-back")
-includeBuild("0169-majority-element/v1-hash-map-counting")
-includeBuild("0169-majority-element/v2-sort-and-take-the-middle")
-includeBuild("0169-majority-element/v3-boyer-moore-voting")
-includeBuild("0189-rotate-array/v1-extra-array")
-includeBuild("0189-rotate-array/v2-triple-reversal")
-includeBuild("0121-best-time-to-buy-and-sell-stock/v1-brute-force")
-includeBuild("0121-best-time-to-buy-and-sell-stock/v2-one-pass-running-minimum")
-includeBuild("0122-best-time-to-buy-and-sell-stock-ii/v1-greedy-daily-gains")
-includeBuild("0055-jump-game/v1-greedy-reach")
-includeBuild("0045-jump-game-ii/v1-dynamic-programming")
-includeBuild("0045-jump-game-ii/v2-greedy-windows")
-includeBuild("0274-h-index/v1-sort-descending")
-includeBuild("0274-h-index/v2-counting-buckets")
-includeBuild("0380-insert-delete-getrandom-o1/v1-array-plus-hash-map")
-includeBuild("0238-product-of-array-except-self/v1-prefix-and-suffix-arrays")
-includeBuild("0238-product-of-array-except-self/v2-output-array-running-suffix")
-includeBuild("0134-gas-station/v1-simulate-every-start")
-includeBuild("0134-gas-station/v2-greedy-single-pass")
-includeBuild("0135-candy/v1-two-passes")
-includeBuild("0042-trapping-rain-water/v1-prefix-suffix-maximum-arrays")
-includeBuild("0042-trapping-rain-water/v2-two-pointers")
-includeBuild("0013-roman-to-integer/v1-look-one-ahead")
-includeBuild("0012-integer-to-roman/v1-greedy-value-table")
-includeBuild("0058-length-of-last-word/v1-backward-scan")
-includeBuild("0014-longest-common-prefix/v1-vertical-scan")
-includeBuild("0151-reverse-words-in-a-string/v1-split-reverse-join")
-includeBuild("0151-reverse-words-in-a-string/v2-manual-right-to-left-scan")
-includeBuild("0006-zigzag-conversion/v1-row-simulation")
-includeBuild("0028-find-the-index-of-the-first-occurrence-in-a-string/v1-brute-force")
-includeBuild("0028-find-the-index-of-the-first-occurrence-in-a-string/v2-kmp")
-includeBuild("0068-text-justification/v1-greedy-line-packing")
-includeBuild("0125-valid-palindrome/v1-two-pointers")
-includeBuild("0392-is-subsequence/v1-two-pointers")
-includeBuild("0167-two-sum-ii-input-array-is-sorted/v1-binary-search-for-the-partner")
-includeBuild("0167-two-sum-ii-input-array-is-sorted/v2-two-pointers")
-includeBuild("0011-container-with-most-water/v1-brute-force")
-includeBuild("0011-container-with-most-water/v2-two-pointers")
-includeBuild("0015-3sum/v1-hash-set-per-fixed-number")
-includeBuild("0015-3sum/v2-sort-two-pointers")
-includeBuild("0209-minimum-size-subarray-sum/v1-prefix-sums-binary-search")
-includeBuild("0209-minimum-size-subarray-sum/v2-sliding-window")
-includeBuild("0003-longest-substring-without-repeating-characters/v1-window-with-a-hash-set")
-includeBuild("0003-longest-substring-without-repeating-characters/v2-window-with-last-seen-index")
-includeBuild("0030-substring-with-concatenation-of-all-words/v1-check-every-start")
-includeBuild("0030-substring-with-concatenation-of-all-words/v2-word-step-sliding-window")
-includeBuild("0076-minimum-window-substring/v1-sliding-window-with-counts")
-includeBuild("0036-valid-sudoku/v1-seen-sets-in-one-pass")
-includeBuild("0054-spiral-matrix/v1-shrinking-boundaries")
-includeBuild("0048-rotate-image/v1-copy-into-a-new-matrix")
-includeBuild("0048-rotate-image/v2-transpose-reverse-rows")
-includeBuild("0073-set-matrix-zeroes/v1-row-and-column-sets")
-includeBuild("0073-set-matrix-zeroes/v2-markers-in-row-column-0")
-includeBuild("0289-game-of-life/v1-copy-of-the-board")
-includeBuild("0289-game-of-life/v2-in-place-two-bit-states")
-includeBuild("0383-ransom-note/v1-letter-counts")
-includeBuild("0205-isomorphic-strings/v1-two-way-mapping")
-includeBuild("0290-word-pattern/v1-two-way-mapping")
-includeBuild("0242-valid-anagram/v1-sort-both-strings")
-includeBuild("0242-valid-anagram/v2-letter-counts")
-includeBuild("0049-group-anagrams/v1-sorted-word-key")
-includeBuild("0049-group-anagrams/v2-letter-count-key")
-includeBuild("0001-two-sum/v1-brute-force")
-includeBuild("0001-two-sum/v2-one-pass-hash-map")
-includeBuild("0202-happy-number/v1-seen-set")
-includeBuild("0202-happy-number/v2-floyd-cycle-detection")
-includeBuild("0219-contains-duplicate-ii/v1-check-the-next-k-values")
-includeBuild("0219-contains-duplicate-ii/v2-last-index-map")
-includeBuild("0128-longest-consecutive-sequence/v1-sort-and-scan")
-includeBuild("0128-longest-consecutive-sequence/v2-hash-set-count-from-run-starts")
-includeBuild("0228-summary-ranges/v1-single-scan")
-includeBuild("0056-merge-intervals/v1-sort-then-sweep")
-includeBuild("0057-insert-interval/v1-three-phase-linear-scan")
-includeBuild("0452-minimum-number-of-arrows-to-burst-balloons/v1-greedy-by-end-point")
-includeBuild("0020-valid-parentheses/v1-stack-of-openers")
-includeBuild("0071-simplify-path/v1-stack-of-directories")
-includeBuild("0155-min-stack/v1-value-and-minimum-pairs")
-includeBuild("0150-evaluate-reverse-polish-notation/v1-operand-stack")
-includeBuild("0224-basic-calculator/v1-sign-stack")
-includeBuild("0141-linked-list-cycle/v1-visited-node-set")
-includeBuild("0141-linked-list-cycle/v2-floyd-fast-and-slow-pointers")
-includeBuild("0002-add-two-numbers/v1-digit-by-digit-with-carry")
-includeBuild("0021-merge-two-sorted-lists/v1-recursive")
-includeBuild("0021-merge-two-sorted-lists/v2-iterative-with-dummy-head")
-includeBuild("0138-copy-list-with-random-pointer/v1-old-to-new-hash-map")
-includeBuild("0138-copy-list-with-random-pointer/v2-interleaved-copies")
-includeBuild("0092-reverse-linked-list-ii/v1-one-pass-head-insertion")
-includeBuild("0025-reverse-nodes-in-k-group/v1-iterative-group-reversal")
-includeBuild("0019-remove-nth-node-from-end-of-list/v1-count-length-then-remove")
-includeBuild("0019-remove-nth-node-from-end-of-list/v2-one-pass-gap-of-n")
-includeBuild("0082-remove-duplicates-from-sorted-list-ii/v1-skip-whole-runs")
-includeBuild("0061-rotate-list/v1-ring-and-cut")
-includeBuild("0086-partition-list/v1-two-chains")
-includeBuild("0146-lru-cache/v1-hash-map-doubly-linked-list")
-includeBuild("0104-maximum-depth-of-binary-tree/v1-level-order-bfs")
-includeBuild("0104-maximum-depth-of-binary-tree/v2-recursive-dfs")
-includeBuild("0100-same-tree/v1-recursive-comparison")
-includeBuild("0226-invert-binary-tree/v1-iterative-bfs")
-includeBuild("0226-invert-binary-tree/v2-recursive-swap")
-includeBuild("0101-symmetric-tree/v1-iterative-queue-of-pairs")
-includeBuild("0101-symmetric-tree/v2-recursive-mirror-check")
-includeBuild("0105-construct-binary-tree-from-preorder-and-inorder-traversal/v1-linear-search-for-the-root")
-includeBuild("0105-construct-binary-tree-from-preorder-and-inorder-traversal/v2-hash-map-of-inorder-positions")
-includeBuild("0106-construct-binary-tree-from-inorder-and-postorder-traversal/v1-hash-map-walk-postorder-backwards")
-includeBuild("0117-populating-next-right-pointers-in-each-node-ii/v1-bfs-with-a-queue")
-includeBuild("0117-populating-next-right-pointers-in-each-node-ii/v2-level-walk-with-o-1-space")
-includeBuild("0114-flatten-binary-tree-to-linked-list/v1-preorder-list-then-relink")
-includeBuild("0114-flatten-binary-tree-to-linked-list/v2-in-place-splicing-o-1-space")
-includeBuild("0112-path-sum/v1-recursive-dfs")
-includeBuild("0129-sum-root-to-leaf-numbers/v1-dfs-carrying-the-number")
-includeBuild("0124-binary-tree-maximum-path-sum/v1-post-order-dfs-with-gains")
-includeBuild("0173-binary-search-tree-iterator/v1-flatten-to-a-list-first")
-includeBuild("0173-binary-search-tree-iterator/v2-controlled-stack")
-includeBuild("0222-count-complete-tree-nodes/v1-count-every-node")
-includeBuild("0222-count-complete-tree-nodes/v2-perfect-subtree-shortcut")
-includeBuild("0236-lowest-common-ancestor-of-a-binary-tree/v1-parent-map-and-ancestor-set")
-includeBuild("0236-lowest-common-ancestor-of-a-binary-tree/v2-recursive-search")
-includeBuild("0199-binary-tree-right-side-view/v1-right-first-dfs")
-includeBuild("0199-binary-tree-right-side-view/v2-level-order-bfs")
-includeBuild("0637-average-of-levels-in-binary-tree/v1-level-order-bfs")
-includeBuild("0102-binary-tree-level-order-traversal/v1-queue-level-by-level")
-includeBuild("0103-binary-tree-zigzag-level-order-traversal/v1-bfs-with-alternating-direction")
-includeBuild("0530-minimum-absolute-difference-in-bst/v1-in-order-with-previous-value")
-includeBuild("0230-kth-smallest-element-in-a-bst/v1-full-in-order-list")
-includeBuild("0230-kth-smallest-element-in-a-bst/v2-iterative-in-order-stop-early")
-includeBuild("0098-validate-binary-search-tree/v1-in-order-must-increase")
-includeBuild("0098-validate-binary-search-tree/v2-bounds-recursion")
-includeBuild("0200-number-of-islands/v1-bfs-flood-fill")
-includeBuild("0200-number-of-islands/v2-dfs-flood-fill")
-includeBuild("0130-surrounded-regions/v1-flood-fill-from-the-border")
-includeBuild("0133-clone-graph/v1-recursive-dfs-with-a-clone-map")
-includeBuild("0133-clone-graph/v2-bfs-with-a-clone-map")
-includeBuild("0399-evaluate-division/v1-weighted-union-find")
-includeBuild("0399-evaluate-division/v2-weighted-graph-dfs")
-includeBuild("0207-course-schedule/v1-dfs-cycle-detection")
-includeBuild("0207-course-schedule/v2-kahn-s-topological-sort")
-includeBuild("0210-course-schedule-ii/v1-kahn-s-topological-sort")
-includeBuild("0909-snakes-and-ladders/v1-bfs-over-squares")
-includeBuild("0433-minimum-genetic-mutation/v1-bfs-over-gene-strings")
-includeBuild("0127-word-ladder/v1-one-directional-bfs")
-includeBuild("0127-word-ladder/v2-bidirectional-bfs")
-includeBuild("0208-implement-trie-prefix-tree/v1-array-of-children-trie")
-includeBuild("0211-design-add-and-search-words-data-structure/v1-trie-with-wildcard-dfs")
-includeBuild("0212-word-search-ii/v1-separate-dfs-for-every-word")
-includeBuild("0212-word-search-ii/v2-trie-backtracking")
-includeBuild("0017-letter-combinations-of-a-phone-number/v1-iterative-expansion")
-includeBuild("0017-letter-combinations-of-a-phone-number/v2-backtracking")
-includeBuild("0077-combinations/v1-backtracking-with-pruning")
-includeBuild("0046-permutations/v1-path-with-used-flags")
-includeBuild("0046-permutations/v2-in-place-swapping")
-includeBuild("0039-combination-sum/v1-sorted-backtracking")
-includeBuild("0052-n-queens-ii/v1-boolean-arrays")
-includeBuild("0052-n-queens-ii/v2-bitmask-backtracking")
-includeBuild("0022-generate-parentheses/v1-backtracking-with-open-close-counts")
-includeBuild("0079-word-search/v1-dfs-backtracking")
-includeBuild("0108-convert-sorted-array-to-binary-search-tree/v1-middle-element-as-root")
-includeBuild("0148-sort-list/v1-top-down-merge-sort")
-includeBuild("0148-sort-list/v2-bottom-up-merge-sort-o-1-space")
-includeBuild("0427-construct-quad-tree/v1-recursive-quadrants")
-includeBuild("0023-merge-k-sorted-lists/v1-min-heap-of-list-heads")
-includeBuild("0023-merge-k-sorted-lists/v2-pairwise-divide-and-conquer")
-includeBuild("0053-maximum-subarray/v1-brute-force-over-all-starts")
-includeBuild("0053-maximum-subarray/v2-kadane-s-algorithm")
-includeBuild("0918-maximum-sum-circular-subarray/v1-max-and-min-kadane")
-includeBuild("0035-search-insert-position/v1-lower-bound-binary-search")
-includeBuild("0074-search-a-2d-matrix/v1-binary-search-on-the-flattened-index")
-includeBuild("0162-find-peak-element/v1-linear-scan")
-includeBuild("0162-find-peak-element/v2-binary-search-uphill")
-includeBuild("0033-search-in-rotated-sorted-array/v1-binary-search-on-the-sorted-half")
-includeBuild("0034-find-first-and-last-position-of-element-in-sorted-array/v1-two-lower-bounds")
-includeBuild("0153-find-minimum-in-rotated-sorted-array/v1-binary-search-against-the-right-end")
-includeBuild("0004-median-of-two-sorted-arrays/v1-merge-until-the-middle")
-includeBuild("0004-median-of-two-sorted-arrays/v2-binary-search-on-the-partition")
-includeBuild("0215-kth-largest-element-in-an-array/v1-sort")
-includeBuild("0215-kth-largest-element-in-an-array/v2-min-heap-of-size-k")
-includeBuild("0215-kth-largest-element-in-an-array/v3-quickselect")
-includeBuild("0502-ipo/v1-sort-by-capital-max-heap-of-profits")
-includeBuild("0373-find-k-pairs-with-smallest-sums/v1-min-heap-over-row-heads")
-includeBuild("0295-find-median-from-data-stream/v1-sorted-list-with-binary-insertion")
-includeBuild("0295-find-median-from-data-stream/v2-two-heaps")
-includeBuild("0067-add-binary/v1-right-to-left-with-carry")
-includeBuild("0190-reverse-bits/v1-swap-halves-divide-and-conquer")
-includeBuild("0190-reverse-bits/v2-bit-by-bit-shifting")
-includeBuild("0191-number-of-1-bits/v1-check-all-32-bits")
-includeBuild("0191-number-of-1-bits/v2-clear-lowest-set-bit")
-includeBuild("0136-single-number/v1-hash-set-toggling")
-includeBuild("0136-single-number/v2-xor-everything")
-includeBuild("0137-single-number-ii/v1-count-each-bit-position")
-includeBuild("0137-single-number-ii/v2-ones-twos-bit-counters")
-includeBuild("0201-bitwise-and-of-numbers-range/v1-common-prefix-by-shifting")
-includeBuild("0009-palindrome-number/v1-compare-as-a-string")
-includeBuild("0009-palindrome-number/v2-reverse-half-the-digits")
-includeBuild("0066-plus-one/v1-carry-from-the-right")
-includeBuild("0172-factorial-trailing-zeroes/v1-count-factors-of-five")
-includeBuild("0069-sqrtx/v1-binary-search")
-includeBuild("0069-sqrtx/v2-newton-s-method")
-includeBuild("0050-powx-n/v1-recursive-fast-power")
-includeBuild("0050-powx-n/v2-iterative-binary-exponentiation")
-includeBuild("0149-max-points-on-a-line/v1-slope-counting-per-anchor")
-includeBuild("0070-climbing-stairs/v1-memoized-recursion")
-includeBuild("0070-climbing-stairs/v2-two-rolling-variables")
-includeBuild("0198-house-robber/v1-dp-table")
-includeBuild("0198-house-robber/v2-two-rolling-variables")
-includeBuild("0139-word-break/v1-dp-over-prefixes")
-includeBuild("0322-coin-change/v1-top-down-memoized-recursion")
-includeBuild("0322-coin-change/v2-bottom-up-dp")
-includeBuild("0300-longest-increasing-subsequence/v1-quadratic-dp")
-includeBuild("0300-longest-increasing-subsequence/v2-tails-array-binary-search")
-includeBuild("0120-triangle/v1-bottom-up-with-one-row")
-includeBuild("0064-minimum-path-sum/v1-full-dp-table")
-includeBuild("0064-minimum-path-sum/v2-one-rolling-row")
-includeBuild("0063-unique-paths-ii/v1-one-rolling-row")
-includeBuild("0005-longest-palindromic-substring/v1-dp-table")
-includeBuild("0005-longest-palindromic-substring/v2-expand-around-centre")
-includeBuild("0097-interleaving-string/v1-2d-dp-table")
-includeBuild("0097-interleaving-string/v2-1d-dp")
-includeBuild("0072-edit-distance/v1-2d-dp-table")
-includeBuild("0123-best-time-to-buy-and-sell-stock-iii/v1-four-state-machine")
-includeBuild("0188-best-time-to-buy-and-sell-stock-iv/v1-k-state-machine")
-includeBuild("0221-maximal-square/v1-dp-on-square-sides")
+includeBuild("0088-merge-sorted-array/v1-copy-and-sort") { name = "0088-merge-sorted-array-v1-copy-and-sort" }
+includeBuild("0088-merge-sorted-array/v2-three-pointers-from-the-back") { name = "0088-merge-sorted-array-v2-three-pointers-from-the-back" }
+includeBuild("0027-remove-element/v1-read-write-pointers") { name = "0027-remove-element-v1-read-write-pointers" }
+includeBuild("0026-remove-duplicates-from-sorted-array/v1-two-pointers") { name = "0026-remove-duplicates-from-sorted-array-v1-two-pointers" }
+includeBuild("0080-remove-duplicates-from-sorted-array-ii/v1-compare-two-back") { name = "0080-remove-duplicates-from-sorted-array-ii-v1-compare-two-back" }
+includeBuild("0169-majority-element/v1-hash-map-counting") { name = "0169-majority-element-v1-hash-map-counting" }
+includeBuild("0169-majority-element/v2-sort-and-take-the-middle") { name = "0169-majority-element-v2-sort-and-take-the-middle" }
+includeBuild("0169-majority-element/v3-boyer-moore-voting") { name = "0169-majority-element-v3-boyer-moore-voting" }
+includeBuild("0189-rotate-array/v1-extra-array") { name = "0189-rotate-array-v1-extra-array" }
+includeBuild("0189-rotate-array/v2-triple-reversal") { name = "0189-rotate-array-v2-triple-reversal" }
+includeBuild("0121-best-time-to-buy-and-sell-stock/v1-brute-force") { name = "0121-best-time-to-buy-and-sell-stock-v1-brute-force" }
+includeBuild("0121-best-time-to-buy-and-sell-stock/v2-one-pass-running-minimum") { name = "0121-best-time-to-buy-and-sell-stock-v2-one-pass-running-minimum" }
+includeBuild("0122-best-time-to-buy-and-sell-stock-ii/v1-greedy-daily-gains") { name = "0122-best-time-to-buy-and-sell-stock-ii-v1-greedy-daily-gains" }
+includeBuild("0055-jump-game/v1-greedy-reach") { name = "0055-jump-game-v1-greedy-reach" }
+includeBuild("0045-jump-game-ii/v1-dynamic-programming") { name = "0045-jump-game-ii-v1-dynamic-programming" }
+includeBuild("0045-jump-game-ii/v2-greedy-windows") { name = "0045-jump-game-ii-v2-greedy-windows" }
+includeBuild("0274-h-index/v1-sort-descending") { name = "0274-h-index-v1-sort-descending" }
+includeBuild("0274-h-index/v2-counting-buckets") { name = "0274-h-index-v2-counting-buckets" }
+includeBuild("0380-insert-delete-getrandom-o1/v1-array-plus-hash-map") { name = "0380-insert-delete-getrandom-o1-v1-array-plus-hash-map" }
+includeBuild("0238-product-of-array-except-self/v1-prefix-and-suffix-arrays") { name = "0238-product-of-array-except-self-v1-prefix-and-suffix-arrays" }
+includeBuild("0238-product-of-array-except-self/v2-output-array-running-suffix") { name = "0238-product-of-array-except-self-v2-output-array-running-suffix" }
+includeBuild("0134-gas-station/v1-simulate-every-start") { name = "0134-gas-station-v1-simulate-every-start" }
+includeBuild("0134-gas-station/v2-greedy-single-pass") { name = "0134-gas-station-v2-greedy-single-pass" }
+includeBuild("0135-candy/v1-two-passes") { name = "0135-candy-v1-two-passes" }
+includeBuild("0042-trapping-rain-water/v1-prefix-suffix-maximum-arrays") { name = "0042-trapping-rain-water-v1-prefix-suffix-maximum-arrays" }
+includeBuild("0042-trapping-rain-water/v2-two-pointers") { name = "0042-trapping-rain-water-v2-two-pointers" }
+includeBuild("0013-roman-to-integer/v1-look-one-ahead") { name = "0013-roman-to-integer-v1-look-one-ahead" }
+includeBuild("0012-integer-to-roman/v1-greedy-value-table") { name = "0012-integer-to-roman-v1-greedy-value-table" }
+includeBuild("0058-length-of-last-word/v1-backward-scan") { name = "0058-length-of-last-word-v1-backward-scan" }
+includeBuild("0014-longest-common-prefix/v1-vertical-scan") { name = "0014-longest-common-prefix-v1-vertical-scan" }
+includeBuild("0151-reverse-words-in-a-string/v1-split-reverse-join") { name = "0151-reverse-words-in-a-string-v1-split-reverse-join" }
+includeBuild("0151-reverse-words-in-a-string/v2-manual-right-to-left-scan") { name = "0151-reverse-words-in-a-string-v2-manual-right-to-left-scan" }
+includeBuild("0006-zigzag-conversion/v1-row-simulation") { name = "0006-zigzag-conversion-v1-row-simulation" }
+includeBuild("0028-find-the-index-of-the-first-occurrence-in-a-string/v1-brute-force") { name = "0028-find-the-index-of-the-first-occurrence-in-a-string-v1-brute-force" }
+includeBuild("0028-find-the-index-of-the-first-occurrence-in-a-string/v2-kmp") { name = "0028-find-the-index-of-the-first-occurrence-in-a-string-v2-kmp" }
+includeBuild("0068-text-justification/v1-greedy-line-packing") { name = "0068-text-justification-v1-greedy-line-packing" }
+includeBuild("0125-valid-palindrome/v1-two-pointers") { name = "0125-valid-palindrome-v1-two-pointers" }
+includeBuild("0392-is-subsequence/v1-two-pointers") { name = "0392-is-subsequence-v1-two-pointers" }
+includeBuild("0167-two-sum-ii-input-array-is-sorted/v1-binary-search-for-the-partner") { name = "0167-two-sum-ii-input-array-is-sorted-v1-binary-search-for-the-partner" }
+includeBuild("0167-two-sum-ii-input-array-is-sorted/v2-two-pointers") { name = "0167-two-sum-ii-input-array-is-sorted-v2-two-pointers" }
+includeBuild("0011-container-with-most-water/v1-brute-force") { name = "0011-container-with-most-water-v1-brute-force" }
+includeBuild("0011-container-with-most-water/v2-two-pointers") { name = "0011-container-with-most-water-v2-two-pointers" }
+includeBuild("0015-3sum/v1-hash-set-per-fixed-number") { name = "0015-3sum-v1-hash-set-per-fixed-number" }
+includeBuild("0015-3sum/v2-sort-two-pointers") { name = "0015-3sum-v2-sort-two-pointers" }
+includeBuild("0209-minimum-size-subarray-sum/v1-prefix-sums-binary-search") { name = "0209-minimum-size-subarray-sum-v1-prefix-sums-binary-search" }
+includeBuild("0209-minimum-size-subarray-sum/v2-sliding-window") { name = "0209-minimum-size-subarray-sum-v2-sliding-window" }
+includeBuild("0003-longest-substring-without-repeating-characters/v1-window-with-a-hash-set") { name = "0003-longest-substring-without-repeating-characters-v1-window-with-a-hash-set" }
+includeBuild("0003-longest-substring-without-repeating-characters/v2-window-with-last-seen-index") { name = "0003-longest-substring-without-repeating-characters-v2-window-with-last-seen-index" }
+includeBuild("0030-substring-with-concatenation-of-all-words/v1-check-every-start") { name = "0030-substring-with-concatenation-of-all-words-v1-check-every-start" }
+includeBuild("0030-substring-with-concatenation-of-all-words/v2-word-step-sliding-window") { name = "0030-substring-with-concatenation-of-all-words-v2-word-step-sliding-window" }
+includeBuild("0076-minimum-window-substring/v1-sliding-window-with-counts") { name = "0076-minimum-window-substring-v1-sliding-window-with-counts" }
+includeBuild("0036-valid-sudoku/v1-seen-sets-in-one-pass") { name = "0036-valid-sudoku-v1-seen-sets-in-one-pass" }
+includeBuild("0054-spiral-matrix/v1-shrinking-boundaries") { name = "0054-spiral-matrix-v1-shrinking-boundaries" }
+includeBuild("0048-rotate-image/v1-copy-into-a-new-matrix") { name = "0048-rotate-image-v1-copy-into-a-new-matrix" }
+includeBuild("0048-rotate-image/v2-transpose-reverse-rows") { name = "0048-rotate-image-v2-transpose-reverse-rows" }
+includeBuild("0073-set-matrix-zeroes/v1-row-and-column-sets") { name = "0073-set-matrix-zeroes-v1-row-and-column-sets" }
+includeBuild("0073-set-matrix-zeroes/v2-markers-in-row-column-0") { name = "0073-set-matrix-zeroes-v2-markers-in-row-column-0" }
+includeBuild("0289-game-of-life/v1-copy-of-the-board") { name = "0289-game-of-life-v1-copy-of-the-board" }
+includeBuild("0289-game-of-life/v2-in-place-two-bit-states") { name = "0289-game-of-life-v2-in-place-two-bit-states" }
+includeBuild("0383-ransom-note/v1-letter-counts") { name = "0383-ransom-note-v1-letter-counts" }
+includeBuild("0205-isomorphic-strings/v1-two-way-mapping") { name = "0205-isomorphic-strings-v1-two-way-mapping" }
+includeBuild("0290-word-pattern/v1-two-way-mapping") { name = "0290-word-pattern-v1-two-way-mapping" }
+includeBuild("0242-valid-anagram/v1-sort-both-strings") { name = "0242-valid-anagram-v1-sort-both-strings" }
+includeBuild("0242-valid-anagram/v2-letter-counts") { name = "0242-valid-anagram-v2-letter-counts" }
+includeBuild("0049-group-anagrams/v1-sorted-word-key") { name = "0049-group-anagrams-v1-sorted-word-key" }
+includeBuild("0049-group-anagrams/v2-letter-count-key") { name = "0049-group-anagrams-v2-letter-count-key" }
+includeBuild("0001-two-sum/v1-brute-force") { name = "0001-two-sum-v1-brute-force" }
+includeBuild("0001-two-sum/v2-one-pass-hash-map") { name = "0001-two-sum-v2-one-pass-hash-map" }
+includeBuild("0202-happy-number/v1-seen-set") { name = "0202-happy-number-v1-seen-set" }
+includeBuild("0202-happy-number/v2-floyd-cycle-detection") { name = "0202-happy-number-v2-floyd-cycle-detection" }
+includeBuild("0219-contains-duplicate-ii/v1-check-the-next-k-values") { name = "0219-contains-duplicate-ii-v1-check-the-next-k-values" }
+includeBuild("0219-contains-duplicate-ii/v2-last-index-map") { name = "0219-contains-duplicate-ii-v2-last-index-map" }
+includeBuild("0128-longest-consecutive-sequence/v1-sort-and-scan") { name = "0128-longest-consecutive-sequence-v1-sort-and-scan" }
+includeBuild("0128-longest-consecutive-sequence/v2-hash-set-count-from-run-starts") { name = "0128-longest-consecutive-sequence-v2-hash-set-count-from-run-starts" }
+includeBuild("0228-summary-ranges/v1-single-scan") { name = "0228-summary-ranges-v1-single-scan" }
+includeBuild("0056-merge-intervals/v1-sort-then-sweep") { name = "0056-merge-intervals-v1-sort-then-sweep" }
+includeBuild("0057-insert-interval/v1-three-phase-linear-scan") { name = "0057-insert-interval-v1-three-phase-linear-scan" }
+includeBuild("0452-minimum-number-of-arrows-to-burst-balloons/v1-greedy-by-end-point") { name = "0452-minimum-number-of-arrows-to-burst-balloons-v1-greedy-by-end-point" }
+includeBuild("0020-valid-parentheses/v1-stack-of-openers") { name = "0020-valid-parentheses-v1-stack-of-openers" }
+includeBuild("0071-simplify-path/v1-stack-of-directories") { name = "0071-simplify-path-v1-stack-of-directories" }
+includeBuild("0155-min-stack/v1-value-and-minimum-pairs") { name = "0155-min-stack-v1-value-and-minimum-pairs" }
+includeBuild("0150-evaluate-reverse-polish-notation/v1-operand-stack") { name = "0150-evaluate-reverse-polish-notation-v1-operand-stack" }
+includeBuild("0224-basic-calculator/v1-sign-stack") { name = "0224-basic-calculator-v1-sign-stack" }
+includeBuild("0141-linked-list-cycle/v1-visited-node-set") { name = "0141-linked-list-cycle-v1-visited-node-set" }
+includeBuild("0141-linked-list-cycle/v2-floyd-fast-and-slow-pointers") { name = "0141-linked-list-cycle-v2-floyd-fast-and-slow-pointers" }
+includeBuild("0002-add-two-numbers/v1-digit-by-digit-with-carry") { name = "0002-add-two-numbers-v1-digit-by-digit-with-carry" }
+includeBuild("0021-merge-two-sorted-lists/v1-recursive") { name = "0021-merge-two-sorted-lists-v1-recursive" }
+includeBuild("0021-merge-two-sorted-lists/v2-iterative-with-dummy-head") { name = "0021-merge-two-sorted-lists-v2-iterative-with-dummy-head" }
+includeBuild("0138-copy-list-with-random-pointer/v1-old-to-new-hash-map") { name = "0138-copy-list-with-random-pointer-v1-old-to-new-hash-map" }
+includeBuild("0138-copy-list-with-random-pointer/v2-interleaved-copies") { name = "0138-copy-list-with-random-pointer-v2-interleaved-copies" }
+includeBuild("0092-reverse-linked-list-ii/v1-one-pass-head-insertion") { name = "0092-reverse-linked-list-ii-v1-one-pass-head-insertion" }
+includeBuild("0025-reverse-nodes-in-k-group/v1-iterative-group-reversal") { name = "0025-reverse-nodes-in-k-group-v1-iterative-group-reversal" }
+includeBuild("0019-remove-nth-node-from-end-of-list/v1-count-length-then-remove") { name = "0019-remove-nth-node-from-end-of-list-v1-count-length-then-remove" }
+includeBuild("0019-remove-nth-node-from-end-of-list/v2-one-pass-gap-of-n") { name = "0019-remove-nth-node-from-end-of-list-v2-one-pass-gap-of-n" }
+includeBuild("0082-remove-duplicates-from-sorted-list-ii/v1-skip-whole-runs") { name = "0082-remove-duplicates-from-sorted-list-ii-v1-skip-whole-runs" }
+includeBuild("0061-rotate-list/v1-ring-and-cut") { name = "0061-rotate-list-v1-ring-and-cut" }
+includeBuild("0086-partition-list/v1-two-chains") { name = "0086-partition-list-v1-two-chains" }
+includeBuild("0146-lru-cache/v1-hash-map-doubly-linked-list") { name = "0146-lru-cache-v1-hash-map-doubly-linked-list" }
+includeBuild("0104-maximum-depth-of-binary-tree/v1-level-order-bfs") { name = "0104-maximum-depth-of-binary-tree-v1-level-order-bfs" }
+includeBuild("0104-maximum-depth-of-binary-tree/v2-recursive-dfs") { name = "0104-maximum-depth-of-binary-tree-v2-recursive-dfs" }
+includeBuild("0100-same-tree/v1-recursive-comparison") { name = "0100-same-tree-v1-recursive-comparison" }
+includeBuild("0226-invert-binary-tree/v1-iterative-bfs") { name = "0226-invert-binary-tree-v1-iterative-bfs" }
+includeBuild("0226-invert-binary-tree/v2-recursive-swap") { name = "0226-invert-binary-tree-v2-recursive-swap" }
+includeBuild("0101-symmetric-tree/v1-iterative-queue-of-pairs") { name = "0101-symmetric-tree-v1-iterative-queue-of-pairs" }
+includeBuild("0101-symmetric-tree/v2-recursive-mirror-check") { name = "0101-symmetric-tree-v2-recursive-mirror-check" }
+includeBuild("0105-construct-binary-tree-from-preorder-and-inorder-traversal/v1-linear-search-for-the-root") { name = "0105-construct-binary-tree-from-preorder-and-inorder-traversal-v1-linear-search-for-the-root" }
+includeBuild("0105-construct-binary-tree-from-preorder-and-inorder-traversal/v2-hash-map-of-inorder-positions") { name = "0105-construct-binary-tree-from-preorder-and-inorder-traversal-v2-hash-map-of-inorder-positions" }
+includeBuild("0106-construct-binary-tree-from-inorder-and-postorder-traversal/v1-hash-map-walk-postorder-backwards") { name = "0106-construct-binary-tree-from-inorder-and-postorder-traversal-v1-hash-map-walk-postorder-backwards" }
+includeBuild("0117-populating-next-right-pointers-in-each-node-ii/v1-bfs-with-a-queue") { name = "0117-populating-next-right-pointers-in-each-node-ii-v1-bfs-with-a-queue" }
+includeBuild("0117-populating-next-right-pointers-in-each-node-ii/v2-level-walk-with-o-1-space") { name = "0117-populating-next-right-pointers-in-each-node-ii-v2-level-walk-with-o-1-space" }
+includeBuild("0114-flatten-binary-tree-to-linked-list/v1-preorder-list-then-relink") { name = "0114-flatten-binary-tree-to-linked-list-v1-preorder-list-then-relink" }
+includeBuild("0114-flatten-binary-tree-to-linked-list/v2-in-place-splicing-o-1-space") { name = "0114-flatten-binary-tree-to-linked-list-v2-in-place-splicing-o-1-space" }
+includeBuild("0112-path-sum/v1-recursive-dfs") { name = "0112-path-sum-v1-recursive-dfs" }
+includeBuild("0129-sum-root-to-leaf-numbers/v1-dfs-carrying-the-number") { name = "0129-sum-root-to-leaf-numbers-v1-dfs-carrying-the-number" }
+includeBuild("0124-binary-tree-maximum-path-sum/v1-post-order-dfs-with-gains") { name = "0124-binary-tree-maximum-path-sum-v1-post-order-dfs-with-gains" }
+includeBuild("0173-binary-search-tree-iterator/v1-flatten-to-a-list-first") { name = "0173-binary-search-tree-iterator-v1-flatten-to-a-list-first" }
+includeBuild("0173-binary-search-tree-iterator/v2-controlled-stack") { name = "0173-binary-search-tree-iterator-v2-controlled-stack" }
+includeBuild("0222-count-complete-tree-nodes/v1-count-every-node") { name = "0222-count-complete-tree-nodes-v1-count-every-node" }
+includeBuild("0222-count-complete-tree-nodes/v2-perfect-subtree-shortcut") { name = "0222-count-complete-tree-nodes-v2-perfect-subtree-shortcut" }
+includeBuild("0236-lowest-common-ancestor-of-a-binary-tree/v1-parent-map-and-ancestor-set") { name = "0236-lowest-common-ancestor-of-a-binary-tree-v1-parent-map-and-ancestor-set" }
+includeBuild("0236-lowest-common-ancestor-of-a-binary-tree/v2-recursive-search") { name = "0236-lowest-common-ancestor-of-a-binary-tree-v2-recursive-search" }
+includeBuild("0199-binary-tree-right-side-view/v1-right-first-dfs") { name = "0199-binary-tree-right-side-view-v1-right-first-dfs" }
+includeBuild("0199-binary-tree-right-side-view/v2-level-order-bfs") { name = "0199-binary-tree-right-side-view-v2-level-order-bfs" }
+includeBuild("0637-average-of-levels-in-binary-tree/v1-level-order-bfs") { name = "0637-average-of-levels-in-binary-tree-v1-level-order-bfs" }
+includeBuild("0102-binary-tree-level-order-traversal/v1-queue-level-by-level") { name = "0102-binary-tree-level-order-traversal-v1-queue-level-by-level" }
+includeBuild("0103-binary-tree-zigzag-level-order-traversal/v1-bfs-with-alternating-direction") { name = "0103-binary-tree-zigzag-level-order-traversal-v1-bfs-with-alternating-direction" }
+includeBuild("0530-minimum-absolute-difference-in-bst/v1-in-order-with-previous-value") { name = "0530-minimum-absolute-difference-in-bst-v1-in-order-with-previous-value" }
+includeBuild("0230-kth-smallest-element-in-a-bst/v1-full-in-order-list") { name = "0230-kth-smallest-element-in-a-bst-v1-full-in-order-list" }
+includeBuild("0230-kth-smallest-element-in-a-bst/v2-iterative-in-order-stop-early") { name = "0230-kth-smallest-element-in-a-bst-v2-iterative-in-order-stop-early" }
+includeBuild("0098-validate-binary-search-tree/v1-in-order-must-increase") { name = "0098-validate-binary-search-tree-v1-in-order-must-increase" }
+includeBuild("0098-validate-binary-search-tree/v2-bounds-recursion") { name = "0098-validate-binary-search-tree-v2-bounds-recursion" }
+includeBuild("0200-number-of-islands/v1-bfs-flood-fill") { name = "0200-number-of-islands-v1-bfs-flood-fill" }
+includeBuild("0200-number-of-islands/v2-dfs-flood-fill") { name = "0200-number-of-islands-v2-dfs-flood-fill" }
+includeBuild("0130-surrounded-regions/v1-flood-fill-from-the-border") { name = "0130-surrounded-regions-v1-flood-fill-from-the-border" }
+includeBuild("0133-clone-graph/v1-recursive-dfs-with-a-clone-map") { name = "0133-clone-graph-v1-recursive-dfs-with-a-clone-map" }
+includeBuild("0133-clone-graph/v2-bfs-with-a-clone-map") { name = "0133-clone-graph-v2-bfs-with-a-clone-map" }
+includeBuild("0399-evaluate-division/v1-weighted-union-find") { name = "0399-evaluate-division-v1-weighted-union-find" }
+includeBuild("0399-evaluate-division/v2-weighted-graph-dfs") { name = "0399-evaluate-division-v2-weighted-graph-dfs" }
+includeBuild("0207-course-schedule/v1-dfs-cycle-detection") { name = "0207-course-schedule-v1-dfs-cycle-detection" }
+includeBuild("0207-course-schedule/v2-kahn-s-topological-sort") { name = "0207-course-schedule-v2-kahn-s-topological-sort" }
+includeBuild("0210-course-schedule-ii/v1-kahn-s-topological-sort") { name = "0210-course-schedule-ii-v1-kahn-s-topological-sort" }
+includeBuild("0909-snakes-and-ladders/v1-bfs-over-squares") { name = "0909-snakes-and-ladders-v1-bfs-over-squares" }
+includeBuild("0433-minimum-genetic-mutation/v1-bfs-over-gene-strings") { name = "0433-minimum-genetic-mutation-v1-bfs-over-gene-strings" }
+includeBuild("0127-word-ladder/v1-one-directional-bfs") { name = "0127-word-ladder-v1-one-directional-bfs" }
+includeBuild("0127-word-ladder/v2-bidirectional-bfs") { name = "0127-word-ladder-v2-bidirectional-bfs" }
+includeBuild("0208-implement-trie-prefix-tree/v1-array-of-children-trie") { name = "0208-implement-trie-prefix-tree-v1-array-of-children-trie" }
+includeBuild("0211-design-add-and-search-words-data-structure/v1-trie-with-wildcard-dfs") { name = "0211-design-add-and-search-words-data-structure-v1-trie-with-wildcard-dfs" }
+includeBuild("0212-word-search-ii/v1-separate-dfs-for-every-word") { name = "0212-word-search-ii-v1-separate-dfs-for-every-word" }
+includeBuild("0212-word-search-ii/v2-trie-backtracking") { name = "0212-word-search-ii-v2-trie-backtracking" }
+includeBuild("0017-letter-combinations-of-a-phone-number/v1-iterative-expansion") { name = "0017-letter-combinations-of-a-phone-number-v1-iterative-expansion" }
+includeBuild("0017-letter-combinations-of-a-phone-number/v2-backtracking") { name = "0017-letter-combinations-of-a-phone-number-v2-backtracking" }
+includeBuild("0077-combinations/v1-backtracking-with-pruning") { name = "0077-combinations-v1-backtracking-with-pruning" }
+includeBuild("0046-permutations/v1-path-with-used-flags") { name = "0046-permutations-v1-path-with-used-flags" }
+includeBuild("0046-permutations/v2-in-place-swapping") { name = "0046-permutations-v2-in-place-swapping" }
+includeBuild("0039-combination-sum/v1-sorted-backtracking") { name = "0039-combination-sum-v1-sorted-backtracking" }
+includeBuild("0052-n-queens-ii/v1-boolean-arrays") { name = "0052-n-queens-ii-v1-boolean-arrays" }
+includeBuild("0052-n-queens-ii/v2-bitmask-backtracking") { name = "0052-n-queens-ii-v2-bitmask-backtracking" }
+includeBuild("0022-generate-parentheses/v1-backtracking-with-open-close-counts") { name = "0022-generate-parentheses-v1-backtracking-with-open-close-counts" }
+includeBuild("0079-word-search/v1-dfs-backtracking") { name = "0079-word-search-v1-dfs-backtracking" }
+includeBuild("0108-convert-sorted-array-to-binary-search-tree/v1-middle-element-as-root") { name = "0108-convert-sorted-array-to-binary-search-tree-v1-middle-element-as-root" }
+includeBuild("0148-sort-list/v1-top-down-merge-sort") { name = "0148-sort-list-v1-top-down-merge-sort" }
+includeBuild("0148-sort-list/v2-bottom-up-merge-sort-o-1-space") { name = "0148-sort-list-v2-bottom-up-merge-sort-o-1-space" }
+includeBuild("0427-construct-quad-tree/v1-recursive-quadrants") { name = "0427-construct-quad-tree-v1-recursive-quadrants" }
+includeBuild("0023-merge-k-sorted-lists/v1-min-heap-of-list-heads") { name = "0023-merge-k-sorted-lists-v1-min-heap-of-list-heads" }
+includeBuild("0023-merge-k-sorted-lists/v2-pairwise-divide-and-conquer") { name = "0023-merge-k-sorted-lists-v2-pairwise-divide-and-conquer" }
+includeBuild("0053-maximum-subarray/v1-brute-force-over-all-starts") { name = "0053-maximum-subarray-v1-brute-force-over-all-starts" }
+includeBuild("0053-maximum-subarray/v2-kadane-s-algorithm") { name = "0053-maximum-subarray-v2-kadane-s-algorithm" }
+includeBuild("0918-maximum-sum-circular-subarray/v1-max-and-min-kadane") { name = "0918-maximum-sum-circular-subarray-v1-max-and-min-kadane" }
+includeBuild("0035-search-insert-position/v1-lower-bound-binary-search") { name = "0035-search-insert-position-v1-lower-bound-binary-search" }
+includeBuild("0074-search-a-2d-matrix/v1-binary-search-on-the-flattened-index") { name = "0074-search-a-2d-matrix-v1-binary-search-on-the-flattened-index" }
+includeBuild("0162-find-peak-element/v1-linear-scan") { name = "0162-find-peak-element-v1-linear-scan" }
+includeBuild("0162-find-peak-element/v2-binary-search-uphill") { name = "0162-find-peak-element-v2-binary-search-uphill" }
+includeBuild("0033-search-in-rotated-sorted-array/v1-binary-search-on-the-sorted-half") { name = "0033-search-in-rotated-sorted-array-v1-binary-search-on-the-sorted-half" }
+includeBuild("0034-find-first-and-last-position-of-element-in-sorted-array/v1-two-lower-bounds") { name = "0034-find-first-and-last-position-of-element-in-sorted-array-v1-two-lower-bounds" }
+includeBuild("0153-find-minimum-in-rotated-sorted-array/v1-binary-search-against-the-right-end") { name = "0153-find-minimum-in-rotated-sorted-array-v1-binary-search-against-the-right-end" }
+includeBuild("0004-median-of-two-sorted-arrays/v1-merge-until-the-middle") { name = "0004-median-of-two-sorted-arrays-v1-merge-until-the-middle" }
+includeBuild("0004-median-of-two-sorted-arrays/v2-binary-search-on-the-partition") { name = "0004-median-of-two-sorted-arrays-v2-binary-search-on-the-partition" }
+includeBuild("0215-kth-largest-element-in-an-array/v1-sort") { name = "0215-kth-largest-element-in-an-array-v1-sort" }
+includeBuild("0215-kth-largest-element-in-an-array/v2-min-heap-of-size-k") { name = "0215-kth-largest-element-in-an-array-v2-min-heap-of-size-k" }
+includeBuild("0215-kth-largest-element-in-an-array/v3-quickselect") { name = "0215-kth-largest-element-in-an-array-v3-quickselect" }
+includeBuild("0502-ipo/v1-sort-by-capital-max-heap-of-profits") { name = "0502-ipo-v1-sort-by-capital-max-heap-of-profits" }
+includeBuild("0373-find-k-pairs-with-smallest-sums/v1-min-heap-over-row-heads") { name = "0373-find-k-pairs-with-smallest-sums-v1-min-heap-over-row-heads" }
+includeBuild("0295-find-median-from-data-stream/v1-sorted-list-with-binary-insertion") { name = "0295-find-median-from-data-stream-v1-sorted-list-with-binary-insertion" }
+includeBuild("0295-find-median-from-data-stream/v2-two-heaps") { name = "0295-find-median-from-data-stream-v2-two-heaps" }
+includeBuild("0067-add-binary/v1-right-to-left-with-carry") { name = "0067-add-binary-v1-right-to-left-with-carry" }
+includeBuild("0190-reverse-bits/v1-swap-halves-divide-and-conquer") { name = "0190-reverse-bits-v1-swap-halves-divide-and-conquer" }
+includeBuild("0190-reverse-bits/v2-bit-by-bit-shifting") { name = "0190-reverse-bits-v2-bit-by-bit-shifting" }
+includeBuild("0191-number-of-1-bits/v1-check-all-32-bits") { name = "0191-number-of-1-bits-v1-check-all-32-bits" }
+includeBuild("0191-number-of-1-bits/v2-clear-lowest-set-bit") { name = "0191-number-of-1-bits-v2-clear-lowest-set-bit" }
+includeBuild("0136-single-number/v1-hash-set-toggling") { name = "0136-single-number-v1-hash-set-toggling" }
+includeBuild("0136-single-number/v2-xor-everything") { name = "0136-single-number-v2-xor-everything" }
+includeBuild("0137-single-number-ii/v1-count-each-bit-position") { name = "0137-single-number-ii-v1-count-each-bit-position" }
+includeBuild("0137-single-number-ii/v2-ones-twos-bit-counters") { name = "0137-single-number-ii-v2-ones-twos-bit-counters" }
+includeBuild("0201-bitwise-and-of-numbers-range/v1-common-prefix-by-shifting") { name = "0201-bitwise-and-of-numbers-range-v1-common-prefix-by-shifting" }
+includeBuild("0009-palindrome-number/v1-compare-as-a-string") { name = "0009-palindrome-number-v1-compare-as-a-string" }
+includeBuild("0009-palindrome-number/v2-reverse-half-the-digits") { name = "0009-palindrome-number-v2-reverse-half-the-digits" }
+includeBuild("0066-plus-one/v1-carry-from-the-right") { name = "0066-plus-one-v1-carry-from-the-right" }
+includeBuild("0172-factorial-trailing-zeroes/v1-count-factors-of-five") { name = "0172-factorial-trailing-zeroes-v1-count-factors-of-five" }
+includeBuild("0069-sqrtx/v1-binary-search") { name = "0069-sqrtx-v1-binary-search" }
+includeBuild("0069-sqrtx/v2-newton-s-method") { name = "0069-sqrtx-v2-newton-s-method" }
+includeBuild("0050-powx-n/v1-recursive-fast-power") { name = "0050-powx-n-v1-recursive-fast-power" }
+includeBuild("0050-powx-n/v2-iterative-binary-exponentiation") { name = "0050-powx-n-v2-iterative-binary-exponentiation" }
+includeBuild("0149-max-points-on-a-line/v1-slope-counting-per-anchor") { name = "0149-max-points-on-a-line-v1-slope-counting-per-anchor" }
+includeBuild("0070-climbing-stairs/v1-memoized-recursion") { name = "0070-climbing-stairs-v1-memoized-recursion" }
+includeBuild("0070-climbing-stairs/v2-two-rolling-variables") { name = "0070-climbing-stairs-v2-two-rolling-variables" }
+includeBuild("0198-house-robber/v1-dp-table") { name = "0198-house-robber-v1-dp-table" }
+includeBuild("0198-house-robber/v2-two-rolling-variables") { name = "0198-house-robber-v2-two-rolling-variables" }
+includeBuild("0139-word-break/v1-dp-over-prefixes") { name = "0139-word-break-v1-dp-over-prefixes" }
+includeBuild("0322-coin-change/v1-top-down-memoized-recursion") { name = "0322-coin-change-v1-top-down-memoized-recursion" }
+includeBuild("0322-coin-change/v2-bottom-up-dp") { name = "0322-coin-change-v2-bottom-up-dp" }
+includeBuild("0300-longest-increasing-subsequence/v1-quadratic-dp") { name = "0300-longest-increasing-subsequence-v1-quadratic-dp" }
+includeBuild("0300-longest-increasing-subsequence/v2-tails-array-binary-search") { name = "0300-longest-increasing-subsequence-v2-tails-array-binary-search" }
+includeBuild("0120-triangle/v1-bottom-up-with-one-row") { name = "0120-triangle-v1-bottom-up-with-one-row" }
+includeBuild("0064-minimum-path-sum/v1-full-dp-table") { name = "0064-minimum-path-sum-v1-full-dp-table" }
+includeBuild("0064-minimum-path-sum/v2-one-rolling-row") { name = "0064-minimum-path-sum-v2-one-rolling-row" }
+includeBuild("0063-unique-paths-ii/v1-one-rolling-row") { name = "0063-unique-paths-ii-v1-one-rolling-row" }
+includeBuild("0005-longest-palindromic-substring/v1-dp-table") { name = "0005-longest-palindromic-substring-v1-dp-table" }
+includeBuild("0005-longest-palindromic-substring/v2-expand-around-centre") { name = "0005-longest-palindromic-substring-v2-expand-around-centre" }
+includeBuild("0097-interleaving-string/v1-2d-dp-table") { name = "0097-interleaving-string-v1-2d-dp-table" }
+includeBuild("0097-interleaving-string/v2-1d-dp") { name = "0097-interleaving-string-v2-1d-dp" }
+includeBuild("0072-edit-distance/v1-2d-dp-table") { name = "0072-edit-distance-v1-2d-dp-table" }
+includeBuild("0123-best-time-to-buy-and-sell-stock-iii/v1-four-state-machine") { name = "0123-best-time-to-buy-and-sell-stock-iii-v1-four-state-machine" }
+includeBuild("0188-best-time-to-buy-and-sell-stock-iv/v1-k-state-machine") { name = "0188-best-time-to-buy-and-sell-stock-iv-v1-k-state-machine" }
+includeBuild("0221-maximal-square/v1-dp-on-square-sides") { name = "0221-maximal-square-v1-dp-on-square-sides" }
