@@ -35,7 +35,7 @@ class MyHashMapTest {
         assertEquals(0, map.computeIfAbsent("z", k -> 0));
         map.put(null, 5);
         assertEquals(5, map.get(null));
-        assertEquals(4, map.keys().size());
+        assertEquals(3, map.keys().size()); // x, z and null
     }
 
     @Test

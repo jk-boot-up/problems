@@ -622,4 +622,19 @@ function run(target, a) {
 }
 A.scenario('Classic', 'target = 7, nums = [2,3,1,2,4,3]', () => run(7, [2, 3, 1, 2, 4, 3]));
 ''')]),
+27: dict(vname="Read-write pointers"),
+26: dict(vname="Two pointers"),
+80: dict(vname="Compare two back"),
+122: dict(vname="Greedy daily gains"),
+55: dict(vname="Greedy reach"),
+380: dict(vname="Array plus hash map"),
+135: dict(vname="Two passes"),
+13: dict(vname="Look one ahead"),
+12: dict(vname="Greedy value table"),
+58: dict(vname="Backward scan"),
+14: dict(vname="Vertical scan"),
+6: dict(vname="Row simulation"),
+68: dict(vname="Greedy line packing"),
+125: dict(vname="Two pointers"),
+392: dict(vname="Two pointers"),
 }

@@ -1,92 +1,97 @@
 # LeetCode Top Interview 150 — Java 25 + Gradle 9.8.2
 
-The problems of LeetCode's **Top Interview 150** study plan. Each problem is a standalone Gradle build:
+The problems of LeetCode's **Top Interview 150** study plan. Every solution approach is its own standalone Gradle project:
 
 ```
-0088-merge-sorted-array/
-├── README.md              problem statement (in our own words), examples, constraints, versions table
-├── settings.gradle.kts    includes one subproject per solution version
-├── gradlew                Gradle 9.8.2 wrapper
-├── v1/                    simplest approach
-│   ├── src/main/java      Java 25 solution
-│   ├── src/test/java      JUnit 6 tests
-│   └── animation/         narrated, animated walkthrough (index.html)
-└── v2/ … v5/              further approaches, up to the most efficient one
+0001-two-sum/
+├── README.md                      problem statement and an index of the approaches
+├── v1-brute-force/                standalone project: simplest approach
+│   ├── README.md                  problem statement + this approach
+│   ├── settings.gradle.kts
+│   ├── build.gradle.kts
+│   ├── gradlew, gradle/wrapper    Gradle 9.8.2 wrapper
+│   ├── src/main/java              Java 25 solution
+│   ├── src/test/java              JUnit 6 tests
+│   └── animation/index.html       narrated, animated walkthrough
+└── v2-one-pass-hash-map/          standalone project: the next, more efficient approach (up to v5)
 ```
+
+Solutions never use `java.util.HashMap` / `HashSet`. Projects that need hashing include `MyHashMap` and `MyHashSet`,
+a small hash table written from scratch (bucket array, hash spreading, chaining, resizing), plus their own tests.
 
 Each `animation/index.html` is self-contained and works offline:
 
 * **Problem** tab: statement, examples, key idea and approach.
 * **Walkthrough** tab: several scenarios (examples and edge cases) animated step by step; each step is read aloud
-  with the browser's Web Speech API (no audio files needed).
-* **Complexity** tab: time and space complexity with a growth chart, compared across the problem's versions.
-* Light / Medium / Dark themes (remembered between visits), keyboard shortcuts, and links between versions.
+  with the browser's Web Speech API (no audio files needed). Hash maps are drawn as real bucket arrays.
+* **Complexity** tab: time and space complexity with a growth chart, compared across the problem's approaches.
+* Light / Medium / Dark themes (remembered between visits), keyboard shortcuts, and links between approaches.
 
 ## Build
 
 ```bash
-cd 0088-merge-sorted-array && ./gradlew test   # every version of one problem
-./gradlew testAll                               # everything (composite build, run from gradle-java/)
+cd 0001-two-sum/v2-one-pass-hash-map && ./gradlew test   # one standalone project
+./gradlew testAll                                         # everything (composite build, run from gradle-java/)
 ```
 
 The Gradle toolchain asks for JDK 25; the foojay resolver plugin downloads it if it is not installed.
 
 ## Regenerating
 
-All projects are generated from `tools/problems/batch_*.py` by `python3 tools/generate.py`.
-The shared animation player lives in `tools/engine/`.
+All projects are generated from `tools/problems/*.py` by `python3 tools/generate.py`.
+The shared animation player lives in `tools/engine/`; the hash table in `tools/helpers/`.
 
 ## Problems
 
-| # | LeetCode | Problem | Difficulty | Topic | Versions | Best time | Animations |
-|---|----------|---------|------------|-------|----------|-----------|------------|
-| 1 | 88 | [Merge Sorted Array](0088-merge-sorted-array/README.md) | Easy | Array / String | 2 | `O(m + n)` | [v1](0088-merge-sorted-array/v1/animation/index.html) [v2](0088-merge-sorted-array/v2/animation/index.html) |
-| 2 | 27 | [Remove Element](0027-remove-element/README.md) | Easy | Array / String | 1 | `O(n)` | [v1](0027-remove-element/v1/animation/index.html) |
-| 3 | 26 | [Remove Duplicates from Sorted Array](0026-remove-duplicates-from-sorted-array/README.md) | Easy | Array / String | 1 | `O(n)` | [v1](0026-remove-duplicates-from-sorted-array/v1/animation/index.html) |
-| 4 | 80 | [Remove Duplicates from Sorted Array II](0080-remove-duplicates-from-sorted-array-ii/README.md) | Medium | Array / String | 1 | `O(n)` | [v1](0080-remove-duplicates-from-sorted-array-ii/v1/animation/index.html) |
-| 5 | 169 | [Majority Element](0169-majority-element/README.md) | Easy | Array / String | 3 | `O(n)` | [v1](0169-majority-element/v1/animation/index.html) [v2](0169-majority-element/v2/animation/index.html) [v3](0169-majority-element/v3/animation/index.html) |
-| 6 | 189 | [Rotate Array](0189-rotate-array/README.md) | Medium | Array / String | 2 | `O(n)` | [v1](0189-rotate-array/v1/animation/index.html) [v2](0189-rotate-array/v2/animation/index.html) |
-| 7 | 121 | [Best Time to Buy and Sell Stock](0121-best-time-to-buy-and-sell-stock/README.md) | Easy | Array / String | 2 | `O(n)` | [v1](0121-best-time-to-buy-and-sell-stock/v1/animation/index.html) [v2](0121-best-time-to-buy-and-sell-stock/v2/animation/index.html) |
-| 8 | 122 | [Best Time to Buy and Sell Stock II](0122-best-time-to-buy-and-sell-stock-ii/README.md) | Medium | Array / String | 1 | `O(n)` | [v1](0122-best-time-to-buy-and-sell-stock-ii/v1/animation/index.html) |
-| 9 | 55 | [Jump Game](0055-jump-game/README.md) | Medium | Array / String | 1 | `O(n)` | [v1](0055-jump-game/v1/animation/index.html) |
-| 10 | 45 | [Jump Game II](0045-jump-game-ii/README.md) | Medium | Array / String | 2 | `O(n)` | [v1](0045-jump-game-ii/v1/animation/index.html) [v2](0045-jump-game-ii/v2/animation/index.html) |
-| 11 | 274 | [H-Index](0274-h-index/README.md) | Medium | Array / String | 2 | `O(n)` | [v1](0274-h-index/v1/animation/index.html) [v2](0274-h-index/v2/animation/index.html) |
-| 12 | 380 | [Insert Delete GetRandom O(1)](0380-insert-delete-getrandom-o1/README.md) | Medium | Array / String | 1 | `O(1)` | [v1](0380-insert-delete-getrandom-o1/v1/animation/index.html) |
-| 13 | 238 | [Product of Array Except Self](0238-product-of-array-except-self/README.md) | Medium | Array / String | 2 | `O(n)` | [v1](0238-product-of-array-except-self/v1/animation/index.html) [v2](0238-product-of-array-except-self/v2/animation/index.html) |
-| 14 | 134 | [Gas Station](0134-gas-station/README.md) | Medium | Array / String | 2 | `O(n)` | [v1](0134-gas-station/v1/animation/index.html) [v2](0134-gas-station/v2/animation/index.html) |
-| 15 | 135 | [Candy](0135-candy/README.md) | Hard | Array / String | 1 | `O(n)` | [v1](0135-candy/v1/animation/index.html) |
-| 16 | 42 | [Trapping Rain Water](0042-trapping-rain-water/README.md) | Hard | Array / String | 2 | `O(n)` | [v1](0042-trapping-rain-water/v1/animation/index.html) [v2](0042-trapping-rain-water/v2/animation/index.html) |
-| 17 | 13 | [Roman to Integer](0013-roman-to-integer/README.md) | Easy | Array / String | 1 | `O(n)` | [v1](0013-roman-to-integer/v1/animation/index.html) |
-| 18 | 12 | [Integer to Roman](0012-integer-to-roman/README.md) | Medium | Array / String | 1 | `O(1)` | [v1](0012-integer-to-roman/v1/animation/index.html) |
-| 19 | 58 | [Length of Last Word](0058-length-of-last-word/README.md) | Easy | Array / String | 1 | `O(n)` | [v1](0058-length-of-last-word/v1/animation/index.html) |
-| 20 | 14 | [Longest Common Prefix](0014-longest-common-prefix/README.md) | Easy | Array / String | 1 | `O(S)` | [v1](0014-longest-common-prefix/v1/animation/index.html) |
-| 21 | 151 | [Reverse Words in a String](0151-reverse-words-in-a-string/README.md) | Medium | Array / String | 2 | `O(n)` | [v1](0151-reverse-words-in-a-string/v1/animation/index.html) [v2](0151-reverse-words-in-a-string/v2/animation/index.html) |
-| 22 | 6 | [Zigzag Conversion](0006-zigzag-conversion/README.md) | Medium | Array / String | 1 | `O(n)` | [v1](0006-zigzag-conversion/v1/animation/index.html) |
-| 23 | 28 | [Find the Index of the First Occurrence in a String](0028-find-the-index-of-the-first-occurrence-in-a-string/README.md) | Easy | Array / String | 2 | `O(n + m)` | [v1](0028-find-the-index-of-the-first-occurrence-in-a-string/v1/animation/index.html) [v2](0028-find-the-index-of-the-first-occurrence-in-a-string/v2/animation/index.html) |
-| 24 | 68 | [Text Justification](0068-text-justification/README.md) | Hard | Array / String | 1 | `O(L)` | [v1](0068-text-justification/v1/animation/index.html) |
-| 25 | 125 | [Valid Palindrome](0125-valid-palindrome/README.md) | Easy | Two Pointers | 1 | `O(n)` | [v1](0125-valid-palindrome/v1/animation/index.html) |
-| 26 | 392 | [Is Subsequence](0392-is-subsequence/README.md) | Easy | Two Pointers | 1 | `O(n)` | [v1](0392-is-subsequence/v1/animation/index.html) |
-| 27 | 167 | [Two Sum II - Input Array Is Sorted](0167-two-sum-ii-input-array-is-sorted/README.md) | Medium | Two Pointers | 2 | `O(n)` | [v1](0167-two-sum-ii-input-array-is-sorted/v1/animation/index.html) [v2](0167-two-sum-ii-input-array-is-sorted/v2/animation/index.html) |
-| 28 | 11 | [Container With Most Water](0011-container-with-most-water/README.md) | Medium | Two Pointers | 2 | `O(n)` | [v1](0011-container-with-most-water/v1/animation/index.html) [v2](0011-container-with-most-water/v2/animation/index.html) |
-| 29 | 15 | [3Sum](0015-3sum/README.md) | Medium | Two Pointers | 2 | `O(n²)` | [v1](0015-3sum/v1/animation/index.html) [v2](0015-3sum/v2/animation/index.html) |
-| 30 | 209 | [Minimum Size Subarray Sum](0209-minimum-size-subarray-sum/README.md) | Medium | Sliding Window | 2 | `O(n)` | [v1](0209-minimum-size-subarray-sum/v1/animation/index.html) [v2](0209-minimum-size-subarray-sum/v2/animation/index.html) |
-| 31 | 3 | [Longest Substring Without Repeating Characters](0003-longest-substring-without-repeating-characters/README.md) | Medium | Sliding Window | 2 | `O(n)` | [v1](0003-longest-substring-without-repeating-characters/v1/animation/index.html) [v2](0003-longest-substring-without-repeating-characters/v2/animation/index.html) |
-| 32 | 30 | [Substring with Concatenation of All Words](0030-substring-with-concatenation-of-all-words/README.md) | Hard | Sliding Window | 2 | `O(n·L)` | [v1](0030-substring-with-concatenation-of-all-words/v1/animation/index.html) [v2](0030-substring-with-concatenation-of-all-words/v2/animation/index.html) |
-| 33 | 76 | [Minimum Window Substring](0076-minimum-window-substring/README.md) | Hard | Sliding Window | 1 | `O(m + n)` | [v1](0076-minimum-window-substring/v1/animation/index.html) |
-| 34 | 36 | [Valid Sudoku](0036-valid-sudoku/README.md) | Medium | Matrix | 1 | `O(1)` | [v1](0036-valid-sudoku/v1/animation/index.html) |
-| 35 | 54 | [Spiral Matrix](0054-spiral-matrix/README.md) | Medium | Matrix | 1 | `O(m·n)` | [v1](0054-spiral-matrix/v1/animation/index.html) |
-| 36 | 48 | [Rotate Image](0048-rotate-image/README.md) | Medium | Matrix | 2 | `O(n²)` | [v1](0048-rotate-image/v1/animation/index.html) [v2](0048-rotate-image/v2/animation/index.html) |
-| 37 | 73 | [Set Matrix Zeroes](0073-set-matrix-zeroes/README.md) | Medium | Matrix | 2 | `O(m·n)` | [v1](0073-set-matrix-zeroes/v1/animation/index.html) [v2](0073-set-matrix-zeroes/v2/animation/index.html) |
-| 38 | 289 | [Game of Life](0289-game-of-life/README.md) | Medium | Matrix | 2 | `O(m·n)` | [v1](0289-game-of-life/v1/animation/index.html) [v2](0289-game-of-life/v2/animation/index.html) |
-| 39 | 383 | [Ransom Note](0383-ransom-note/README.md) | Easy | Hashmap | 1 | `O(m + n)` | [v1](0383-ransom-note/v1/animation/index.html) |
-| 40 | 205 | [Isomorphic Strings](0205-isomorphic-strings/README.md) | Easy | Hashmap | 1 | `O(n)` | [v1](0205-isomorphic-strings/v1/animation/index.html) |
-| 41 | 290 | [Word Pattern](0290-word-pattern/README.md) | Easy | Hashmap | 1 | `O(n)` | [v1](0290-word-pattern/v1/animation/index.html) |
-| 42 | 242 | [Valid Anagram](0242-valid-anagram/README.md) | Easy | Hashmap | 2 | `O(n)` | [v1](0242-valid-anagram/v1/animation/index.html) [v2](0242-valid-anagram/v2/animation/index.html) |
-| 43 | 49 | [Group Anagrams](0049-group-anagrams/README.md) | Medium | Hashmap | 2 | `O(n·k)` | [v1](0049-group-anagrams/v1/animation/index.html) [v2](0049-group-anagrams/v2/animation/index.html) |
-| 44 | 1 | [Two Sum](0001-two-sum/README.md) | Easy | Hashmap | 2 | `O(n)` | [v1](0001-two-sum/v1/animation/index.html) [v2](0001-two-sum/v2/animation/index.html) |
-| 45 | 202 | [Happy Number](0202-happy-number/README.md) | Easy | Hashmap | 2 | `O(log n)` | [v1](0202-happy-number/v1/animation/index.html) [v2](0202-happy-number/v2/animation/index.html) |
-| 46 | 219 | [Contains Duplicate II](0219-contains-duplicate-ii/README.md) | Easy | Hashmap | 2 | `O(n)` | [v1](0219-contains-duplicate-ii/v1/animation/index.html) [v2](0219-contains-duplicate-ii/v2/animation/index.html) |
-| 47 | 128 | [Longest Consecutive Sequence](0128-longest-consecutive-sequence/README.md) | Medium | Hashmap | 2 | `O(n)` | [v1](0128-longest-consecutive-sequence/v1/animation/index.html) [v2](0128-longest-consecutive-sequence/v2/animation/index.html) |
-| 48 | 228 | [Summary Ranges](0228-summary-ranges/README.md) | Easy | Intervals | 1 | `O(n)` | [v1](0228-summary-ranges/v1/animation/index.html) |
-| 49 | 56 | [Merge Intervals](0056-merge-intervals/README.md) | Medium | Intervals | 1 | `O(n log n)` | [v1](0056-merge-intervals/v1/animation/index.html) |
-| 50 | 57 | [Insert Interval](0057-insert-interval/README.md) | Medium | Intervals | 1 | `O(n)` | [v1](0057-insert-interval/v1/animation/index.html) |
+| # | LeetCode | Problem | Difficulty | Topic | Best time | Approaches |
+|---|----------|---------|------------|-------|-----------|------------|
+| 1 | 88 | [Merge Sorted Array](0088-merge-sorted-array/README.md) | Easy | Array / String | `O(m + n)` | [v1-copy-and-sort](0088-merge-sorted-array/v1-copy-and-sort/README.md) · [▶](0088-merge-sorted-array/v1-copy-and-sort/animation/index.html)<br>[v2-three-pointers-from-the-back](0088-merge-sorted-array/v2-three-pointers-from-the-back/README.md) · [▶](0088-merge-sorted-array/v2-three-pointers-from-the-back/animation/index.html) |
+| 2 | 27 | [Remove Element](0027-remove-element/README.md) | Easy | Array / String | `O(n)` | [v1-read-write-pointers](0027-remove-element/v1-read-write-pointers/README.md) · [▶](0027-remove-element/v1-read-write-pointers/animation/index.html) |
+| 3 | 26 | [Remove Duplicates from Sorted Array](0026-remove-duplicates-from-sorted-array/README.md) | Easy | Array / String | `O(n)` | [v1-two-pointers](0026-remove-duplicates-from-sorted-array/v1-two-pointers/README.md) · [▶](0026-remove-duplicates-from-sorted-array/v1-two-pointers/animation/index.html) |
+| 4 | 80 | [Remove Duplicates from Sorted Array II](0080-remove-duplicates-from-sorted-array-ii/README.md) | Medium | Array / String | `O(n)` | [v1-compare-two-back](0080-remove-duplicates-from-sorted-array-ii/v1-compare-two-back/README.md) · [▶](0080-remove-duplicates-from-sorted-array-ii/v1-compare-two-back/animation/index.html) |
+| 5 | 169 | [Majority Element](0169-majority-element/README.md) | Easy | Array / String | `O(n)` | [v1-hash-map-counting](0169-majority-element/v1-hash-map-counting/README.md) · [▶](0169-majority-element/v1-hash-map-counting/animation/index.html)<br>[v2-sort-and-take-the-middle](0169-majority-element/v2-sort-and-take-the-middle/README.md) · [▶](0169-majority-element/v2-sort-and-take-the-middle/animation/index.html)<br>[v3-boyer-moore-voting](0169-majority-element/v3-boyer-moore-voting/README.md) · [▶](0169-majority-element/v3-boyer-moore-voting/animation/index.html) |
+| 6 | 189 | [Rotate Array](0189-rotate-array/README.md) | Medium | Array / String | `O(n)` | [v1-extra-array](0189-rotate-array/v1-extra-array/README.md) · [▶](0189-rotate-array/v1-extra-array/animation/index.html)<br>[v2-triple-reversal](0189-rotate-array/v2-triple-reversal/README.md) · [▶](0189-rotate-array/v2-triple-reversal/animation/index.html) |
+| 7 | 121 | [Best Time to Buy and Sell Stock](0121-best-time-to-buy-and-sell-stock/README.md) | Easy | Array / String | `O(n)` | [v1-brute-force](0121-best-time-to-buy-and-sell-stock/v1-brute-force/README.md) · [▶](0121-best-time-to-buy-and-sell-stock/v1-brute-force/animation/index.html)<br>[v2-one-pass-running-minimum](0121-best-time-to-buy-and-sell-stock/v2-one-pass-running-minimum/README.md) · [▶](0121-best-time-to-buy-and-sell-stock/v2-one-pass-running-minimum/animation/index.html) |
+| 8 | 122 | [Best Time to Buy and Sell Stock II](0122-best-time-to-buy-and-sell-stock-ii/README.md) | Medium | Array / String | `O(n)` | [v1-greedy-daily-gains](0122-best-time-to-buy-and-sell-stock-ii/v1-greedy-daily-gains/README.md) · [▶](0122-best-time-to-buy-and-sell-stock-ii/v1-greedy-daily-gains/animation/index.html) |
+| 9 | 55 | [Jump Game](0055-jump-game/README.md) | Medium | Array / String | `O(n)` | [v1-greedy-reach](0055-jump-game/v1-greedy-reach/README.md) · [▶](0055-jump-game/v1-greedy-reach/animation/index.html) |
+| 10 | 45 | [Jump Game II](0045-jump-game-ii/README.md) | Medium | Array / String | `O(n)` | [v1-dynamic-programming](0045-jump-game-ii/v1-dynamic-programming/README.md) · [▶](0045-jump-game-ii/v1-dynamic-programming/animation/index.html)<br>[v2-greedy-windows](0045-jump-game-ii/v2-greedy-windows/README.md) · [▶](0045-jump-game-ii/v2-greedy-windows/animation/index.html) |
+| 11 | 274 | [H-Index](0274-h-index/README.md) | Medium | Array / String | `O(n)` | [v1-sort-descending](0274-h-index/v1-sort-descending/README.md) · [▶](0274-h-index/v1-sort-descending/animation/index.html)<br>[v2-counting-buckets](0274-h-index/v2-counting-buckets/README.md) · [▶](0274-h-index/v2-counting-buckets/animation/index.html) |
+| 12 | 380 | [Insert Delete GetRandom O(1)](0380-insert-delete-getrandom-o1/README.md) | Medium | Array / String | `O(1)` | [v1-array-plus-hash-map](0380-insert-delete-getrandom-o1/v1-array-plus-hash-map/README.md) · [▶](0380-insert-delete-getrandom-o1/v1-array-plus-hash-map/animation/index.html) |
+| 13 | 238 | [Product of Array Except Self](0238-product-of-array-except-self/README.md) | Medium | Array / String | `O(n)` | [v1-prefix-and-suffix-arrays](0238-product-of-array-except-self/v1-prefix-and-suffix-arrays/README.md) · [▶](0238-product-of-array-except-self/v1-prefix-and-suffix-arrays/animation/index.html)<br>[v2-output-array-running-suffix](0238-product-of-array-except-self/v2-output-array-running-suffix/README.md) · [▶](0238-product-of-array-except-self/v2-output-array-running-suffix/animation/index.html) |
+| 14 | 134 | [Gas Station](0134-gas-station/README.md) | Medium | Array / String | `O(n)` | [v1-simulate-every-start](0134-gas-station/v1-simulate-every-start/README.md) · [▶](0134-gas-station/v1-simulate-every-start/animation/index.html)<br>[v2-greedy-single-pass](0134-gas-station/v2-greedy-single-pass/README.md) · [▶](0134-gas-station/v2-greedy-single-pass/animation/index.html) |
+| 15 | 135 | [Candy](0135-candy/README.md) | Hard | Array / String | `O(n)` | [v1-two-passes](0135-candy/v1-two-passes/README.md) · [▶](0135-candy/v1-two-passes/animation/index.html) |
+| 16 | 42 | [Trapping Rain Water](0042-trapping-rain-water/README.md) | Hard | Array / String | `O(n)` | [v1-prefix-suffix-maximum-arrays](0042-trapping-rain-water/v1-prefix-suffix-maximum-arrays/README.md) · [▶](0042-trapping-rain-water/v1-prefix-suffix-maximum-arrays/animation/index.html)<br>[v2-two-pointers](0042-trapping-rain-water/v2-two-pointers/README.md) · [▶](0042-trapping-rain-water/v2-two-pointers/animation/index.html) |
+| 17 | 13 | [Roman to Integer](0013-roman-to-integer/README.md) | Easy | Array / String | `O(n)` | [v1-look-one-ahead](0013-roman-to-integer/v1-look-one-ahead/README.md) · [▶](0013-roman-to-integer/v1-look-one-ahead/animation/index.html) |
+| 18 | 12 | [Integer to Roman](0012-integer-to-roman/README.md) | Medium | Array / String | `O(1)` | [v1-greedy-value-table](0012-integer-to-roman/v1-greedy-value-table/README.md) · [▶](0012-integer-to-roman/v1-greedy-value-table/animation/index.html) |
+| 19 | 58 | [Length of Last Word](0058-length-of-last-word/README.md) | Easy | Array / String | `O(n)` | [v1-backward-scan](0058-length-of-last-word/v1-backward-scan/README.md) · [▶](0058-length-of-last-word/v1-backward-scan/animation/index.html) |
+| 20 | 14 | [Longest Common Prefix](0014-longest-common-prefix/README.md) | Easy | Array / String | `O(S)` | [v1-vertical-scan](0014-longest-common-prefix/v1-vertical-scan/README.md) · [▶](0014-longest-common-prefix/v1-vertical-scan/animation/index.html) |
+| 21 | 151 | [Reverse Words in a String](0151-reverse-words-in-a-string/README.md) | Medium | Array / String | `O(n)` | [v1-split-reverse-join](0151-reverse-words-in-a-string/v1-split-reverse-join/README.md) · [▶](0151-reverse-words-in-a-string/v1-split-reverse-join/animation/index.html)<br>[v2-manual-right-to-left-scan](0151-reverse-words-in-a-string/v2-manual-right-to-left-scan/README.md) · [▶](0151-reverse-words-in-a-string/v2-manual-right-to-left-scan/animation/index.html) |
+| 22 | 6 | [Zigzag Conversion](0006-zigzag-conversion/README.md) | Medium | Array / String | `O(n)` | [v1-row-simulation](0006-zigzag-conversion/v1-row-simulation/README.md) · [▶](0006-zigzag-conversion/v1-row-simulation/animation/index.html) |
+| 23 | 28 | [Find the Index of the First Occurrence in a String](0028-find-the-index-of-the-first-occurrence-in-a-string/README.md) | Easy | Array / String | `O(n + m)` | [v1-brute-force](0028-find-the-index-of-the-first-occurrence-in-a-string/v1-brute-force/README.md) · [▶](0028-find-the-index-of-the-first-occurrence-in-a-string/v1-brute-force/animation/index.html)<br>[v2-kmp](0028-find-the-index-of-the-first-occurrence-in-a-string/v2-kmp/README.md) · [▶](0028-find-the-index-of-the-first-occurrence-in-a-string/v2-kmp/animation/index.html) |
+| 24 | 68 | [Text Justification](0068-text-justification/README.md) | Hard | Array / String | `O(L)` | [v1-greedy-line-packing](0068-text-justification/v1-greedy-line-packing/README.md) · [▶](0068-text-justification/v1-greedy-line-packing/animation/index.html) |
+| 25 | 125 | [Valid Palindrome](0125-valid-palindrome/README.md) | Easy | Two Pointers | `O(n)` | [v1-two-pointers](0125-valid-palindrome/v1-two-pointers/README.md) · [▶](0125-valid-palindrome/v1-two-pointers/animation/index.html) |
+| 26 | 392 | [Is Subsequence](0392-is-subsequence/README.md) | Easy | Two Pointers | `O(n)` | [v1-two-pointers](0392-is-subsequence/v1-two-pointers/README.md) · [▶](0392-is-subsequence/v1-two-pointers/animation/index.html) |
+| 27 | 167 | [Two Sum II - Input Array Is Sorted](0167-two-sum-ii-input-array-is-sorted/README.md) | Medium | Two Pointers | `O(n)` | [v1-binary-search-for-the-partner](0167-two-sum-ii-input-array-is-sorted/v1-binary-search-for-the-partner/README.md) · [▶](0167-two-sum-ii-input-array-is-sorted/v1-binary-search-for-the-partner/animation/index.html)<br>[v2-two-pointers](0167-two-sum-ii-input-array-is-sorted/v2-two-pointers/README.md) · [▶](0167-two-sum-ii-input-array-is-sorted/v2-two-pointers/animation/index.html) |
+| 28 | 11 | [Container With Most Water](0011-container-with-most-water/README.md) | Medium | Two Pointers | `O(n)` | [v1-brute-force](0011-container-with-most-water/v1-brute-force/README.md) · [▶](0011-container-with-most-water/v1-brute-force/animation/index.html)<br>[v2-two-pointers](0011-container-with-most-water/v2-two-pointers/README.md) · [▶](0011-container-with-most-water/v2-two-pointers/animation/index.html) |
+| 29 | 15 | [3Sum](0015-3sum/README.md) | Medium | Two Pointers | `O(n²)` | [v1-hash-set-per-fixed-number](0015-3sum/v1-hash-set-per-fixed-number/README.md) · [▶](0015-3sum/v1-hash-set-per-fixed-number/animation/index.html)<br>[v2-sort-two-pointers](0015-3sum/v2-sort-two-pointers/README.md) · [▶](0015-3sum/v2-sort-two-pointers/animation/index.html) |
+| 30 | 209 | [Minimum Size Subarray Sum](0209-minimum-size-subarray-sum/README.md) | Medium | Sliding Window | `O(n)` | [v1-prefix-sums-binary-search](0209-minimum-size-subarray-sum/v1-prefix-sums-binary-search/README.md) · [▶](0209-minimum-size-subarray-sum/v1-prefix-sums-binary-search/animation/index.html)<br>[v2-sliding-window](0209-minimum-size-subarray-sum/v2-sliding-window/README.md) · [▶](0209-minimum-size-subarray-sum/v2-sliding-window/animation/index.html) |
+| 31 | 3 | [Longest Substring Without Repeating Characters](0003-longest-substring-without-repeating-characters/README.md) | Medium | Sliding Window | `O(n)` | [v1-window-with-a-hash-set](0003-longest-substring-without-repeating-characters/v1-window-with-a-hash-set/README.md) · [▶](0003-longest-substring-without-repeating-characters/v1-window-with-a-hash-set/animation/index.html)<br>[v2-window-with-last-seen-index](0003-longest-substring-without-repeating-characters/v2-window-with-last-seen-index/README.md) · [▶](0003-longest-substring-without-repeating-characters/v2-window-with-last-seen-index/animation/index.html) |
+| 32 | 30 | [Substring with Concatenation of All Words](0030-substring-with-concatenation-of-all-words/README.md) | Hard | Sliding Window | `O(n·L)` | [v1-check-every-start](0030-substring-with-concatenation-of-all-words/v1-check-every-start/README.md) · [▶](0030-substring-with-concatenation-of-all-words/v1-check-every-start/animation/index.html)<br>[v2-word-step-sliding-window](0030-substring-with-concatenation-of-all-words/v2-word-step-sliding-window/README.md) · [▶](0030-substring-with-concatenation-of-all-words/v2-word-step-sliding-window/animation/index.html) |
+| 33 | 76 | [Minimum Window Substring](0076-minimum-window-substring/README.md) | Hard | Sliding Window | `O(m + n)` | [v1-sliding-window-with-counts](0076-minimum-window-substring/v1-sliding-window-with-counts/README.md) · [▶](0076-minimum-window-substring/v1-sliding-window-with-counts/animation/index.html) |
+| 34 | 36 | [Valid Sudoku](0036-valid-sudoku/README.md) | Medium | Matrix | `O(1)` | [v1-seen-sets-in-one-pass](0036-valid-sudoku/v1-seen-sets-in-one-pass/README.md) · [▶](0036-valid-sudoku/v1-seen-sets-in-one-pass/animation/index.html) |
+| 35 | 54 | [Spiral Matrix](0054-spiral-matrix/README.md) | Medium | Matrix | `O(m·n)` | [v1-shrinking-boundaries](0054-spiral-matrix/v1-shrinking-boundaries/README.md) · [▶](0054-spiral-matrix/v1-shrinking-boundaries/animation/index.html) |
+| 36 | 48 | [Rotate Image](0048-rotate-image/README.md) | Medium | Matrix | `O(n²)` | [v1-copy-into-a-new-matrix](0048-rotate-image/v1-copy-into-a-new-matrix/README.md) · [▶](0048-rotate-image/v1-copy-into-a-new-matrix/animation/index.html)<br>[v2-transpose-reverse-rows](0048-rotate-image/v2-transpose-reverse-rows/README.md) · [▶](0048-rotate-image/v2-transpose-reverse-rows/animation/index.html) |
+| 37 | 73 | [Set Matrix Zeroes](0073-set-matrix-zeroes/README.md) | Medium | Matrix | `O(m·n)` | [v1-row-and-column-sets](0073-set-matrix-zeroes/v1-row-and-column-sets/README.md) · [▶](0073-set-matrix-zeroes/v1-row-and-column-sets/animation/index.html)<br>[v2-markers-in-row-column-0](0073-set-matrix-zeroes/v2-markers-in-row-column-0/README.md) · [▶](0073-set-matrix-zeroes/v2-markers-in-row-column-0/animation/index.html) |
+| 38 | 289 | [Game of Life](0289-game-of-life/README.md) | Medium | Matrix | `O(m·n)` | [v1-copy-of-the-board](0289-game-of-life/v1-copy-of-the-board/README.md) · [▶](0289-game-of-life/v1-copy-of-the-board/animation/index.html)<br>[v2-in-place-two-bit-states](0289-game-of-life/v2-in-place-two-bit-states/README.md) · [▶](0289-game-of-life/v2-in-place-two-bit-states/animation/index.html) |
+| 39 | 383 | [Ransom Note](0383-ransom-note/README.md) | Easy | Hashmap | `O(m + n)` | [v1-letter-counts](0383-ransom-note/v1-letter-counts/README.md) · [▶](0383-ransom-note/v1-letter-counts/animation/index.html) |
+| 40 | 205 | [Isomorphic Strings](0205-isomorphic-strings/README.md) | Easy | Hashmap | `O(n)` | [v1-two-way-mapping](0205-isomorphic-strings/v1-two-way-mapping/README.md) · [▶](0205-isomorphic-strings/v1-two-way-mapping/animation/index.html) |
+| 41 | 290 | [Word Pattern](0290-word-pattern/README.md) | Easy | Hashmap | `O(n)` | [v1-two-way-mapping](0290-word-pattern/v1-two-way-mapping/README.md) · [▶](0290-word-pattern/v1-two-way-mapping/animation/index.html) |
+| 42 | 242 | [Valid Anagram](0242-valid-anagram/README.md) | Easy | Hashmap | `O(n)` | [v1-sort-both-strings](0242-valid-anagram/v1-sort-both-strings/README.md) · [▶](0242-valid-anagram/v1-sort-both-strings/animation/index.html)<br>[v2-letter-counts](0242-valid-anagram/v2-letter-counts/README.md) · [▶](0242-valid-anagram/v2-letter-counts/animation/index.html) |
+| 43 | 49 | [Group Anagrams](0049-group-anagrams/README.md) | Medium | Hashmap | `O(n·k)` | [v1-sorted-word-key](0049-group-anagrams/v1-sorted-word-key/README.md) · [▶](0049-group-anagrams/v1-sorted-word-key/animation/index.html)<br>[v2-letter-count-key](0049-group-anagrams/v2-letter-count-key/README.md) · [▶](0049-group-anagrams/v2-letter-count-key/animation/index.html) |
+| 44 | 1 | [Two Sum](0001-two-sum/README.md) | Easy | Hashmap | `O(n)` | [v1-brute-force](0001-two-sum/v1-brute-force/README.md) · [▶](0001-two-sum/v1-brute-force/animation/index.html)<br>[v2-one-pass-hash-map](0001-two-sum/v2-one-pass-hash-map/README.md) · [▶](0001-two-sum/v2-one-pass-hash-map/animation/index.html) |
+| 45 | 202 | [Happy Number](0202-happy-number/README.md) | Easy | Hashmap | `O(log n)` | [v1-seen-set](0202-happy-number/v1-seen-set/README.md) · [▶](0202-happy-number/v1-seen-set/animation/index.html)<br>[v2-floyd-cycle-detection](0202-happy-number/v2-floyd-cycle-detection/README.md) · [▶](0202-happy-number/v2-floyd-cycle-detection/animation/index.html) |
+| 46 | 219 | [Contains Duplicate II](0219-contains-duplicate-ii/README.md) | Easy | Hashmap | `O(n)` | [v1-check-the-next-k-values](0219-contains-duplicate-ii/v1-check-the-next-k-values/README.md) · [▶](0219-contains-duplicate-ii/v1-check-the-next-k-values/animation/index.html)<br>[v2-last-index-map](0219-contains-duplicate-ii/v2-last-index-map/README.md) · [▶](0219-contains-duplicate-ii/v2-last-index-map/animation/index.html) |
+| 47 | 128 | [Longest Consecutive Sequence](0128-longest-consecutive-sequence/README.md) | Medium | Hashmap | `O(n)` | [v1-sort-and-scan](0128-longest-consecutive-sequence/v1-sort-and-scan/README.md) · [▶](0128-longest-consecutive-sequence/v1-sort-and-scan/animation/index.html)<br>[v2-hash-set-count-from-run-starts](0128-longest-consecutive-sequence/v2-hash-set-count-from-run-starts/README.md) · [▶](0128-longest-consecutive-sequence/v2-hash-set-count-from-run-starts/animation/index.html) |
+| 48 | 228 | [Summary Ranges](0228-summary-ranges/README.md) | Easy | Intervals | `O(n)` | [v1-single-scan](0228-summary-ranges/v1-single-scan/README.md) · [▶](0228-summary-ranges/v1-single-scan/animation/index.html) |
+| 49 | 56 | [Merge Intervals](0056-merge-intervals/README.md) | Medium | Intervals | `O(n log n)` | [v1-sort-then-sweep](0056-merge-intervals/v1-sort-then-sweep/README.md) · [▶](0056-merge-intervals/v1-sort-then-sweep/animation/index.html) |
+| 50 | 57 | [Insert Interval](0057-insert-interval/README.md) | Medium | Intervals | `O(n)` | [v1-three-phase-linear-scan](0057-insert-interval/v1-three-phase-linear-scan/README.md) · [▶](0057-insert-interval/v1-three-phase-linear-scan/animation/index.html) |

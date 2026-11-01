@@ -108,10 +108,8 @@ FORBIDDEN = re.compile(r"\b(HashMap|HashSet|LinkedHashMap|LinkedHashSet|Hashtabl
 
 def helpers_for(v):
     hs = list(v["helpers"])
-    if "MyHashSet" in v["java"] and "MyHashSet" not in hs:
-        hs.append("MyHashSet")
-    if ("MyHashMap" in v["java"] or "MyHashSet" in hs) and "MyHashMap" not in hs:
-        hs.append("MyHashMap")
+    if "MyHashMap" in v["java"] or "MyHashSet" in v["java"]:
+        hs += [h for h in ("MyHashMap", "MyHashSet") if h not in hs]
     return hs
 
 BUILD = f"""plugins {{
@@ -152,9 +150,6 @@ SETTINGS = """plugins {
 }
 
 rootProject.name = "__NAME__"
-
-// Each solution variant (v1 = simplest ... vN = most efficient) is its own subproject.
-__INCLUDES__
 """
 
 GITIGNORE = ".gradle/\nbuild/\n.idea/\n*.iml\nout/\n"
@@ -176,6 +171,7 @@ def variants(p):
     assert len(vs) <= MAX_VARIANTS, f"{p['num']}: at most {MAX_VARIANTS} variants"
     for i, v in enumerate(vs, 1):
         v["v"] = f"v{i}"
+        v["dir"] = f"v{i}-" + re.sub(r"[^a-z0-9]+", "-", v["name"].lower().replace("–", "-")).strip("-")
         v.setdefault("test", p["test"])
         v.setdefault("helpers", p["helpers"])
         v["cx"] = complexity(v)
@@ -270,15 +266,6 @@ def md_to_html(text):
     return "\n".join(out)
 
 
-def complexity(p):
-    def grab(kind):
-        m = re.search(kind + r":\s*\*\*(.+?)\*\*\s*(?:[—–-]+\s*(.*))?", p["approach"])
-        return (m.group(1).strip(), (m.group(2) or "").strip()) if m else ("?", "")
-    t, tw = grab("Time")
-    s, sw = grab("Space")
-    return t, tw, s, sw
-
-
 def cx_class(expr):
     e = expr.lower().replace(" ", "")
     inner = e[2:-1] if e.startswith("o(") else e
@@ -304,7 +291,7 @@ def variant_nav(vs, cur):
     if len(vs) == 1:
         return ""
     links = "".join(
-        f'<a class="{"on" if v["v"] == cur["v"] else ""}" href="../../{v["v"]}/animation/index.html">{v["v"]} · {html.escape(v["name"])}</a>'
+        f'<a class="{"on" if v["v"] == cur["v"] else ""}" href="../../{v["dir"]}/animation/index.html">{v["v"]} · {html.escape(v["name"])}</a>'
         for v in vs)
     return f'<nav class="variants" aria-label="Solution variants">{links}</nav>'
 
@@ -313,7 +300,7 @@ def compare_table(vs, cur):
     if len(vs) == 1:
         return ""
     rows = "".join(
-        f'<tr class="{"on" if v["v"] == cur["v"] else ""}"><td><a href="../../{v["v"]}/animation/index.html">{v["v"]}</a></td>'
+        f'<tr class="{"on" if v["v"] == cur["v"] else ""}"><td><a href="../../{v["dir"]}/animation/index.html">{v["v"]}</a></td>'
         f'<td>{html.escape(v["name"])}</td><td><code>{html.escape(v["cx"]["time"])}</code></td><td><code>{html.escape(v["cx"]["space"])}</code></td></tr>'
         for v in vs)
     return f'<div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr>{rows}</table></div>'
@@ -408,9 +395,9 @@ function trace(A) {{
 
 def variants_table(p, vs, link_prefix=""):
     rows = "\n".join(
-        f"| [{v['v']}]({link_prefix}{v['v']}/README.md) | {v['name']} | `{v['cx']['time']}` | `{v['cx']['space']}` | [▶ animation]({link_prefix}{v['v']}/animation/index.html) |"
+        f"| [{v['dir']}]({link_prefix}{v['dir']}/README.md) | {v['name']} | `{v['cx']['time']}` | `{v['cx']['space']}` | [▶ animation]({link_prefix}{v['dir']}/animation/index.html) |"
         for v in vs)
-    return "| Version | Approach | Time | Space | Animation |\n|---------|----------|------|-------|-----------|\n" + rows
+    return "| Project | Approach | Time | Space | Animation |\n|---------|----------|------|-------|-----------|\n" + rows
 
 
 def problem_readme(p, vs):
@@ -424,45 +411,34 @@ def problem_readme(p, vs):
 
 ## Solutions
 
-{"Each version is a separate Gradle subproject, ordered from the simplest idea to the most efficient one." if len(vs) > 1 else "One solution, in subproject `v1`."}
+{"Each folder below is a separate, self-contained Gradle project, ordered from the simplest idea to the most efficient one." if len(vs) > 1 else "The folder below is a self-contained Gradle project."}
+Open any of them on its own: it has its own Gradle wrapper, build files, README, tests and animation.
 
 {variants_table(p, vs)}
-
-## Build and test
-
-Only a JDK is needed to start Gradle; JDK {JAVA} is downloaded automatically if it is missing.
-
-```bash
-./gradlew test          # every version
-./gradlew :v1:test      # one version
-```
-
-## Animation
-
-Open `vN/animation/index.html` in a browser. It has three tabs:
-
-* **Problem:** the statement and the key idea.
-* **Walkthrough:** pick a scenario and press **Play**. Each step is animated and read aloud by your browser's speech engine
-  (untick *Narration* to mute). Keys: space = play/pause, ← / → = step, 1–9 = scenario.
-* **Complexity:** time and space cost, plotted against the common growth curves, and compared across versions.
-
-Use the header to switch between Light, Medium and Dark themes and between solution versions.
 """
 
 
-def variant_readme(p, v):
+def variant_readme(p, vs, v):
     path = pkg(p, v).replace(".", "/")
+    others = [o for o in vs if o is not v]
+    see_also = ("\n## Other approaches\n\n" + "\n".join(f"* [{o['dir']}](../{o['dir']}/README.md): {o['name']} (`{o['cx']['time']}` time, `{o['cx']['space']}` space)" for o in others) + "\n") if others else ""
+    hash_note = ("\nHash lookups use `MyHashMap` / `MyHashSet`, our own hash table (bucket array, chaining, resizing), "
+                 "instead of `java.util.HashMap`.\n") if "MyHashMap" in helpers_for(v) else ""
     return f"""# {p['num']}. {p['title']} — {v['v']}: {v['name']}
 
-[← Problem statement](../README.md)
+**Difficulty:** {p['diff']} &nbsp;|&nbsp; **Topic:** {p['topic']} &nbsp;|&nbsp; [LeetCode](https://leetcode.com/problems/{p['slug']}/)
+
+## Problem
+
+{p['spec'].strip()}
+
+## Approach: {v['name']}
 
 > {v['idea']}
 
-## Approach
-
 {v['approach'].strip()}
-
-## Files
+{hash_note}
+## Project layout
 
 | Path | Contents |
 |------|----------|
@@ -470,8 +446,26 @@ def variant_readme(p, v):
 | `src/test/java/{path}/{p['cls']}Test.java` | JUnit 6 tests |
 | `animation/index.html` | Animated walkthrough with spoken narration |
 
-Run the tests with `../gradlew :{v['v']}:test`.
-"""
+## Build and test
+
+This folder is a standalone Gradle {GRADLE} project. Only a JDK is needed to start Gradle; JDK {JAVA} is downloaded
+automatically if it is missing.
+
+```bash
+./gradlew test
+```
+
+## Animation
+
+Open [`animation/index.html`](animation/index.html) in a browser. It has three tabs:
+
+* **Problem:** the statement and the key idea.
+* **Walkthrough:** pick a scenario and press **Play**. Each step is animated and read aloud by your browser's speech
+  engine (untick *Narration* to mute). Keys: space = play/pause, ← / → = step, 1–9 = scenario.
+* **Complexity:** time and space cost, plotted against the common growth curves{", and compared with the other approaches" if others else ""}.
+
+Switch between Light, Medium and Dark themes in the header.
+{see_also}"""
 
 
 def generate_project(p):
@@ -480,7 +474,7 @@ def generate_project(p):
         shutil.rmtree(d)
     vs = variants(p)
     for v in vs:
-        vd = d / v["v"]
+        vd = d / v["dir"]
         src = vd / "src/main/java" / pkg(p, v).replace(".", "/")
         tst = vd / "src/test/java" / pkg(p, v).replace(".", "/")
         bad = FORBIDDEN.search(v["java"])
@@ -494,28 +488,27 @@ def generate_project(p):
             write(tst / "MyHashMapTest.java", java_file(p, v, HASH_TEST, TEST_IMPORTS))
         write(tst / f"{p['cls']}Test.java", java_file(p, v, v["test"], TEST_IMPORTS))
         write(vd / "build.gradle.kts", BUILD)
-        write(vd / "README.md", variant_readme(p, v))
+        write(vd / "settings.gradle.kts", SETTINGS.replace("__NAME__", f"{dir_name(p)}-{v['dir']}").replace("__JAVA__", str(JAVA)))
+        write(vd / ".gitignore", GITIGNORE)
+        write(vd / "README.md", variant_readme(p, vs, v))
         write(vd / "animation/index.html", animation_html(p, vs, v, solution))
-    includes = "\n".join(f'include("{v["v"]}")' for v in vs)
-    write(d / "settings.gradle.kts", SETTINGS.replace("__NAME__", dir_name(p)).replace("__JAVA__", str(JAVA)).replace("__INCLUDES__", includes))
-    write(d / ".gitignore", GITIGNORE)
+        shutil.copytree(TOOLS / "wrapper", vd, dirs_exist_ok=True)
+        gw = vd / "gradlew"
+        gw.chmod(gw.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
     write(d / "README.md", problem_readme(p, vs))
-    shutil.copytree(TOOLS / "wrapper", d, dirs_exist_ok=True)
-    gw = d / "gradlew"
-    gw.chmod(gw.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
 
 def generate_root(probs):
-    includes = "\n".join(f'includeBuild("{dir_name(p)}")' for p in probs)
-    write(ROOT / "settings.gradle.kts", f"""// Composite build: every problem is a standalone Gradle build (with one subproject per solution
-// version), included here so that all of them can be tested together with `./gradlew testAll`.
+    includes = "\n".join(f'includeBuild("{dir_name(p)}/{v["dir"]}")' for p in probs for v in variants(p))
+    write(ROOT / "settings.gradle.kts", f"""// Composite build for convenience only: every solution folder is a standalone Gradle project.
+// Including them here lets `./gradlew testAll` (run from gradle-java/) test all of them in one go.
 rootProject.name = "leetcode-top-interview"
 
 {includes}
 """)
     write(ROOT / "build.gradle.kts", """tasks.register("testAll") {
     group = "verification"
-    description = "Runs the tests of every solution version of every included problem."
+    description = "Runs the tests of every standalone solution project."
     dependsOn(gradle.includedBuilds.map { it.task(":test") })
 }
 """)
@@ -525,51 +518,56 @@ rootProject.name = "leetcode-top-interview"
     for i, p in enumerate(probs, 1):
         d = dir_name(p)
         vs = variants(p)
-        links = " ".join(f"[{v['v']}]({d}/{v['v']}/animation/index.html)" for v in vs)
-        rows.append(f"| {i} | {p['num']} | [{p['title']}]({d}/README.md) | {p['diff']} | {p['topic']} | {len(vs)} | `{vs[-1]['cx']['time']}` | {links} |")
+        links = "<br>".join(f"[{v['dir']}]({d}/{v['dir']}/README.md) · [▶]({d}/{v['dir']}/animation/index.html)" for v in vs)
+        rows.append(f"| {i} | {p['num']} | [{p['title']}]({d}/README.md) | {p['diff']} | {p['topic']} | `{vs[-1]['cx']['time']}` | {links} |")
     table = "\n".join(rows)
     write(ROOT / "README.md", f"""# LeetCode Top Interview 150 — Java {JAVA} + Gradle {GRADLE}
 
-The problems of LeetCode's **Top Interview 150** study plan. Each problem is a standalone Gradle build:
+The problems of LeetCode's **Top Interview 150** study plan. Every solution approach is its own standalone Gradle project:
 
 ```
-0088-merge-sorted-array/
-├── README.md              problem statement (in our own words), examples, constraints, versions table
-├── settings.gradle.kts    includes one subproject per solution version
-├── gradlew                Gradle {GRADLE} wrapper
-├── v1/                    simplest approach
-│   ├── src/main/java      Java {JAVA} solution
-│   ├── src/test/java      JUnit 6 tests
-│   └── animation/         narrated, animated walkthrough (index.html)
-└── v2/ … v5/              further approaches, up to the most efficient one
+0001-two-sum/
+├── README.md                      problem statement and an index of the approaches
+├── v1-brute-force/                standalone project: simplest approach
+│   ├── README.md                  problem statement + this approach
+│   ├── settings.gradle.kts
+│   ├── build.gradle.kts
+│   ├── gradlew, gradle/wrapper    Gradle {GRADLE} wrapper
+│   ├── src/main/java              Java {JAVA} solution
+│   ├── src/test/java              JUnit 6 tests
+│   └── animation/index.html       narrated, animated walkthrough
+└── v2-one-pass-hash-map/          standalone project: the next, more efficient approach (up to v5)
 ```
+
+Solutions never use `java.util.HashMap` / `HashSet`. Projects that need hashing include `MyHashMap` and `MyHashSet`,
+a small hash table written from scratch (bucket array, hash spreading, chaining, resizing), plus their own tests.
 
 Each `animation/index.html` is self-contained and works offline:
 
 * **Problem** tab: statement, examples, key idea and approach.
 * **Walkthrough** tab: several scenarios (examples and edge cases) animated step by step; each step is read aloud
-  with the browser's Web Speech API (no audio files needed).
-* **Complexity** tab: time and space complexity with a growth chart, compared across the problem's versions.
-* Light / Medium / Dark themes (remembered between visits), keyboard shortcuts, and links between versions.
+  with the browser's Web Speech API (no audio files needed). Hash maps are drawn as real bucket arrays.
+* **Complexity** tab: time and space complexity with a growth chart, compared across the problem's approaches.
+* Light / Medium / Dark themes (remembered between visits), keyboard shortcuts, and links between approaches.
 
 ## Build
 
 ```bash
-cd 0088-merge-sorted-array && ./gradlew test   # every version of one problem
-./gradlew testAll                               # everything (composite build, run from gradle-java/)
+cd 0001-two-sum/v2-one-pass-hash-map && ./gradlew test   # one standalone project
+./gradlew testAll                                         # everything (composite build, run from gradle-java/)
 ```
 
 The Gradle toolchain asks for JDK {JAVA}; the foojay resolver plugin downloads it if it is not installed.
 
 ## Regenerating
 
-All projects are generated from `tools/problems/batch_*.py` by `python3 tools/generate.py`.
-The shared animation player lives in `tools/engine/`.
+All projects are generated from `tools/problems/*.py` by `python3 tools/generate.py`.
+The shared animation player lives in `tools/engine/`; the hash table in `tools/helpers/`.
 
 ## Problems
 
-| # | LeetCode | Problem | Difficulty | Topic | Versions | Best time | Animations |
-|---|----------|---------|------------|-------|----------|-----------|------------|
+| # | LeetCode | Problem | Difficulty | Topic | Best time | Approaches |
+|---|----------|---------|------------|-------|-----------|------------|
 {table}
 """)
 

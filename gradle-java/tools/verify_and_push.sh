@@ -6,13 +6,15 @@ cd "$(dirname "$0")/.."
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 for d in "$@"; do
   echo "=== $d"
-  ok=0
-  for attempt in 1 2 3; do  # retry: Maven Central sometimes answers 429 Too Many Requests
-    if (cd "$d" && ./gradlew test -q --console=plain >/tmp/gradle-$d.log 2>&1); then ok=1; break; fi
-    grep -q "429" /tmp/gradle-$d.log || break
-    sleep 20
+  for v in "$d"/v*/; do
+    v=${v%/}; log=/tmp/gradle-$(basename "$d")-$(basename "$v").log; ok=0
+    for attempt in 1 2 3; do  # retry: Maven Central sometimes answers 429 Too Many Requests
+      if (cd "$v" && ./gradlew test -q --console=plain >"$log" 2>&1); then ok=1; break; fi
+      grep -q "429" "$log" || break
+      sleep 20
+    done
+    [ $ok = 1 ] || { grep -v JAVA_TOOL_OPTIONS "$log" | tail -40; echo "TESTS FAILED: $v"; exit 1; }
   done
-  [ $ok = 1 ] || { grep -v JAVA_TOOL_OPTIONS /tmp/gradle-$d.log | tail -40; echo "TESTS FAILED: $d"; exit 1; }
   node tools/check_animations.js "$d"/v*/
   git add "$d"
   git diff --cached --quiet && { echo "unchanged $d"; continue; }
@@ -21,7 +23,7 @@ for d in "$@"; do
   if git cat-file -e "HEAD:gradle-java/$d/README.md" 2>/dev/null; then verb=Update; else verb=Add; fi
   msg="$verb $title"
   [ "$verb" = Update ] && [ -n "${UPDATE_NOTE:-}" ] && msg="$title: $UPDATE_NOTE"
-  [ "$versions" -gt 1 ] && msg="$msg ($versions solution versions)"
+  [ "$versions" -gt 1 ] && msg="$msg ($versions approaches)"
   git commit -q -m "$msg"
   for wait in 2 4 8 16 0; do
     git push -q -u origin "$BRANCH" && break
