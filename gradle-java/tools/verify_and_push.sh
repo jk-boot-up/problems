@@ -4,6 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
+failed=""
 for d in "$@"; do
   echo "=== $d"
   for v in "$d"/v*/; do
@@ -13,9 +14,10 @@ for d in "$@"; do
       grep -q "429" "$log" || break
       sleep 20
     done
-    [ $ok = 1 ] || { grep -v JAVA_TOOL_OPTIONS "$log" | tail -40; echo "TESTS FAILED: $v"; exit 1; }
+    [ $ok = 1 ] || { grep -v JAVA_TOOL_OPTIONS "$log" | tail -40; echo "TESTS FAILED: $v"; }
   done
-  node tools/check_animations.js "$d"/v*/
+  if [ $ok != 1 ]; then failed="$failed $d"; continue; fi
+  if ! node tools/check_animations.js "$d"/v*/; then echo "ANIMATION FAILED: $d"; failed="$failed $d"; continue; fi
   git add "$d"
   git diff --cached --quiet && { echo "unchanged $d"; continue; }
   title=$(head -1 "$d/README.md" | sed 's/^# //')
@@ -32,3 +34,4 @@ for d in "$@"; do
   done
   echo "pushed $d: $msg"
 done
+if [ -n "$failed" ]; then echo "FAILED PROJECTS:$failed"; exit 1; fi
