@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#14</span><h1>Longest Common Prefix</h1><span class="badge Easy">Easy</span><span class="topic">Array / String</span><span class="vtag">v1 · Optimal</span>
+    <span class="hnum">#14</span><h1>Longest Common Prefix</h1><span class="badge Easy">Easy</span><span class="topic">Array / String</span><span class="vtag">v1 · Vertical scan</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/longest-common-prefix/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -202,7 +202,7 @@ Output: &quot;&quot;</code></pre>
 <ul><li><code>1 &lt;= strs.length &lt;= 200</code></li><li><code>0 &lt;= strs[i].length &lt;= 200</code>, lowercase English letters</li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Optimal)</h3>
+          <h3>💡 Key idea (v1 · Vertical scan)</h3>
           <div class="idea">Compare column by column: the prefix grows until some string ends or differs in that column.</div>
           <p><strong>Vertical scan.</strong> For column <code>c = 0, 1, …</code>, check that every string has a character at <code>c</code> equal to <code>strs[0].charAt(c)</code>. Stop at the first mismatch or end of a string; the prefix is <code>strs[0].substring(0, c)</code>.</p>
 <ul><li>Time: <strong>O(S)</strong> — S is the total number of characters; each is compared at most once.</li><li>Space: <strong>O(1)</strong> — apart from the returned substring.</li></ul>
