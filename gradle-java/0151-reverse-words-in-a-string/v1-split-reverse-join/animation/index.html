@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="on" href="../../v1/animation/index.html">v1 · Split, reverse, join</a><a class="" href="../../v2/animation/index.html">v2 · Manual right-to-left scan</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="on" href="../../v1-split-reverse-join/animation/index.html">v1 · Split, reverse, join</a><a class="" href="../../v2-manual-right-to-left-scan/animation/index.html">v2 · Manual right-to-left scan</a></nav>
   </nav>
 </header>
 <main>
@@ -251,7 +251,7 @@ public class ReverseWords {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class="on"><td><a href="../../v1/animation/index.html">v1</a></td><td>Split, reverse, join</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr><tr class=""><td><a href="../../v2/animation/index.html">v2</a></td><td>Manual right-to-left scan</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class="on"><td><a href="../../v1-split-reverse-join/animation/index.html">v1</a></td><td>Split, reverse, join</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr><tr class=""><td><a href="../../v2-manual-right-to-left-scan/animation/index.html">v2</a></td><td>Manual right-to-left scan</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr></table></div>
     <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Library calls.</strong> <code>s.trim().split("\\s+")</code> gives the words; reverse the list; <code>String.join(" ", words)</code>. Short and clear, though it allocates an intermediate array.</p>
 <ul><li>Time: <strong>O(n)</strong> — splitting, reversing and joining are linear.</li><li>Space: <strong>O(n)</strong> — the array of words.</li></ul></div>
   </section>
