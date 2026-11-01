@@ -1,6 +1,6 @@
 // Composite build for convenience only: every solution folder is a standalone Gradle project.
 // Including them here lets `./gradlew testAll` (run from gradle-java/) test all of them in one go.
-rootProject.name = "leetcode-top-interview"
+rootProject.name = "leetcode-top-500"
 
 includeBuild("0088-merge-sorted-array/v1-copy-and-sort") { name = "0088-merge-sorted-array-v1-copy-and-sort" }
 includeBuild("0088-merge-sorted-array/v2-three-pointers-from-the-back") { name = "0088-merge-sorted-array-v2-three-pointers-from-the-back" }
@@ -226,3 +226,18 @@ includeBuild("0072-edit-distance/v1-2d-dp-table") { name = "0072-edit-distance-v
 includeBuild("0123-best-time-to-buy-and-sell-stock-iii/v1-four-state-machine") { name = "0123-best-time-to-buy-and-sell-stock-iii-v1-four-state-machine" }
 includeBuild("0188-best-time-to-buy-and-sell-stock-iv/v1-k-state-machine") { name = "0188-best-time-to-buy-and-sell-stock-iv-v1-k-state-machine" }
 includeBuild("0221-maximal-square/v1-dp-on-square-sides") { name = "0221-maximal-square-v1-dp-on-square-sides" }
+includeBuild("0217-contains-duplicate/v1-sort-and-compare-neighbours") { name = "0217-contains-duplicate-v1-sort-and-compare-neighbours" }
+includeBuild("0217-contains-duplicate/v2-hash-set") { name = "0217-contains-duplicate-v2-hash-set" }
+includeBuild("0347-top-k-frequent-elements/v1-counting-min-heap-of-size-k") { name = "0347-top-k-frequent-elements-v1-counting-min-heap-of-size-k" }
+includeBuild("0347-top-k-frequent-elements/v2-counting-bucket-sort") { name = "0347-top-k-frequent-elements-v2-counting-bucket-sort" }
+includeBuild("0206-reverse-linked-list/v1-recursive") { name = "0206-reverse-linked-list-v1-recursive" }
+includeBuild("0206-reverse-linked-list/v2-iterative-pointer-reversal") { name = "0206-reverse-linked-list-v2-iterative-pointer-reversal" }
+includeBuild("0704-binary-search/v1-classic-binary-search") { name = "0704-binary-search-v1-classic-binary-search" }
+includeBuild("0283-move-zeroes/v1-swap-with-write-pointer") { name = "0283-move-zeroes-v1-swap-with-write-pointer" }
+includeBuild("0344-reverse-string/v1-two-pointers") { name = "0344-reverse-string-v1-two-pointers" }
+includeBuild("0268-missing-number/v1-gauss-sum") { name = "0268-missing-number-v1-gauss-sum" }
+includeBuild("0268-missing-number/v2-xor-indices-and-values") { name = "0268-missing-number-v2-xor-indices-and-values" }
+includeBuild("0287-find-the-duplicate-number/v1-seen-set") { name = "0287-find-the-duplicate-number-v1-seen-set" }
+includeBuild("0287-find-the-duplicate-number/v2-floyd-cycle-detection") { name = "0287-find-the-duplicate-number-v2-floyd-cycle-detection" }
+includeBuild("0041-first-missing-positive/v1-cyclic-placement") { name = "0041-first-missing-positive-v1-cyclic-placement" }
+includeBuild("0031-next-permutation/v1-pivot-swap-reverse") { name = "0031-next-permutation-v1-pivot-swap-reverse" }

@@ -502,7 +502,7 @@ def generate_root(probs):
     includes = "\n".join(f'includeBuild("{dir_name(p)}/{v["dir"]}") {{ name = "{dir_name(p)}-{v["dir"]}" }}' for p in probs for v in variants(p))
     write(ROOT / "settings.gradle.kts", f"""// Composite build for convenience only: every solution folder is a standalone Gradle project.
 // Including them here lets `./gradlew testAll` (run from gradle-java/) test all of them in one go.
-rootProject.name = "leetcode-top-interview"
+rootProject.name = "leetcode-top-500"
 
 {includes}
 """)
@@ -521,9 +521,11 @@ rootProject.name = "leetcode-top-interview"
         links = "<br>".join(f"[{v['dir']}]({d}/{v['dir']}/README.md) · [▶]({d}/{v['dir']}/animation/index.html)" for v in vs)
         rows.append(f"| {i} | {p['num']} | [{p['title']}]({d}/README.md) | {p['diff']} | {p['topic']} | `{vs[-1]['cx']['time']}` | {links} |")
     table = "\n".join(rows)
-    write(ROOT / "README.md", f"""# LeetCode Top Interview 150 — Java {JAVA} + Gradle {GRADLE}
+    write(ROOT / "README.md", f"""# LeetCode Top 500 interview problems — Java {JAVA} + Gradle {GRADLE}
 
-The problems of LeetCode's **Top Interview 150** study plan. Every solution approach is its own standalone Gradle project:
+Problems 1–150 follow LeetCode's **Top Interview 150** study plan. Problems 151 onwards are the next most frequently asked
+interview classics (LeetCode 75, Blind 75, NeetCode 150, Top 100 Liked and other well-known problems), growing towards 500.
+Every solution approach is its own standalone Gradle project:
 
 ```
 0001-two-sum/
