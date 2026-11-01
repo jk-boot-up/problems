@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>42. Trapping Rain Water (v2) · Animated walkthrough</title>
+<title>42. Trapping Rain Water (v1) · Animated walkthrough</title>
 <style>
 /* ---------- themes ---------- */
 :root,[data-theme="dark"]{
@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#42</span><h1>Trapping Rain Water</h1><span class="badge Hard">Hard</span><span class="topic">Array / String</span><span class="vtag">v2 · Two pointers</span>
+    <span class="hnum">#42</span><h1>Trapping Rain Water</h1><span class="badge Hard">Hard</span><span class="topic">Array / String</span><span class="vtag">v1 · Prefix / suffix maximum arrays</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/trapping-rain-water/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1/animation/index.html">v1 · Prefix / suffix maximum arrays</a><a class="on" href="../../v2/animation/index.html">v2 · Two pointers</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="on" href="../../v1-prefix-suffix-maximum-arrays/animation/index.html">v1 · Prefix / suffix maximum arrays</a><a class="" href="../../v2-two-pointers/animation/index.html">v2 · Two pointers</a></nav>
   </nav>
 </header>
 <main>
@@ -202,11 +202,11 @@ Output: 9</code></pre>
 <ul><li><code>1 &lt;= n &lt;= 2 * 10^4</code></li><li><code>0 &lt;= height[i] &lt;= 10^5</code></li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v2 · Two pointers)</h3>
-          <div class="idea">Water above a bar is limited by the lower of the tallest walls on each side; two pointers always move the lower side.</div>
-          <p><strong>Two pointers.</strong> Water at <code>i</code> is <code>min(maxLeft, maxRight) - height[i]</code>. Keep <code>l</code> and <code>r</code> at the ends with running <code>leftMax</code> and <code>rightMax</code>. If <code>leftMax &lt; rightMax</code>, the left side is the bottleneck for <code>l</code>, so its water is exactly <code>leftMax - height[l]</code>. Add it and move <code>l</code> right. Otherwise do the same on the right.</p>
-<ul><li>Time: <strong>O(n)</strong> — each bar is visited once.</li><li>Space: <strong>O(1)</strong> — two pointers and two maxima.</li></ul>
-          <div class="chips"><span class="chip">⏱ O(n)</span><span class="chip">🧠 O(1)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
+          <h3>💡 Key idea (v1 · Prefix / suffix maximum arrays)</h3>
+          <div class="idea">Precompute the tallest wall to the left and to the right of every bar.</div>
+          <p><strong>Precomputed maxima.</strong> <code>leftMax[i]</code> = tallest bar in <code>0..i</code>, <code>rightMax[i]</code> = tallest in <code>i..n-1</code>. Water at <code>i</code> = <code>min(leftMax[i], rightMax[i]) - height[i]</code>.</p>
+<ul><li>Time: <strong>O(n)</strong> — three linear passes.</li><li>Space: <strong>O(n)</strong> — two arrays of maxima.</li></ul>
+          <div class="chips"><span class="chip">⏱ O(n)</span><span class="chip">🧠 O(n)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
           <button class="cta" data-goto="walk">▶ Start the animated walkthrough</button>
         </div>
       </div>
@@ -231,23 +231,19 @@ Output: 9</code></pre>
     <div id="timeline" title="Jump to a step"></div>
     <div class="legend"><span style="--c:var(--cur)">current</span><span style="--c:var(--sel)">selected / window</span><span style="--c:var(--ok)">done / match</span><span style="--c:var(--bad)">rejected</span><span style="--c:var(--alt)">special</span></div>
     <div class="kbd"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>1</kbd>–<kbd>9</kbd> pick scenario</div>
-    <details class="code card"><summary>☕ Java solution (v2)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0042.v2;
+    <details class="code card"><summary>☕ Java solution (v1)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0042.v1;
 
 import java.util.*;
 
 public class TrappingRainWater {
 
     public int trap(int[] height) {
-        int l = 0, r = height.length - 1, leftMax = 0, rightMax = 0, water = 0;
-        while (l &lt; r) {
-            leftMax = Math.max(leftMax, height[l]);
-            rightMax = Math.max(rightMax, height[r]);
-            if (leftMax &lt; rightMax) {
-                water += leftMax - height[l++];
-            } else {
-                water += rightMax - height[r--];
-            }
-        }
+        int n = height.length;
+        int[] leftMax = new int[n], rightMax = new int[n];
+        for (int i = 0; i &lt; n; i++) leftMax[i] = Math.max(i &gt; 0 ? leftMax[i - 1] : 0, height[i]);
+        for (int i = n - 1; i &gt;= 0; i--) rightMax[i] = Math.max(i &lt; n - 1 ? rightMax[i + 1] : 0, height[i]);
+        int water = 0;
+        for (int i = 0; i &lt; n; i++) water += Math.min(leftMax[i], rightMax[i]) - height[i];
         return water;
     }
 }
@@ -256,13 +252,13 @@ public class TrappingRainWater {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1/animation/index.html">v1</a></td><td>Prefix / suffix maximum arrays</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr><tr class="on"><td><a href="../../v2/animation/index.html">v2</a></td><td>Two pointers</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
-    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Two pointers.</strong> Water at <code>i</code> is <code>min(maxLeft, maxRight) - height[i]</code>. Keep <code>l</code> and <code>r</code> at the ends with running <code>leftMax</code> and <code>rightMax</code>. If <code>leftMax &lt; rightMax</code>, the left side is the bottleneck for <code>l</code>, so its water is exactly <code>leftMax - height[l]</code>. Add it and move <code>l</code> right. Otherwise do the same on the right.</p>
-<ul><li>Time: <strong>O(n)</strong> — each bar is visited once.</li><li>Space: <strong>O(1)</strong> — two pointers and two maxima.</li></ul></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class="on"><td><a href="../../v1-prefix-suffix-maximum-arrays/animation/index.html">v1</a></td><td>Prefix / suffix maximum arrays</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr><tr class=""><td><a href="../../v2-two-pointers/animation/index.html">v2</a></td><td>Two pointers</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Precomputed maxima.</strong> <code>leftMax[i]</code> = tallest bar in <code>0..i</code>, <code>rightMax[i]</code> = tallest in <code>i..n-1</code>. Water at <code>i</code> = <code>min(leftMax[i], rightMax[i]) - height[i]</code>.</p>
+<ul><li>Time: <strong>O(n)</strong> — three linear passes.</li><li>Space: <strong>O(n)</strong> — two arrays of maxima.</li></ul></div>
   </section>
 </main>
 <script>
-window.PROBLEM = {"num": 42, "title": "Trapping Rain Water", "idea": "Water above a bar is limited by the lower of the tallest walls on each side; two pointers always move the lower side.", "time": "O(n)", "timeWhy": "each bar is visited once.", "space": "O(1)", "spaceWhy": "two pointers and two maxima.", "tc": "n", "sc": "1"};
+window.PROBLEM = {"num": 42, "title": "Trapping Rain Water", "idea": "Precompute the tallest wall to the left and to the right of every bar.", "time": "O(n)", "timeWhy": "three linear passes.", "space": "O(n)", "spaceWhy": "two arrays of maxima.", "tc": "n", "sc": "n"};
 /*
  * Step-by-step algorithm animator with spoken narration.
  *
@@ -597,28 +593,16 @@ window.PROBLEM = {"num": 42, "title": "Trapping Rain Water", "idea": "Water abov
 <script>
 function trace(A) {
 function run(h) {
-  const n = h.length, W = new Array(n).fill(0), H = Math.max(...h);
-  let l = 0, r = n - 1, lm = 0, rm = 0, water = 0;
-  const pic = () => { const g = []; for (let y = H; y >= 1; y--) g.push(h.map(() => '')); return g; };
-  const ghl = (cur) => { const o = []; for (let y = H; y >= 1; y--) h.forEach((v, x) => { if (v >= y) o.push([`${H - y},${x}`, x === cur ? 'bar,cur' : 'bar']); else if (v + W[x] >= y) o.push([`${H - y},${x}`, x === cur ? 'water,cur' : 'water']); }); return o; };
-  A.step('Bars are grey and trapped water is blue. Two pointers start at the ends, each with the tallest wall seen on its side.', A.grid('elevation map', pic(), { hl: ghl(-1) }), A.arr('height', h, { ptr: [[l, 'l'], [r, 'r']] }), A.vars({ leftMax: lm, rightMax: rm, water }));
-  while (l < r) {
-    lm = Math.max(lm, h[l]); rm = Math.max(rm, h[r]);
-    if (lm < rm) {
-      const w = lm - h[l]; W[l] = w; water += w;
-      A.step(`leftMax ${lm} is lower than rightMax ${rm}, so the left side limits index ${l}. Water there is ${lm} − ${h[l]} = ${w}.`, A.grid('elevation map', pic(), { hl: ghl(l) }), A.arr('height', h, { ptr: [[l, 'l'], [r, 'r']], hl: { [l]: 'cur' } }), A.vars({ leftMax: lm, rightMax: rm, water }));
-      l++;
-    } else {
-      const w = rm - h[r]; W[r] = w; water += w;
-      A.step(`rightMax ${rm} is not higher than leftMax ${lm}, so the right side limits index ${r}. Water there is ${rm} − ${h[r]} = ${w}.`, A.grid('elevation map', pic(), { hl: ghl(r) }), A.arr('height', h, { ptr: [[l, 'l'], [r, 'r']], hl: { [r]: 'cur' } }), A.vars({ leftMax: lm, rightMax: rm, water }));
-      r--;
-    }
-  }
-  A.step(`The pointers met. Total trapped water: ${water}.`, A.grid('elevation map', pic(), { hl: ghl(-1) }), A.text('Result', water, 'ok'));
+  const n = h.length, L = [], R = new Array(n);
+  h.forEach((v, i) => (L[i] = Math.max(i ? L[i - 1] : 0, v)));
+  A.step('leftMax[i]: the tallest bar from the left edge up to i.', A.arr('height', h), A.arr('leftMax', L, { hl: L.map((_, i) => [i, 'sel']) }));
+  for (let i = n - 1; i >= 0; i--) R[i] = Math.max(i < n - 1 ? R[i + 1] : 0, h[i]);
+  A.step('rightMax[i]: the tallest bar from i to the right edge.', A.arr('height', h), A.arr('leftMax', L), A.arr('rightMax', R, { hl: R.map((_, i) => [i, 'alt']) }));
+  let water = 0; const W = [];
+  for (let i = 0; i < n; i++) { const w = Math.min(L[i], R[i]) - h[i]; W.push(w); water += w; A.step(`Index ${i}: min(${L[i]}, ${R[i]}) − ${h[i]} = ${w}. Total ${water}.`, A.arr('height', h, { hl: { [i]: 'cur' } }), A.arr('water', W, { hl: { [i]: w ? 'sel' : 'dim' } }), A.vars({ water })); }
+  A.step(`Total trapped water: ${water}. The two helper arrays cost O(n) space.`, A.text('Result', water, 'ok'));
 }
 A.scenario('Basin', 'height = [4,2,0,3,2,5]', () => run([4, 2, 0, 3, 2, 5]));
-A.scenario('Many pools', 'height = [0,1,0,2,1,0,1,3,2,1,2,1]', () => run([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]));
-A.scenario('Edge: staircase holds nothing', 'height = [1,2,3]', () => run([1, 2, 3]));
 }
 </script>
 </body>
