@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#80</span><h1>Remove Duplicates from Sorted Array II</h1><span class="badge Medium">Medium</span><span class="topic">Array / String</span><span class="vtag">v1 · Optimal</span>
+    <span class="hnum">#80</span><h1>Remove Duplicates from Sorted Array II</h1><span class="badge Medium">Medium</span><span class="topic">Array / String</span><span class="vtag">v1 · Compare two back</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -202,7 +202,7 @@ Output: 7, nums = [0,0,1,1,2,3,3,_,_]</code></pre>
 <ul><li><code>1 &lt;= nums.length &lt;= 3 * 10^4</code></li><li><code>-10^4 &lt;= nums[i] &lt;= 10^4</code>, sorted non-decreasing</li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Optimal)</h3>
+          <h3>💡 Key idea (v1 · Compare two back)</h3>
           <div class="idea">Keep a value only if it differs from the value two slots back in the kept prefix.</div>
           <p><strong>Compare with two back.</strong> Keep a write index <code>k</code>. A value <code>x</code> may be written if <code>k &lt; 2</code> or <code>x != nums[k - 2]</code>. If it equals <code>nums[k-2]</code>, then because the array is sorted, <code>nums[k-2]</code> and <code>nums[k-1]</code> are both <code>x</code> already, so writing it would make a third copy.</p>
 <ul><li>Time: <strong>O(n)</strong> — a single pass.</li><li>Space: <strong>O(1)</strong> — in-place overwrite with one write index.</li></ul>
