@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#392</span><h1>Is Subsequence</h1><span class="badge Easy">Easy</span><span class="topic">Two Pointers</span><span class="vtag">v1 · Optimal</span>
+    <span class="hnum">#392</span><h1>Is Subsequence</h1><span class="badge Easy">Easy</span><span class="topic">Two Pointers</span><span class="vtag">v1 · Two pointers</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/is-subsequence/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -202,7 +202,7 @@ Output: false</code></pre>
 <ul><li><code>0 &lt;= s.length &lt;= 100</code>, <code>0 &lt;= t.length &lt;= 10^4</code>, lowercase letters only.</li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Optimal)</h3>
+          <h3>💡 Key idea (v1 · Two pointers)</h3>
           <div class="idea">Walk through t once; advance the pointer in s each time its current character appears.</div>
           <p><strong>Two pointers.</strong> <code>i</code> walks <code>s</code>, <code>j</code> walks <code>t</code>. Whenever <code>s[i] == t[j]</code>, advance <code>i</code>. Always advance <code>j</code>. <code>s</code> is a subsequence if <code>i</code> reaches <code>s.length()</code>.</p>
 <ul><li>Time: <strong>O(n)</strong> — n is the length of t; each character of t is checked once.</li><li>Space: <strong>O(1)</strong> — two indices.</li></ul>
