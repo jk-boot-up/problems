@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1/animation/index.html">v1 · Brute force</a><a class="on" href="../../v2/animation/index.html">v2 · Two pointers</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1-brute-force/animation/index.html">v1 · Brute force</a><a class="on" href="../../v2-two-pointers/animation/index.html">v2 · Two pointers</a></nav>
   </nav>
 </header>
 <main>
@@ -255,7 +255,7 @@ public class ContainerWithMostWater {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1/animation/index.html">v1</a></td><td>Brute force</td><td><code>O(n²)</code></td><td><code>O(1)</code></td></tr><tr class="on"><td><a href="../../v2/animation/index.html">v2</a></td><td>Two pointers</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1-brute-force/animation/index.html">v1</a></td><td>Brute force</td><td><code>O(n²)</code></td><td><code>O(1)</code></td></tr><tr class="on"><td><a href="../../v2-two-pointers/animation/index.html">v2</a></td><td>Two pointers</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
     <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Two pointers.</strong> Start with <code>l = 0</code> and <code>r = n - 1</code> (maximum width). The area is limited by the shorter wall. Moving the taller wall inward can only shrink the width without raising the limit, so always move the <strong>shorter</strong> one.</p>
 <ul><li>Time: <strong>O(n)</strong> — each step moves one pointer inward.</li><li>Space: <strong>O(1)</strong> — two pointers and the best area.</li></ul></div>
   </section>
