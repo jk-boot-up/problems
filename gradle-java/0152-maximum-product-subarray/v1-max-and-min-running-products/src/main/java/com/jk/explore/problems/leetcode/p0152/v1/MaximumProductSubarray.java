@@ -1,0 +1,22 @@
+package com.jk.explore.problems.leetcode.p0152.v1;
+
+import java.util.*;
+
+public class MaximumProductSubarray {
+
+    public int maxProduct(int[] nums) {
+        int hi = nums[0], lo = nums[0], best = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            int x = nums[i];
+            if (x < 0) {
+                int t = hi;
+                hi = lo;
+                lo = t;
+            }
+            hi = Math.max(x, hi * x);
+            lo = Math.min(x, lo * x);
+            best = Math.max(best, hi);
+        }
+        return best;
+    }
+}
