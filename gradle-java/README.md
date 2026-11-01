@@ -70,3 +70,13 @@ The shared animation player lives in `tools/engine/`.
 | 28 | 11 | [Container With Most Water](0011-container-with-most-water/README.md) | Medium | Two Pointers | 2 | `O(n)` | [v1](0011-container-with-most-water/v1/animation/index.html) [v2](0011-container-with-most-water/v2/animation/index.html) |
 | 29 | 15 | [3Sum](0015-3sum/README.md) | Medium | Two Pointers | 2 | `O(n²)` | [v1](0015-3sum/v1/animation/index.html) [v2](0015-3sum/v2/animation/index.html) |
 | 30 | 209 | [Minimum Size Subarray Sum](0209-minimum-size-subarray-sum/README.md) | Medium | Sliding Window | 2 | `O(n)` | [v1](0209-minimum-size-subarray-sum/v1/animation/index.html) [v2](0209-minimum-size-subarray-sum/v2/animation/index.html) |
+| 31 | 3 | [Longest Substring Without Repeating Characters](0003-longest-substring-without-repeating-characters/README.md) | Medium | Sliding Window | 2 | `O(n)` | [v1](0003-longest-substring-without-repeating-characters/v1/animation/index.html) [v2](0003-longest-substring-without-repeating-characters/v2/animation/index.html) |
+| 32 | 30 | [Substring with Concatenation of All Words](0030-substring-with-concatenation-of-all-words/README.md) | Hard | Sliding Window | 2 | `O(n·L)` | [v1](0030-substring-with-concatenation-of-all-words/v1/animation/index.html) [v2](0030-substring-with-concatenation-of-all-words/v2/animation/index.html) |
+| 33 | 76 | [Minimum Window Substring](0076-minimum-window-substring/README.md) | Hard | Sliding Window | 1 | `O(m + n)` | [v1](0076-minimum-window-substring/v1/animation/index.html) |
+| 34 | 36 | [Valid Sudoku](0036-valid-sudoku/README.md) | Medium | Matrix | 1 | `O(1)` | [v1](0036-valid-sudoku/v1/animation/index.html) |
+| 35 | 54 | [Spiral Matrix](0054-spiral-matrix/README.md) | Medium | Matrix | 1 | `O(m·n)` | [v1](0054-spiral-matrix/v1/animation/index.html) |
+| 36 | 48 | [Rotate Image](0048-rotate-image/README.md) | Medium | Matrix | 2 | `O(n²)` | [v1](0048-rotate-image/v1/animation/index.html) [v2](0048-rotate-image/v2/animation/index.html) |
+| 37 | 73 | [Set Matrix Zeroes](0073-set-matrix-zeroes/README.md) | Medium | Matrix | 2 | `O(m·n)` | [v1](0073-set-matrix-zeroes/v1/animation/index.html) [v2](0073-set-matrix-zeroes/v2/animation/index.html) |
+| 38 | 289 | [Game of Life](0289-game-of-life/README.md) | Medium | Matrix | 2 | `O(m·n)` | [v1](0289-game-of-life/v1/animation/index.html) [v2](0289-game-of-life/v2/animation/index.html) |
+| 39 | 383 | [Ransom Note](0383-ransom-note/README.md) | Easy | Hashmap | 1 | `O(m + n)` | [v1](0383-ransom-note/v1/animation/index.html) |
+| 40 | 205 | [Isomorphic Strings](0205-isomorphic-strings/README.md) | Easy | Hashmap | 1 | `O(n)` | [v1](0205-isomorphic-strings/v1/animation/index.html) |
