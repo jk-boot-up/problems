@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>121. Best Time to Buy and Sell Stock (v1) · Animated walkthrough</title>
+<title>121. Best Time to Buy and Sell Stock (v2) · Animated walkthrough</title>
 <style>
 /* ---------- themes ---------- */
 :root,[data-theme="dark"]{
@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#121</span><h1>Best Time to Buy and Sell Stock</h1><span class="badge Easy">Easy</span><span class="topic">Array / String</span><span class="vtag">v1 · Brute force</span>
+    <span class="hnum">#121</span><h1>Best Time to Buy and Sell Stock</h1><span class="badge Easy">Easy</span><span class="topic">Array / String</span><span class="vtag">v2 · One pass, running minimum</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="on" href="../../v1/animation/index.html">v1 · Brute force</a><a class="" href="../../v2/animation/index.html">v2 · One pass, running minimum</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1-brute-force/animation/index.html">v1 · Brute force</a><a class="on" href="../../v2-one-pass-running-minimum/animation/index.html">v2 · One pass, running minimum</a></nav>
   </nav>
 </header>
 <main>
@@ -202,11 +202,11 @@ Output: 0</code></pre>
 <ul><li><code>1 &lt;= prices.length &lt;= 10^5</code></li><li><code>0 &lt;= prices[i] &lt;= 10^4</code></li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Brute force)</h3>
-          <div class="idea">Try every buy day with every later sell day and keep the best difference.</div>
-          <p><strong>All pairs.</strong> For every <code>i &lt; j</code>, compute <code>prices[j] - prices[i]</code> and keep the maximum.</p>
-<ul><li>Time: <strong>O(n²)</strong> — about n²/2 pairs.</li><li>Space: <strong>O(1)</strong> — a running best.</li></ul>
-          <div class="chips"><span class="chip">⏱ O(n²)</span><span class="chip">🧠 O(1)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
+          <h3>💡 Key idea (v2 · One pass, running minimum)</h3>
+          <div class="idea">Track the lowest price so far; selling today earns today&#x27;s price minus that minimum.</div>
+          <p><strong>One pass with a running minimum.</strong> For each day, the best sale today uses the cheapest price seen before it. Keep <code>minPrice</code> and <code>best = max(best, price - minPrice)</code>.</p>
+<ul><li>Time: <strong>O(n)</strong> — each day is visited once.</li><li>Space: <strong>O(1)</strong> — two numbers: the minimum so far and the best profit.</li></ul>
+          <div class="chips"><span class="chip">⏱ O(n)</span><span class="chip">🧠 O(1)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
           <button class="cta" data-goto="walk">▶ Start the animated walkthrough</button>
         </div>
       </div>
@@ -231,18 +231,17 @@ Output: 0</code></pre>
     <div id="timeline" title="Jump to a step"></div>
     <div class="legend"><span style="--c:var(--cur)">current</span><span style="--c:var(--sel)">selected / window</span><span style="--c:var(--ok)">done / match</span><span style="--c:var(--bad)">rejected</span><span style="--c:var(--alt)">special</span></div>
     <div class="kbd"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>1</kbd>–<kbd>9</kbd> pick scenario</div>
-    <details class="code card"><summary>☕ Java solution (v1)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0121.v1;
+    <details class="code card"><summary>☕ Java solution (v2)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0121.v2;
 
 import java.util.*;
 
 public class BestTimeToBuyAndSellStock {
 
     public int maxProfit(int[] prices) {
-        int best = 0;
-        for (int i = 0; i &lt; prices.length; i++) {
-            for (int j = i + 1; j &lt; prices.length; j++) {
-                best = Math.max(best, prices[j] - prices[i]);
-            }
+        int minPrice = Integer.MAX_VALUE, best = 0;
+        for (int p : prices) {
+            minPrice = Math.min(minPrice, p);
+            best = Math.max(best, p - minPrice);
         }
         return best;
     }
@@ -252,13 +251,13 @@ public class BestTimeToBuyAndSellStock {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class="on"><td><a href="../../v1/animation/index.html">v1</a></td><td>Brute force</td><td><code>O(n²)</code></td><td><code>O(1)</code></td></tr><tr class=""><td><a href="../../v2/animation/index.html">v2</a></td><td>One pass, running minimum</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
-    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>All pairs.</strong> For every <code>i &lt; j</code>, compute <code>prices[j] - prices[i]</code> and keep the maximum.</p>
-<ul><li>Time: <strong>O(n²)</strong> — about n²/2 pairs.</li><li>Space: <strong>O(1)</strong> — a running best.</li></ul></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1-brute-force/animation/index.html">v1</a></td><td>Brute force</td><td><code>O(n²)</code></td><td><code>O(1)</code></td></tr><tr class="on"><td><a href="../../v2-one-pass-running-minimum/animation/index.html">v2</a></td><td>One pass, running minimum</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>One pass with a running minimum.</strong> For each day, the best sale today uses the cheapest price seen before it. Keep <code>minPrice</code> and <code>best = max(best, price - minPrice)</code>.</p>
+<ul><li>Time: <strong>O(n)</strong> — each day is visited once.</li><li>Space: <strong>O(1)</strong> — two numbers: the minimum so far and the best profit.</li></ul></div>
   </section>
 </main>
 <script>
-window.PROBLEM = {"num": 121, "title": "Best Time to Buy and Sell Stock", "idea": "Try every buy day with every later sell day and keep the best difference.", "time": "O(n\u00b2)", "timeWhy": "about n\u00b2/2 pairs.", "space": "O(1)", "spaceWhy": "a running best.", "tc": "n2", "sc": "1"};
+window.PROBLEM = {"num": 121, "title": "Best Time to Buy and Sell Stock", "idea": "Track the lowest price so far; selling today earns today's price minus that minimum.", "time": "O(n)", "timeWhy": "each day is visited once.", "space": "O(1)", "spaceWhy": "two numbers: the minimum so far and the best profit.", "tc": "n", "sc": "1"};
 /*
  * Step-by-step algorithm animator with spoken narration.
  *
@@ -593,17 +592,18 @@ window.PROBLEM = {"num": 121, "title": "Best Time to Buy and Sell Stock", "idea"
 <script>
 function trace(A) {
 function run(p) {
-  let best = 0, pairs = 0;
-  A.step('Try every buy day i with every later sell day j.', A.arr('prices', p), A.vars({ best, pairsChecked: pairs }));
-  for (let i = 0; i < p.length; i++) for (let j = i + 1; j < p.length; j++) {
-    pairs++;
-    const pr = p[j] - p[i], nb = pr > best;
-    if (nb) best = pr;
-    A.step(`Buy at ${p[i]}, sell at ${p[j]}: profit ${pr}.${nb ? ' New best.' : ''}`, A.arr('prices', p, { ptr: [[i, 'buy'], [j, 'sell']], hl: { [i]: 'sel', [j]: nb ? 'ok' : 'cur' } }), A.vars({ best, pairsChecked: pairs }));
-  }
-  A.step(`Checked ${pairs} pairs. That count grows with the square of the number of days. The best profit is ${best}.`, A.text('Result', best, 'ok'));
+  let minI = 0, best = 0, bi = -1, bj = -1;
+  A.step('Walk through the days and remember the cheapest day so far. Selling today would earn today’s price minus that minimum.', A.arr('prices', p), A.vars({ minPrice: '∞', best }));
+  p.forEach((x, i) => {
+    if (i === 0 || x < p[minI]) { minI = i; A.step(`Day ${i}: price ${x} is the cheapest so far. Remember it as the buy day.`, A.arr('prices', p, { ptr: [[i, 'today'], [minI, 'min']], hl: { [i]: 'sel' } }), A.vars({ minPrice: p[minI], best })); return; }
+    const prof = x - p[minI], better = prof > best;
+    if (better) { best = prof; bi = minI; bj = i; }
+    A.step(`Day ${i}: buying at ${p[minI]} and selling at ${x} earns ${prof}. ${better ? 'That is a new best.' : `The best stays ${best}.`}`, A.arr('prices', p, { ptr: [[i, 'today'], [minI, 'min']], hl: { [minI]: 'sel', [i]: better ? 'ok' : 'cur' } }), A.vars({ minPrice: p[minI], best }));
+  });
+  A.step(best > 0 ? `The maximum profit is ${best}: buy on day ${bi}, sell on day ${bj}.` : 'Prices never rise after a low, so no trade makes money. The answer is 0.', A.arr('prices', p, { hl: best > 0 ? { [bi]: 'sel', [bj]: 'ok' } : {} }), A.text('Result', best, 'ok'));
 }
-A.scenario('Small market', 'prices = [7,1,5,3,6]', () => run([7, 1, 5, 3, 6]));
+A.scenario('Dip then rise', 'prices = [7,1,5,3,6,4]', () => run([7, 1, 5, 3, 6, 4]));
+A.scenario('Edge: falling prices', 'prices = [7,6,4,3,1]', () => run([7, 6, 4, 3, 1]));
 }
 </script>
 </body>
