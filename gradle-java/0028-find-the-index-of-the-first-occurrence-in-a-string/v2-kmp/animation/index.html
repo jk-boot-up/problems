@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>28. Find the Index of the First Occurrence in a String (v1) · Animated walkthrough</title>
+<title>28. Find the Index of the First Occurrence in a String (v2) · Animated walkthrough</title>
 <style>
 /* ---------- themes ---------- */
 :root,[data-theme="dark"]{
@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#28</span><h1>Find the Index of the First Occurrence in a String</h1><span class="badge Easy">Easy</span><span class="topic">Array / String</span><span class="vtag">v1 · Brute force</span>
+    <span class="hnum">#28</span><h1>Find the Index of the First Occurrence in a String</h1><span class="badge Easy">Easy</span><span class="topic">Array / String</span><span class="vtag">v2 · KMP</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="on" href="../../v1/animation/index.html">v1 · Brute force</a><a class="" href="../../v2/animation/index.html">v2 · KMP</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1-brute-force/animation/index.html">v1 · Brute force</a><a class="on" href="../../v2-kmp/animation/index.html">v2 · KMP</a></nav>
   </nav>
 </header>
 <main>
@@ -202,11 +202,11 @@ Output: -1</code></pre>
 <ul><li><code>1 &lt;= haystack.length, needle.length &lt;= 10^4</code>, lowercase letters only.</li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Brute force)</h3>
-          <div class="idea">Try every start position and compare the needle character by character.</div>
-          <p><strong>Check every alignment.</strong> For each start <code>i</code> from 0 to <code>n - m</code>, compare <code>needle</code> with <code>haystack[i..i+m-1]</code>.</p>
-<ul><li>Time: <strong>O(n·m)</strong> — each of about n alignments may compare up to m characters.</li><li>Space: <strong>O(1)</strong> — a couple of indices.</li></ul>
-          <div class="chips"><span class="chip">⏱ O(n·m)</span><span class="chip">🧠 O(1)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
+          <h3>💡 Key idea (v2 · KMP)</h3>
+          <div class="idea">KMP: precompute how far the needle can fall back on a mismatch, so the haystack pointer never moves backwards.</div>
+          <p><strong>Knuth–Morris–Pratt.</strong> Build <code>lps[i]</code>: the length of the longest proper prefix of <code>needle[0..i]</code> that is also its suffix. Then scan the haystack with <code>j</code> matched characters. On a mismatch, fall back to <code>j = lps[j-1]</code> instead of restarting, so the haystack index only moves forward.</p>
+<ul><li>Time: <strong>O(n + m)</strong> — building lps is O(m), and the scan is O(n).</li><li>Space: <strong>O(m)</strong> — the lps table.</li></ul>
+          <div class="chips"><span class="chip">⏱ O(n + m)</span><span class="chip">🧠 O(m)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
           <button class="cta" data-goto="walk">▶ Start the animated walkthrough</button>
         </div>
       </div>
@@ -231,21 +231,35 @@ Output: -1</code></pre>
     <div id="timeline" title="Jump to a step"></div>
     <div class="legend"><span style="--c:var(--cur)">current</span><span style="--c:var(--sel)">selected / window</span><span style="--c:var(--ok)">done / match</span><span style="--c:var(--bad)">rejected</span><span style="--c:var(--alt)">special</span></div>
     <div class="kbd"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>1</kbd>–<kbd>9</kbd> pick scenario</div>
-    <details class="code card"><summary>☕ Java solution (v1)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0028.v1;
+    <details class="code card"><summary>☕ Java solution (v2)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0028.v2;
 
 import java.util.*;
 
 public class StrStr {
 
     public int strStr(String haystack, String needle) {
-        int n = haystack.length(), m = needle.length();
-        for (int i = 0; i + m &lt;= n; i++) {
-            int j = 0;
-            while (j &lt; m &amp;&amp; haystack.charAt(i + j) == needle.charAt(j)) {
-                j++;
+        int m = needle.length();
+        int[] lps = new int[m];
+        for (int i = 1, len = 0; i &lt; m; ) {
+            if (needle.charAt(i) == needle.charAt(len)) {
+                lps[i++] = ++len;
+            } else if (len &gt; 0) {
+                len = lps[len - 1];
+            } else {
+                lps[i++] = 0;
             }
-            if (j == m) {
-                return i;
+        }
+        for (int i = 0, j = 0; i &lt; haystack.length(); ) {
+            if (haystack.charAt(i) == needle.charAt(j)) {
+                i++;
+                j++;
+                if (j == m) {
+                    return i - m;
+                }
+            } else if (j &gt; 0) {
+                j = lps[j - 1];
+            } else {
+                i++;
             }
         }
         return -1;
@@ -256,13 +270,13 @@ public class StrStr {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class="on"><td><a href="../../v1/animation/index.html">v1</a></td><td>Brute force</td><td><code>O(n·m)</code></td><td><code>O(1)</code></td></tr><tr class=""><td><a href="../../v2/animation/index.html">v2</a></td><td>KMP</td><td><code>O(n + m)</code></td><td><code>O(m)</code></td></tr></table></div>
-    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Check every alignment.</strong> For each start <code>i</code> from 0 to <code>n - m</code>, compare <code>needle</code> with <code>haystack[i..i+m-1]</code>.</p>
-<ul><li>Time: <strong>O(n·m)</strong> — each of about n alignments may compare up to m characters.</li><li>Space: <strong>O(1)</strong> — a couple of indices.</li></ul></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1-brute-force/animation/index.html">v1</a></td><td>Brute force</td><td><code>O(n·m)</code></td><td><code>O(1)</code></td></tr><tr class="on"><td><a href="../../v2-kmp/animation/index.html">v2</a></td><td>KMP</td><td><code>O(n + m)</code></td><td><code>O(m)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Knuth–Morris–Pratt.</strong> Build <code>lps[i]</code>: the length of the longest proper prefix of <code>needle[0..i]</code> that is also its suffix. Then scan the haystack with <code>j</code> matched characters. On a mismatch, fall back to <code>j = lps[j-1]</code> instead of restarting, so the haystack index only moves forward.</p>
+<ul><li>Time: <strong>O(n + m)</strong> — building lps is O(m), and the scan is O(n).</li><li>Space: <strong>O(m)</strong> — the lps table.</li></ul></div>
   </section>
 </main>
 <script>
-window.PROBLEM = {"num": 28, "title": "Find the Index of the First Occurrence in a String", "idea": "Try every start position and compare the needle character by character.", "time": "O(n\u00b7m)", "timeWhy": "each of about n alignments may compare up to m characters.", "space": "O(1)", "spaceWhy": "a couple of indices.", "tc": "n2", "sc": "1"};
+window.PROBLEM = {"num": 28, "title": "Find the Index of the First Occurrence in a String", "idea": "KMP: precompute how far the needle can fall back on a mismatch, so the haystack pointer never moves backwards.", "time": "O(n + m)", "timeWhy": "building lps is O(m), and the scan is O(n).", "space": "O(m)", "spaceWhy": "the lps table.", "tc": "n", "sc": "n"};
 /*
  * Step-by-step algorithm animator with spoken narration.
  *
@@ -597,18 +611,30 @@ window.PROBLEM = {"num": 28, "title": "Find the Index of the First Occurrence in
 <script>
 function trace(A) {
 function run(h, nd) {
-  let comps = 0;
-  for (let i = 0; i + nd.length <= h.length; i++) {
-    let j = 0;
-    while (j < nd.length && h[i + j] === nd[j]) { j++; comps++; }
-    if (j < nd.length) comps++;
-    const hl = []; for (let t = 0; t < j; t++) hl.push([i + t, 'ok']); if (j < nd.length) hl.push([i + j, 'bad']);
-    A.step(j === nd.length ? `Start ${i}: all ${nd.length} characters match.` : `Start ${i}: mismatch after ${j} matching character${j === 1 ? '' : 's'}. Slide the needle by one.`, A.chars('haystack', h, { hl, ptr: [[i, 'start']] }), A.chars('needle', nd), A.vars({ comparisons: comps }));
-    if (j === nd.length) { A.step(`The needle starts at ${i}. That took ${comps} character comparisons; KMP avoids re-checking characters.`, A.text('Result', i, 'ok')); return; }
+  const m = nd.length, lps = new Array(m).fill(0);
+  for (let i = 1, len = 0; i < m;) { if (nd[i] === nd[len]) lps[i++] = ++len; else if (len) len = lps[len - 1]; else lps[i++] = 0; }
+  A.step('First build the fallback table: lps[i] is how many characters still match after a mismatch past position i.', A.chars('needle', nd), A.arr('lps', lps));
+  let i = 0, j = 0;
+  const view = (hh, nh) => [A.chars('haystack', h, { hl: hh, ptr: [[i, 'i']] }), A.chars('needle', nd, { hl: nh, ptr: [[j, 'j']] }), A.vars({ i, j })];
+  while (i < h.length) {
+    const mk = []; for (let t = 0; t < j; t++) mk.push([i - j + t, 'ok']);
+    if (h[i] === nd[j]) {
+      A.step(`'${h[i]}' matches needle[${j}]. Advance both pointers.`, view(mk.concat([[i, 'cur']]), [...Array(j).keys()].map(t => [t, 'ok']).concat([[j, 'cur']])));
+      i++; j++;
+      if (j === m) { A.step(`All ${m} characters matched. The needle starts at index ${i - m}.`, A.chars('haystack', h, { hl: [...Array(m).keys()].map(t => [i - m + t, 'ok']) }), A.text('Result', i - m, 'ok')); return; }
+    } else if (j > 0) {
+      A.step(`'${h[i]}' does not match '${nd[j]}'. Instead of restarting, fall back to j = lps[${j - 1}] = ${lps[j - 1]}. i stays put.`, view(mk.concat([[i, 'bad']]), [[j, 'bad']]));
+      j = lps[j - 1];
+    } else {
+      A.step(`'${h[i]}' does not match the first needle character. Move i forward.`, view([[i, 'bad']], [[0, 'bad']]));
+      i++;
+    }
   }
-  A.step('No alignment matches.', A.text('Result', -1, 'bad'));
+  A.step('The haystack is exhausted without a full match. The answer is -1.', A.chars('haystack', h), A.text('Result', -1, 'bad'));
 }
-A.scenario('Repeated letters', 'haystack = "aaaab", needle = "aab"', () => run('aaaab', 'aab'));
+A.scenario('Fallback in action', 'haystack = "aaaab", needle = "aab"', () => run('aaaab', 'aab'));
+A.scenario('Match at the start', 'haystack = "sadbutsad", needle = "sad"', () => run('sadbutsad', 'sad'));
+A.scenario('Edge: not found', 'haystack = "leetco", needle = "leeto"', () => run('leetco', 'leeto'));
 }
 </script>
 </body>
