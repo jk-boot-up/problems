@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#135</span><h1>Candy</h1><span class="badge Hard">Hard</span><span class="topic">Array / String</span><span class="vtag">v1 · Optimal</span>
+    <span class="hnum">#135</span><h1>Candy</h1><span class="badge Hard">Hard</span><span class="topic">Array / String</span><span class="vtag">v1 · Two passes</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/candy/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -204,7 +204,7 @@ Output: 4   (1, 2, 1)</code></pre>
 <ul><li><code>1 &lt;= n &lt;= 2 * 10^4</code></li><li><code>0 &lt;= ratings[i] &lt;= 2 * 10^4</code></li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Optimal)</h3>
+          <h3>💡 Key idea (v1 · Two passes)</h3>
           <div class="idea">Satisfy left neighbours in one pass and right neighbours in a second pass, taking the max at each child.</div>
           <p><strong>Two passes.</strong> Start everyone at 1. Left to right: if <code>ratings[i] &gt; ratings[i-1]</code>, set <code>candy[i] = candy[i-1] + 1</code>. Right to left: if <code>ratings[i] &gt; ratings[i+1]</code>, set <code>candy[i] = max(candy[i], candy[i+1] + 1)</code>. Both rules now hold with the fewest candies.</p>
 <ul><li>Time: <strong>O(n)</strong> — two passes.</li><li>Space: <strong>O(n)</strong> — the candy array.</li></ul>
