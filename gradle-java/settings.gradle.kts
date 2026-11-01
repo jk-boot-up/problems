@@ -573,3 +573,13 @@ includeBuild("1219-path-with-maximum-gold/v1-backtracking-from-every-cell") { na
 includeBuild("1254-number-of-closed-islands/v1-sink-border-islands-then-count") { name = "1254-number-of-closed-islands-v1-sink-border-islands-then-count" }
 includeBuild("1283-find-the-smallest-divisor-given-a-threshold/v1-binary-search-on-the-divisor") { name = "1283-find-the-smallest-divisor-given-a-threshold-v1-binary-search-on-the-divisor" }
 includeBuild("1291-sequential-digits/v1-enumerate-by-length-and-start") { name = "1291-sequential-digits-v1-enumerate-by-length-and-start" }
+includeBuild("1304-find-n-unique-integers-sum-up-to-zero/v1-symmetric-pairs") { name = "1304-find-n-unique-integers-sum-up-to-zero-v1-symmetric-pairs" }
+includeBuild("1305-all-elements-in-two-binary-search-trees/v1-in-order-lists-then-merge") { name = "1305-all-elements-in-two-binary-search-trees-v1-in-order-lists-then-merge" }
+includeBuild("1325-delete-leaves-with-a-given-value/v1-post-order-pruning") { name = "1325-delete-leaves-with-a-given-value-v1-post-order-pruning" }
+includeBuild("1337-the-k-weakest-rows-in-a-matrix/v1-binary-search-counts-sort") { name = "1337-the-k-weakest-rows-in-a-matrix-v1-binary-search-counts-sort" }
+includeBuild("1351-count-negative-numbers-in-a-sorted-matrix/v1-staircase-walk") { name = "1351-count-negative-numbers-in-a-sorted-matrix-v1-staircase-walk" }
+includeBuild("1376-time-needed-to-inform-all-employees/v1-bfs-down-the-management-tree") { name = "1376-time-needed-to-inform-all-employees-v1-bfs-down-the-management-tree" }
+includeBuild("1381-design-a-stack-with-increment-operation/v1-lazy-increments") { name = "1381-design-a-stack-with-increment-operation-v1-lazy-increments" }
+includeBuild("1396-design-underground-system/v1-two-hash-maps") { name = "1396-design-underground-system-v1-two-hash-maps" }
+includeBuild("1405-longest-happy-string/v1-greedy-by-remaining-count") { name = "1405-longest-happy-string-v1-greedy-by-remaining-count" }
+includeBuild("1424-diagonal-traverse-ii/v1-buckets-by-i-j") { name = "1424-diagonal-traverse-ii-v1-buckets-by-i-j" }
