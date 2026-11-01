@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1/animation/index.html">v1 · Row and column sets</a><a class="on" href="../../v2/animation/index.html">v2 · Markers in row/column 0</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1-row-and-column-sets/animation/index.html">v1 · Row and column sets</a><a class="on" href="../../v2-markers-in-row-column-0/animation/index.html">v2 · Markers in row/column 0</a></nav>
   </nav>
 </header>
 <main>
@@ -265,7 +265,7 @@ public class SetMatrixZeroes {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1/animation/index.html">v1</a></td><td>Row and column sets</td><td><code>O(m·n)</code></td><td><code>O(m + n)</code></td></tr><tr class="on"><td><a href="../../v2/animation/index.html">v2</a></td><td>Markers in row/column 0</td><td><code>O(m·n)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1-row-and-column-sets/animation/index.html">v1</a></td><td>Row and column sets</td><td><code>O(m·n)</code></td><td><code>O(m + n)</code></td></tr><tr class="on"><td><a href="../../v2-markers-in-row-column-0/animation/index.html">v2</a></td><td>Markers in row/column 0</td><td><code>O(m·n)</code></td><td><code>O(1)</code></td></tr></table></div>
     <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Reuse the first row and column.</strong> First remember whether row 0 and column 0 contain a zero. Then, for every zero at <code>(i, j)</code> with <code>i, j &gt;= 1</code>, mark <code>matrix[i][0] = 0</code> and <code>matrix[0][j] = 0</code>. Zero every inner cell whose row or column is marked. Finally zero row 0 and column 0 if their flags are set.</p>
 <ul><li>Time: <strong>O(m·n)</strong> — a few passes over the matrix.</li><li>Space: <strong>O(1)</strong> — two boolean flags.</li></ul></div>
   </section>
