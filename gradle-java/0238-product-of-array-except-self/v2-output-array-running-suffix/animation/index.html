@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1/animation/index.html">v1 · Prefix and suffix arrays</a><a class="on" href="../../v2/animation/index.html">v2 · Output array + running suffix</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1-prefix-and-suffix-arrays/animation/index.html">v1 · Prefix and suffix arrays</a><a class="on" href="../../v2-output-array-running-suffix/animation/index.html">v2 · Output array + running suffix</a></nav>
   </nav>
 </header>
 <main>
@@ -258,7 +258,7 @@ public class ProductExceptSelf {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1/animation/index.html">v1</a></td><td>Prefix and suffix arrays</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr><tr class="on"><td><a href="../../v2/animation/index.html">v2</a></td><td>Output array + running suffix</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1-prefix-and-suffix-arrays/animation/index.html">v1</a></td><td>Prefix and suffix arrays</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr><tr class="on"><td><a href="../../v2-output-array-running-suffix/animation/index.html">v2</a></td><td>Output array + running suffix</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
     <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Prefix and suffix products.</strong> First pass, left to right: <code>answer[i]</code> = product of all values before <code>i</code>. Second pass, right to left: keep a running <code>suffix</code> product and multiply it into <code>answer[i]</code>.</p>
 <ul><li>Time: <strong>O(n)</strong> — two linear passes.</li><li>Space: <strong>O(1)</strong> — besides the output, only the running suffix product.</li></ul></div>
   </section>
