@@ -436,7 +436,8 @@ window.PROBLEM = {"num": 12, "title": "Integer to Roman", "idea": "Greedy: repea
   }
   function graphSvg(c) {
     const hl = new Map(c.hl), N = c.nodes.length, R = Math.max(90, N * 16), pos = new Map();
-    const w = 2 * R + 80, h = 2 * R + 60;
+    const fixed = c.nodes.filter(n => n.x !== undefined);
+    const w = fixed.length ? Math.max(...fixed.map(n => n.x)) + 50 : 2 * R + 80, h = fixed.length ? Math.max(...fixed.map(n => n.y)) + 40 : 2 * R + 60;
     c.nodes.forEach((n, i) => {
       const a = (2 * Math.PI * i) / N - Math.PI / 2;
       pos.set(String(n.id), n.x !== undefined ? [n.x, n.y] : [w / 2 + R * Math.cos(a), h / 2 + R * Math.sin(a)]);
