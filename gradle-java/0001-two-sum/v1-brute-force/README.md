@@ -62,7 +62,7 @@ Open [`animation/index.html`](animation/index.html) in a browser. It has three t
 
 * **Problem:** the statement and the key idea.
 * **Walkthrough:** pick a scenario and press **Play**. Each step is animated and read aloud by your browser's speech
-  engine (untick *Narration* to mute). Keys: space = play/pause, ← / → = step, 1–9 = scenario.
+  engine (use the 🔊 *Narration* button to turn the voice on or off; a female voice, Amy when installed, is preferred). Keys: space = play/pause, ← / → = step, 1–9 = scenario.
 * **Complexity:** time and space cost, plotted against the common growth curves, and compared with the other approaches.
 
 Switch between Light, Medium and Dark themes in the header.
