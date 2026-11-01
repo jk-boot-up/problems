@@ -29,6 +29,11 @@ Each `animation/index.html` is self-contained and works offline:
 * **Complexity** tab: time and space complexity with a growth chart, compared across the problem's approaches.
 * Light / Medium / Dark themes (remembered between visits), keyboard shortcuts, and links between approaches.
 
+## Index
+
+Open [`index.html`](index.html) in a browser for a searchable, filterable index that links to every problem, every
+approach project and every animation. The table at the end of this file lists the same links.
+
 ## Build
 
 ```bash
@@ -377,3 +382,13 @@ The shared animation player lives in `tools/engine/`; the hash table in `tools/h
 | 328 | 744 | [Find Smallest Letter Greater Than Target](0744-find-smallest-letter-greater-than-target/README.md) | Easy | Binary Search | `O(log n)` | [v1-upper-bound-binary-search](0744-find-smallest-letter-greater-than-target/v1-upper-bound-binary-search/README.md) · [▶](0744-find-smallest-letter-greater-than-target/v1-upper-bound-binary-search/animation/index.html) |
 | 329 | 747 | [Largest Number At Least Twice of Others](0747-largest-number-at-least-twice-of-others/README.md) | Easy | Arrays & Hashing | `O(n)` | [v1-track-the-top-two](0747-largest-number-at-least-twice-of-others/v1-track-the-top-two/README.md) · [▶](0747-largest-number-at-least-twice-of-others/v1-track-the-top-two/animation/index.html) |
 | 330 | 771 | [Jewels and Stones](0771-jewels-and-stones/README.md) | Easy | Arrays & Hashing | `O(j + s)` | [v1-lookup-table](0771-jewels-and-stones/v1-lookup-table/README.md) · [▶](0771-jewels-and-stones/v1-lookup-table/animation/index.html) |
+| 331 | 783 | [Minimum Distance Between BST Nodes](0783-minimum-distance-between-bst-nodes/README.md) | Easy | Binary Search Tree | `O(n)` | [v1-in-order-with-previous-value](0783-minimum-distance-between-bst-nodes/v1-in-order-with-previous-value/README.md) · [▶](0783-minimum-distance-between-bst-nodes/v1-in-order-with-previous-value/animation/index.html) |
+| 332 | 785 | [Is Graph Bipartite?](0785-is-graph-bipartite/README.md) | Medium | Graph General | `O(V + E)` | [v1-bfs-two-colouring](0785-is-graph-bipartite/v1-bfs-two-colouring/README.md) · [▶](0785-is-graph-bipartite/v1-bfs-two-colouring/animation/index.html) |
+| 333 | 797 | [All Paths From Source to Target](0797-all-paths-from-source-to-target/README.md) | Medium | Backtracking | `O(2ⁿ · n)` | [v1-dfs-with-backtracking](0797-all-paths-from-source-to-target/v1-dfs-with-backtracking/README.md) · [▶](0797-all-paths-from-source-to-target/v1-dfs-with-backtracking/animation/index.html) |
+| 334 | 844 | [Backspace String Compare](0844-backspace-string-compare/README.md) | Easy | Two Pointers | `O(m + n)` | [v1-backward-two-pointers](0844-backspace-string-compare/v1-backward-two-pointers/README.md) · [▶](0844-backspace-string-compare/v1-backward-two-pointers/animation/index.html) |
+| 335 | 852 | [Peak Index in a Mountain Array](0852-peak-index-in-a-mountain-array/README.md) | Medium | Binary Search | `O(log n)` | [v1-binary-search-on-the-slope](0852-peak-index-in-a-mountain-array/v1-binary-search-on-the-slope/README.md) · [▶](0852-peak-index-in-a-mountain-array/v1-binary-search-on-the-slope/animation/index.html) |
+| 336 | 876 | [Middle of the Linked List](0876-middle-of-the-linked-list/README.md) | Easy | Linked List | `O(n)` | [v1-slow-and-fast-pointers](0876-middle-of-the-linked-list/v1-slow-and-fast-pointers/README.md) · [▶](0876-middle-of-the-linked-list/v1-slow-and-fast-pointers/animation/index.html) |
+| 337 | 881 | [Boats to Save People](0881-boats-to-save-people/README.md) | Medium | Greedy | `O(n log n)` | [v1-sort-two-pointers](0881-boats-to-save-people/v1-sort-two-pointers/README.md) · [▶](0881-boats-to-save-people/v1-sort-two-pointers/animation/index.html) |
+| 338 | 912 | [Sort an Array](0912-sort-an-array/README.md) | Medium | Sorting | `O(n log n)` | [v1-heap-sort-in-place](0912-sort-an-array/v1-heap-sort-in-place/README.md) · [▶](0912-sort-an-array/v1-heap-sort-in-place/animation/index.html)<br>[v2-merge-sort](0912-sort-an-array/v2-merge-sort/README.md) · [▶](0912-sort-an-array/v2-merge-sort/animation/index.html) |
+| 339 | 977 | [Squares of a Sorted Array](0977-squares-of-a-sorted-array/README.md) | Easy | Two Pointers | `O(n)` | [v1-two-pointers-from-both-ends](0977-squares-of-a-sorted-array/v1-two-pointers-from-both-ends/README.md) · [▶](0977-squares-of-a-sorted-array/v1-two-pointers-from-both-ends/animation/index.html) |
+| 340 | 997 | [Find the Town Judge](0997-find-the-town-judge/README.md) | Easy | Graph General | `O(n + t)` | [v1-trust-score](0997-find-the-town-judge/v1-trust-score/README.md) · [▶](0997-find-the-town-judge/v1-trust-score/animation/index.html) |

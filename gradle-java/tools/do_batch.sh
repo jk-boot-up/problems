@@ -8,7 +8,7 @@ dirs=$(python3 tools/generate.py --dirs "$1")
 changed=$(git status --porcelain -- . | sed -E 's#^.. (gradle-java/)?##' | grep -oE '^[0-9]{4}-[a-z0-9-]+' | sort -u || true)
 for c in $changed; do case " $dirs " in *" $c "*) ;; *) dirs="$c $dirs";; esac; done
 tools/verify_and_push.sh $dirs
-git add README.md settings.gradle.kts build.gradle.kts tools
+git add README.md index.html settings.gradle.kts build.gradle.kts tools
 if ! git diff --cached --quiet; then
   git commit -q -m "Update problem index and generator"
   git push -q origin HEAD
