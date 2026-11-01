@@ -161,6 +161,16 @@ table.cmp{border-collapse:collapse;width:100%;font-size:14px}
 table.cmp th,table.cmp td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
 table.cmp th{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
 table.cmp tr.on td{background:var(--panel2);font-weight:700}
+
+/* ---------- hash table internals ---------- */
+.htable{display:flex;gap:5px;align-items:flex-start;flex-wrap:wrap}
+.hcol{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:46px}
+.hidx{width:100%;min-width:46px;height:26px;border-radius:7px 7px 3px 3px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-size:11px;color:var(--mut);font-family:ui-monospace,Menlo,Consolas,monospace}
+.hentry{height:auto;min-height:34px;min-width:46px;font-size:13px;flex-direction:column;padding:3px 6px;line-height:1.15}
+.hentry small{color:var(--mut);font-weight:600;font-size:11px}
+.hdown{color:var(--mut);font-size:11px;line-height:1}
+.hnull{color:var(--mut);font-size:11px;opacity:.5}
+.hnote{font-size:12px;color:var(--mut);margin-top:6px}
 </style>
 </head>
 <body>
@@ -283,6 +293,16 @@ window.PROBLEM = {"num": 274, "title": "H-Index", "idea": "Count papers by citat
   const show = v => (v === null || v === undefined ? '' : typeof v === 'object' ? JSON.stringify(v) : String(v));
   const cls = s => (s || '').split(',').join(' ');
   let nodeSeq = 100000;
+  /* Java-compatible hashCode for numbers, single characters and strings. */
+  function jhash(k) {
+    if (typeof k === 'number' && Number.isInteger(k)) return k | 0;
+    if (typeof k === 'boolean') return k ? 1231 : 1237;
+    const s = typeof k === 'string' ? k : JSON.stringify(k);
+    if (typeof k === 'string' && s.length === 1) return s.charCodeAt(0);
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+    return h;
+  }
 
   /* ---------- tree helpers ---------- */
   function mkTree(arr) {
@@ -329,6 +349,15 @@ window.PROBLEM = {"num": 274, "title": "H-Index", "idea": "Count papers by citat
       else if (m instanceof Set) [...m].forEach(k => (obj[show(k)] = '✓'));
       else Object.assign(obj, m);
       return { t: 'vars', label, obj: clone(obj) };
+    },
+    /* Hash table internals: the same bucket index MyHashMap computes (Java hashCode, h ^ h>>>16, & (capacity-1)). */
+    hashTable(label, m, o = {}) {
+      const entries = m instanceof Map ? [...m] : m instanceof Set ? [...m].map(k => [k, undefined]) : Object.entries(m);
+      let cap = o.capacity || 8;
+      while (entries.length > cap * 0.75) cap *= 2;
+      const rows = Array.from({ length: cap }, () => []);
+      entries.forEach(([k, v]) => { const h = jhash(k); rows[(h ^ (h >>> 16)) & (cap - 1)].unshift({ k: show(k), v: v === undefined ? undefined : show(v instanceof Set ? [...v] : v), hl: o.hl && o.hl === k }); });
+      return { t: 'hash', label, rows };
     },
     stack(label, items, o = {}) { return { t: 'stack', label, items: clone([...items]), top: o.top !== false }; },
     text(label, s, c = '') { return { t: 'text', label, s: String(s), cls: c }; },
@@ -432,6 +461,7 @@ window.PROBLEM = {"num": 274, "title": "H-Index", "idea": "Count papers by citat
       case 'vars': body = '<div class="vars">' + (Object.keys(c.obj).length ? Object.entries(c.obj).map(([k, v]) => `<div class="kv ${prev && prev.obj && show(prev.obj[k]) !== show(v) ? 'chg' : ''}"><b>${esc(k)}</b> = ${esc(show(v))}</div>`).join('') : '<div class="kv">(empty)</div>') + '</div>'; break;
       case 'stack': body = '<div class="stack">' + c.items.map((v, i) => `<div class="cell ${i === c.items.length - 1 && c.top ? 'cur' : ''}">${esc(show(v))}</div>`).join('') + '</div>'; break;
       case 'text': body = `<div class="textc ${c.cls}">${esc(c.s)}</div>`; break;
+      case 'hash': body = '<div class="htable">' + c.rows.map((chain, i) => `<div class="hcol"><div class="hidx">[${i}]</div>${chain.length ? chain.map((e, j) => `${j ? '<div class="hdown">↓</div>' : ''}<div class="cell hentry ${e.hl ? 'cur' : ''}">${esc(e.k)}${e.v !== undefined ? `<small>→ ${esc(e.v)}</small>` : ''}</div>`).join('') : '<div class="hnull">·</div>'}</div>`).join('') + `</div><div class="hnote">${c.rows.length} buckets · bucket = (h ^ h>>>16) & ${c.rows.length - 1} · collisions chain downwards</div>`; break;
       case 'cx': body = `<div class="cxstage">${cxCard('time')}${cxCard('space')}</div>`; break;
       case 'intro': body = `<div class="idea">${esc(c.s)}</div>`; break;
     }
