@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1/animation/index.html">v1 · Copy and sort</a><a class="on" href="../../v2/animation/index.html">v2 · Three pointers from the back</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1-copy-and-sort/animation/index.html">v1 · Copy and sort</a><a class="on" href="../../v2-three-pointers-from-the-back/animation/index.html">v2 · Three pointers from the back</a></nav>
   </nav>
 </header>
 <main>
@@ -254,7 +254,7 @@ public class MergeSortedArray {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1/animation/index.html">v1</a></td><td>Copy and sort</td><td><code>O((m + n) log(m + n))</code></td><td><code>O(log(m + n))</code></td></tr><tr class="on"><td><a href="../../v2/animation/index.html">v2</a></td><td>Three pointers from the back</td><td><code>O(m + n)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1-copy-and-sort/animation/index.html">v1</a></td><td>Copy and sort</td><td><code>O((m + n) log(m + n))</code></td><td><code>O(log(m + n))</code></td></tr><tr class="on"><td><a href="../../v2-three-pointers-from-the-back/animation/index.html">v2</a></td><td>Three pointers from the back</td><td><code>O(m + n)</code></td><td><code>O(1)</code></td></tr></table></div>
     <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Three pointers, writing from the back.</strong> <code>i</code> points at the last real value of <code>nums1</code>, <code>j</code> at the last value of <code>nums2</code>, and <code>k</code> at the last slot of <code>nums1</code>. At every step copy the larger of <code>nums1[i]</code> and <code>nums2[j]</code> into <code>nums1[k]</code>, then move the pointer you copied from, and <code>k</code>, one step left. Writing from the back means we only ever overwrite slots we have already read. When <code>nums2</code> runs out, the rest of <code>nums1</code> is already in place.</p>
 <ul><li>Time: <strong>O(m + n)</strong> — every slot of nums1 is written exactly once.</li><li>Space: <strong>O(1)</strong> — only three index variables.</li></ul></div>
   </section>
