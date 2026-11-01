@@ -3,8 +3,4 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "0274-h-index"
-
-// Each solution variant (v1 = simplest ... vN = most efficient) is its own subproject.
-include("v1")
-include("v2")
+rootProject.name = "0274-h-index-v2-counting-buckets"

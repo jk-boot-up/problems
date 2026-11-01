@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>274. H-Index (v1) · Animated walkthrough</title>
+<title>274. H-Index (v2) · Animated walkthrough</title>
 <style>
 /* ---------- themes ---------- */
 :root,[data-theme="dark"]{
@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#274</span><h1>H-Index</h1><span class="badge Medium">Medium</span><span class="topic">Array / String</span><span class="vtag">v1 · Sort descending</span>
+    <span class="hnum">#274</span><h1>H-Index</h1><span class="badge Medium">Medium</span><span class="topic">Array / String</span><span class="vtag">v2 · Counting buckets</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/h-index/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="on" href="../../v1/animation/index.html">v1 · Sort descending</a><a class="" href="../../v2/animation/index.html">v2 · Counting buckets</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1-sort-descending/animation/index.html">v1 · Sort descending</a><a class="on" href="../../v2-counting-buckets/animation/index.html">v2 · Counting buckets</a></nav>
   </nav>
 </header>
 <main>
@@ -202,11 +202,11 @@ Output: 1</code></pre>
 <ul><li><code>1 &lt;= n &lt;= 5000</code></li><li><code>0 &lt;= citations[i] &lt;= 1000</code></li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Sort descending)</h3>
-          <div class="idea">Sort citations high to low; h grows while the (h+1)-th paper still has more than h citations.</div>
-          <p><strong>Sort.</strong> Sort ascending and scan from the top: the paper at rank <code>h + 1</code> (counting from the most cited) must have at least <code>h + 1</code> citations for the h-index to reach <code>h + 1</code>.</p>
-<ul><li>Time: <strong>O(n log n)</strong> — sorting.</li><li>Space: <strong>O(log n)</strong> — the sort's recursion stack.</li></ul>
-          <div class="chips"><span class="chip">⏱ O(n log n)</span><span class="chip">🧠 O(log n)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
+          <h3>💡 Key idea (v2 · Counting buckets)</h3>
+          <div class="idea">Count papers by citation (capped at n), then walk down from n until at least h papers have h or more citations.</div>
+          <p><strong>Counting sort.</strong> The answer is at most <code>n</code>, so put every paper into a bucket <code>min(c, n)</code>. Walk <code>h</code> from <code>n</code> down to 0, keeping a running total of papers with at least <code>h</code> citations. The first <code>h</code> where that total reaches <code>h</code> is the answer.</p>
+<ul><li>Time: <strong>O(n)</strong> — one pass to fill buckets, one pass down them.</li><li>Space: <strong>O(n)</strong> — the bucket array of size n + 1.</li></ul>
+          <div class="chips"><span class="chip">⏱ O(n)</span><span class="chip">🧠 O(n)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
           <button class="cta" data-goto="walk">▶ Start the animated walkthrough</button>
         </div>
       </div>
@@ -231,20 +231,26 @@ Output: 1</code></pre>
     <div id="timeline" title="Jump to a step"></div>
     <div class="legend"><span style="--c:var(--cur)">current</span><span style="--c:var(--sel)">selected / window</span><span style="--c:var(--ok)">done / match</span><span style="--c:var(--bad)">rejected</span><span style="--c:var(--alt)">special</span></div>
     <div class="kbd"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>1</kbd>–<kbd>9</kbd> pick scenario</div>
-    <details class="code card"><summary>☕ Java solution (v1)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0274.v1;
+    <details class="code card"><summary>☕ Java solution (v2)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0274.v2;
 
 import java.util.*;
 
 public class HIndex {
 
     public int hIndex(int[] citations) {
-        int[] c = citations.clone();
-        Arrays.sort(c);
-        int n = c.length, h = 0;
-        while (h &lt; n &amp;&amp; c[n - 1 - h] &gt; h) {
-            h++;
+        int n = citations.length;
+        int[] buckets = new int[n + 1];
+        for (int c : citations) {
+            buckets[Math.min(c, n)]++;
         }
-        return h;
+        int papers = 0;
+        for (int h = n; h &gt;= 0; h--) {
+            papers += buckets[h];
+            if (papers &gt;= h) {
+                return h;
+            }
+        }
+        return 0;
     }
 }
 </code></pre></details>
@@ -252,13 +258,13 @@ public class HIndex {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class="on"><td><a href="../../v1/animation/index.html">v1</a></td><td>Sort descending</td><td><code>O(n log n)</code></td><td><code>O(log n)</code></td></tr><tr class=""><td><a href="../../v2/animation/index.html">v2</a></td><td>Counting buckets</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr></table></div>
-    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Sort.</strong> Sort ascending and scan from the top: the paper at rank <code>h + 1</code> (counting from the most cited) must have at least <code>h + 1</code> citations for the h-index to reach <code>h + 1</code>.</p>
-<ul><li>Time: <strong>O(n log n)</strong> — sorting.</li><li>Space: <strong>O(log n)</strong> — the sort's recursion stack.</li></ul></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1-sort-descending/animation/index.html">v1</a></td><td>Sort descending</td><td><code>O(n log n)</code></td><td><code>O(log n)</code></td></tr><tr class="on"><td><a href="../../v2-counting-buckets/animation/index.html">v2</a></td><td>Counting buckets</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Counting sort.</strong> The answer is at most <code>n</code>, so put every paper into a bucket <code>min(c, n)</code>. Walk <code>h</code> from <code>n</code> down to 0, keeping a running total of papers with at least <code>h</code> citations. The first <code>h</code> where that total reaches <code>h</code> is the answer.</p>
+<ul><li>Time: <strong>O(n)</strong> — one pass to fill buckets, one pass down them.</li><li>Space: <strong>O(n)</strong> — the bucket array of size n + 1.</li></ul></div>
   </section>
 </main>
 <script>
-window.PROBLEM = {"num": 274, "title": "H-Index", "idea": "Sort citations high to low; h grows while the (h+1)-th paper still has more than h citations.", "time": "O(n log n)", "timeWhy": "sorting.", "space": "O(log n)", "spaceWhy": "the sort's recursion stack.", "tc": "nlogn", "sc": "log"};
+window.PROBLEM = {"num": 274, "title": "H-Index", "idea": "Count papers by citation (capped at n), then walk down from n until at least h papers have h or more citations.", "time": "O(n)", "timeWhy": "one pass to fill buckets, one pass down them.", "space": "O(n)", "spaceWhy": "the bucket array of size n + 1.", "tc": "n", "sc": "n"};
 /*
  * Step-by-step algorithm animator with spoken narration.
  *
@@ -593,13 +599,20 @@ window.PROBLEM = {"num": 274, "title": "H-Index", "idea": "Sort citations high t
 <script>
 function trace(A) {
 function run(c) {
-  const s = c.slice().sort((x, y) => y - x);
-  let h = 0;
-  A.step('Sort the citations from most to least cited.', A.arr('citations', c), A.arr('sorted (desc)', s));
-  while (h < s.length && s[h] > h) { A.step(`Paper #${h + 1} has ${s[h]} citations, at least ${h + 1}. So h can be ${h + 1}.`, A.arr('sorted (desc)', s, { hl: s.map((_, t) => [t, t <= h ? 'ok' : '']) }), A.vars({ h: h + 1 })); h++; }
-  A.step(h < s.length ? `Paper #${h + 1} has only ${s[h]} citations, fewer than ${h + 1}. Stop: the h-index is ${h}.` : `Every paper qualifies, so the h-index is ${h}.`, A.arr('sorted (desc)', s, { hl: s.map((_, t) => [t, t < h ? 'ok' : 'bad']) }), A.text('Result', h, 'ok'));
+  const n = c.length, b = new Array(n + 1).fill(0);
+  A.step(`The h-index can be at most ${n}, the number of papers. Make buckets 0 to ${n}; a paper with more than ${n} citations goes in bucket ${n}.`, A.arr('citations', c), A.arr('buckets', b));
+  c.forEach((x, i) => { b[Math.min(x, n)]++; A.step(`Paper ${i} has ${x} citations, so it goes in bucket ${Math.min(x, n)}.`, A.arr('citations', c, { hl: { [i]: 'cur' } }), A.arr('buckets', b, { hl: { [Math.min(x, n)]: 'sel' } })); });
+  let papers = 0;
+  for (let h = n; h >= 0; h--) {
+    papers += b[h];
+    const ok = papers >= h;
+    A.step(`h = ${h}: ${papers} paper${papers === 1 ? '' : 's'} have at least ${h} citations. ${ok ? `That is enough, so the h-index is ${h}.` : `We need ${h}, so try a smaller h.`}`, A.arr('buckets', b, { ptr: [[h, 'h']], hl: b.map((_, t) => [t, t >= h ? (ok ? 'ok' : 'sel') : 'dim']) }), A.vars({ h, papers }));
+    if (ok) { A.step(`The answer is ${h}.`, A.arr('citations', c, { hl: c.map((x, t) => [t, x >= h ? 'ok' : 'dim']) }), A.text('Result', h, 'ok')); return; }
+  }
 }
 A.scenario('Mixed citations', 'citations = [3,0,6,1,5]', () => run([3, 0, 6, 1, 5]));
+A.scenario('Small counts', 'citations = [1,3,1]', () => run([1, 3, 1]));
+A.scenario('Edge: no citations', 'citations = [0,0]', () => run([0, 0]));
 }
 </script>
 </body>
