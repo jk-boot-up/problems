@@ -500,3 +500,17 @@ includeBuild("0307-range-sum-query-mutable/v2-fenwick-binary-indexed-tree") { na
 includeBuild("0313-super-ugly-number/v1-one-pointer-per-prime") { name = "0313-super-ugly-number-v1-one-pointer-per-prime" }
 includeBuild("0315-count-of-smaller-numbers-after-self/v1-brute-force") { name = "0315-count-of-smaller-numbers-after-self-v1-brute-force" }
 includeBuild("0315-count-of-smaller-numbers-after-self/v2-merge-sort-counting-inversions") { name = "0315-count-of-smaller-numbers-after-self-v2-merge-sort-counting-inversions" }
+includeBuild("0318-maximum-product-of-word-lengths/v1-letter-bitmasks") { name = "0318-maximum-product-of-word-lengths-v1-letter-bitmasks" }
+includeBuild("0319-bulb-switcher/v1-count-perfect-squares") { name = "0319-bulb-switcher-v1-count-perfect-squares" }
+includeBuild("0326-power-of-three/v1-repeated-division") { name = "0326-power-of-three-v1-repeated-division" }
+includeBuild("0326-power-of-three/v2-divisor-of-3-19") { name = "0326-power-of-three-v2-divisor-of-3-19" }
+includeBuild("0341-flatten-nested-list-iterator/v1-flatten-up-front") { name = "0341-flatten-nested-list-iterator-v1-flatten-up-front" }
+includeBuild("0341-flatten-nested-list-iterator/v2-lazy-stack-of-iterators") { name = "0341-flatten-nested-list-iterator-v2-lazy-stack-of-iterators" }
+includeBuild("0342-power-of-four/v1-single-bit-at-an-even-position") { name = "0342-power-of-four-v1-single-bit-at-an-even-position" }
+includeBuild("0343-integer-break/v1-dynamic-programming") { name = "0343-integer-break-v1-dynamic-programming" }
+includeBuild("0343-integer-break/v2-greedy-threes") { name = "0343-integer-break-v2-greedy-threes" }
+includeBuild("0367-valid-perfect-square/v1-binary-search-on-the-root") { name = "0367-valid-perfect-square-v1-binary-search-on-the-root" }
+includeBuild("0376-wiggle-subsequence/v1-up-down-greedy") { name = "0376-wiggle-subsequence-v1-up-down-greedy" }
+includeBuild("0377-combination-sum-iv/v1-dp-over-the-target") { name = "0377-combination-sum-iv-v1-dp-over-the-target" }
+includeBuild("0378-kth-smallest-element-in-a-sorted-matrix/v1-min-heap-over-rows") { name = "0378-kth-smallest-element-in-a-sorted-matrix-v1-min-heap-over-rows" }
+includeBuild("0378-kth-smallest-element-in-a-sorted-matrix/v2-binary-search-on-value") { name = "0378-kth-smallest-element-in-a-sorted-matrix-v2-binary-search-on-value" }
