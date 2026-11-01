@@ -164,3 +164,8 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 .hdown{color:var(--mut);font-size:11px;line-height:1}
 .hnull{color:var(--mut);font-size:11px;opacity:.5}
 .hnote{font-size:12px;color:var(--mut);margin-top:6px}
+
+#controls button.toggle{font-weight:600}
+#controls button.toggle.on{border-color:var(--ok);color:var(--ok);background:var(--ok-bg)}
+#controls button.toggle:not(.on){color:var(--mut)}
+#controls select:disabled{opacity:.45}

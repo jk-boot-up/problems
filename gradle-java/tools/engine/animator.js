@@ -236,7 +236,7 @@
     const finish = () => { if (my !== token) return; $('narr').classList.remove('speaking'); clearTimeout(timer); timer = setTimeout(() => my === token && done && done(), 450 / rate); };
     if (voiceOn && synth) {
       const u = new SpeechSynthesisUtterance(text);
-      u.rate = rate; if (voice) u.voice = voice;
+      u.rate = rate; u.pitch = 1.05; if (voice) { u.voice = voice; u.lang = voice.lang; }
       let ended = false;
       u.onstart = () => my === token && $('narr').classList.add('speaking');
       u.onend = u.onerror = () => { if (!ended) { ended = true; finish(); } };
@@ -277,14 +277,32 @@
     try { localStorage.setItem('algo-theme', t); } catch (e) { }
     document.querySelectorAll('.themes button').forEach(b => b.classList.toggle('on', b.dataset.theme === t));
   }
+  /* Prefer a female English voice: "Amy" first, then well-known female system voices. */
+  const FEMALE = [/\bamy\b/i, /uk english female/i, /\b(aria|jenny|libby|sonia|zira|hazel|susan|emma|ava|allison|samantha|serena|kate|karen|moira|tessa|fiona|victoria|joanna|salli|kimberly|olivia|natasha|clara)\b/i, /female/i, /woman/i];
+  function rankVoice(v) {
+    const i = FEMALE.findIndex(re => re.test(v.name));
+    return (i < 0 ? 50 : i) + (/en[-_]GB/i.test(v.lang) ? 0 : 0.5);
+  }
   function loadVoices() {
     if (!synth) return;
-    const vs = synth.getVoices().filter(v => /^en/i.test(v.lang));
+    const vs = synth.getVoices().filter(v => /^en/i.test(v.lang)).sort((a, b) => rankVoice(a) - rankVoice(b));
     const sel = $('voice');
-    sel.innerHTML = vs.map((v, i) => `<option value="${i}">${esc(v.name)}</option>`).join('') || '<option>default voice</option>';
-    voice = vs.find(v => v.default) || vs[0] || null;
+    sel.innerHTML = vs.map((v, i) => `<option value="${i}">${esc(v.name)}${rankVoice(v) < 50 ? ' ♀' : ''}</option>`).join('') || '<option>default voice</option>';
+    let saved = null;
+    try { saved = localStorage.getItem('algo-voice'); } catch (e) { }
+    voice = vs.find(v => v.name === saved) || vs[0] || null;
     if (voice) sel.value = String(vs.indexOf(voice));
-    sel.onchange = () => (voice = vs[+sel.value] || null);
+    sel.onchange = () => { voice = vs[+sel.value] || null; try { localStorage.setItem('algo-voice', voice ? voice.name : ''); } catch (e) { } };
+  }
+  function setVoiceOn(on) {
+    voiceOn = on;
+    const b = $('voiceOn');
+    b.textContent = on ? '🔊 Narration on' : '🔇 Narration off';
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', String(on));
+    $('voice').disabled = !on;
+    try { localStorage.setItem('algo-narration', on ? 'on' : 'off'); } catch (e) { }
+    if (!on && synth) { synth.cancel(); $('narr').classList.remove('speaking'); }
   }
   function highlightJava(src) {
     return esc(src)
@@ -316,15 +334,19 @@
     $('first').onclick = () => go(0);
     $('last').onclick = () => go(frames.length - 1);
     $('speed').onchange = e => (rate = +e.target.value);
-    $('voiceOn').onchange = e => { voiceOn = e.target.checked; if (!voiceOn && synth) synth.cancel(); };
+    $('voiceOn').onclick = () => setVoiceOn(!voiceOn);
     document.addEventListener('keydown', e => {
       if (/SELECT|INPUT|TEXTAREA/.test(e.target.tagName) || !$('tab-walk').classList.contains('on')) return;
       if (e.key === ' ') { e.preventDefault(); setPlaying(!playing); }
       if (e.key === 'ArrowRight') go(cur + 1);
       if (e.key === 'ArrowLeft') go(cur - 1);
+      if (e.key === 'n' || e.key === 'N') setVoiceOn(!voiceOn);
       if (/^[1-9]$/.test(e.key) && +e.key <= scenarios.length) selectScenario(+e.key - 1);
     });
-    if (synth) { loadVoices(); synth.onvoiceschanged = loadVoices; } else { $('voiceOn').checked = false; voiceOn = false; }
+    let pref = 'on';
+    try { pref = localStorage.getItem('algo-narration') || 'on'; } catch (e) { }
+    if (synth) { loadVoices(); synth.onvoiceschanged = loadVoices; setVoiceOn(pref === 'on'); }
+    else { setVoiceOn(false); $('voiceOn').disabled = true; $('voiceOn').title = 'This browser has no speech synthesis'; }
     selectScenario(0);
   });
 })();

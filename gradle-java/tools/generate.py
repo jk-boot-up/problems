@@ -364,13 +364,13 @@ def animation_html(p, vs, v, solution_src):
       <button id="next" title="Next step (→)">▶</button>
       <button id="last" title="Last step">⏭</button>
       <select id="speed" title="Speed"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
-      <label title="Spoken narration"><input type="checkbox" id="voiceOn" checked> Narration</label>
-      <select id="voice" title="Voice"></select>
+      <button id="voiceOn" class="toggle on" aria-pressed="true" title="Turn spoken narration on or off (N)">🔊 Narration on</button>
+      <select id="voice" title="Narrator voice (female voices marked ♀; Amy preferred when installed)"></select>
       <span id="counter"></span>
     </div>
     <div id="timeline" title="Jump to a step"></div>
     <div class="legend"><span style="--c:var(--cur)">current</span><span style="--c:var(--sel)">selected / window</span><span style="--c:var(--ok)">done / match</span><span style="--c:var(--bad)">rejected</span><span style="--c:var(--alt)">special</span></div>
-    <div class="kbd"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>1</kbd>–<kbd>9</kbd> pick scenario</div>
+    <div class="kbd"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>1</kbd>–<kbd>9</kbd> pick scenario · <kbd>N</kbd> narration on/off</div>
     <details class="code card"><summary>☕ Java solution ({v['v']})</summary><pre class="java"><code id="javacode">{html.escape(solution_src)}</code></pre></details>
   </section>
 
@@ -461,7 +461,7 @@ Open [`animation/index.html`](animation/index.html) in a browser. It has three t
 
 * **Problem:** the statement and the key idea.
 * **Walkthrough:** pick a scenario and press **Play**. Each step is animated and read aloud by your browser's speech
-  engine (untick *Narration* to mute). Keys: space = play/pause, ← / → = step, 1–9 = scenario.
+  engine (use the 🔊 *Narration* button to turn the voice on or off; a female voice, Amy when installed, is preferred). Keys: space = play/pause, ← / → = step, 1–9 = scenario.
 * **Complexity:** time and space cost, plotted against the common growth curves{", and compared with the other approaches" if others else ""}.
 
 Switch between Light, Medium and Dark themes in the header.
