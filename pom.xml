@@ -22,8 +22,10 @@
     <module>palindrome-number</module>
     <module>palindrome-string</module>
     <module>add-two-numbers</module>
-      <module>s1/length-of-longest-substring</module>
+    <module>s1/length-of-longest-substring</module>
     <module>s1/median-of-two-sorted-arrays</module>
+    <module>s1/merging-of-two-sorted-arrays</module>
+    <!--    <module>s1/merging-of-two-sorted-arrays</module>-->
   </modules>
 
 </project>

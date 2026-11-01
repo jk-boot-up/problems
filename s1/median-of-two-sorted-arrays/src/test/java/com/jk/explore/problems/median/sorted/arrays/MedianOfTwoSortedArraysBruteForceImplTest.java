@@ -74,5 +74,15 @@ public class MedianOfTwoSortedArraysBruteForceImplTest {
         assertEquals(6, actual);
     }
 
+    @Test
+    public void test1() {
+
+        String [] arr = {"abc", "TrUe", "false", null, "FALSE"};
+        for(String s : arr)
+        {
+            System.out.print(Boolean.valueOf(s) ? "T" : "F");
+        }
+    }
+
 
 }
