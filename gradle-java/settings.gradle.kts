@@ -265,3 +265,14 @@ includeBuild("0094-binary-tree-inorder-traversal/v2-iterative-with-a-stack") { n
 includeBuild("0144-binary-tree-preorder-traversal/v1-iterative-with-a-stack") { name = "0144-binary-tree-preorder-traversal-v1-iterative-with-a-stack" }
 includeBuild("0145-binary-tree-postorder-traversal/v1-reversed-modified-preorder") { name = "0145-binary-tree-postorder-traversal-v1-reversed-modified-preorder" }
 includeBuild("0110-balanced-binary-tree/v1-height-with-early-exit") { name = "0110-balanced-binary-tree-v1-height-with-early-exit" }
+includeBuild("0111-minimum-depth-of-binary-tree/v1-bfs-to-the-first-leaf") { name = "0111-minimum-depth-of-binary-tree-v1-bfs-to-the-first-leaf" }
+includeBuild("0113-path-sum-ii/v1-dfs-with-backtracking") { name = "0113-path-sum-ii-v1-dfs-with-backtracking" }
+includeBuild("0118-pascals-triangle/v1-row-by-row") { name = "0118-pascals-triangle-v1-row-by-row" }
+includeBuild("0115-distinct-subsequences/v1-1d-dp") { name = "0115-distinct-subsequences-v1-1d-dp" }
+includeBuild("0142-linked-list-cycle-ii/v1-visited-node-set") { name = "0142-linked-list-cycle-ii-v1-visited-node-set" }
+includeBuild("0142-linked-list-cycle-ii/v2-floyd-meet-then-find-the-entrance") { name = "0142-linked-list-cycle-ii-v2-floyd-meet-then-find-the-entrance" }
+includeBuild("0143-reorder-list/v1-split-reverse-merge") { name = "0143-reorder-list-v1-split-reverse-merge" }
+includeBuild("0152-maximum-product-subarray/v1-max-and-min-running-products") { name = "0152-maximum-product-subarray-v1-max-and-min-running-products" }
+includeBuild("0160-intersection-of-two-linked-lists/v1-switching-pointers") { name = "0160-intersection-of-two-linked-lists-v1-switching-pointers" }
+includeBuild("0234-palindrome-linked-list/v1-reverse-second-half") { name = "0234-palindrome-linked-list-v1-reverse-second-half" }
+includeBuild("0024-swap-nodes-in-pairs/v1-iterative-re-linking") { name = "0024-swap-nodes-in-pairs-v1-iterative-re-linking" }
