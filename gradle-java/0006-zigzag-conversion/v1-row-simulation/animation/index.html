@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#6</span><h1>Zigzag Conversion</h1><span class="badge Medium">Medium</span><span class="topic">Array / String</span><span class="vtag">v1 · Optimal</span>
+    <span class="hnum">#6</span><h1>Zigzag Conversion</h1><span class="badge Medium">Medium</span><span class="topic">Array / String</span><span class="vtag">v1 · Row simulation</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/zigzag-conversion/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -206,7 +206,7 @@ Output: &quot;A&quot;</code></pre>
 <ul><li><code>1 &lt;= s.length &lt;= 1000</code>, <code>1 &lt;= numRows &lt;= 1000</code></li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Optimal)</h3>
+          <h3>💡 Key idea (v1 · Row simulation)</h3>
           <div class="idea">Deal characters onto rows, bouncing the row index down and up; then read the rows in order.</div>
           <p><strong>Simulate the rows.</strong> Keep one <code>StringBuilder</code> per row and a current row with a direction. Append each character to the current row; flip direction at the top and bottom rows. Concatenate the rows. With one row, return <code>s</code>.</p>
 <ul><li>Time: <strong>O(n)</strong> — each character is placed once and read once.</li><li>Space: <strong>O(n)</strong> — the row builders hold every character.</li></ul>
