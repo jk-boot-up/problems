@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>48. Rotate Image (v2) · Animated walkthrough</title>
+<title>48. Rotate Image (v1) · Animated walkthrough</title>
 <style>
 /* ---------- themes ---------- */
 :root,[data-theme="dark"]{
@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#48</span><h1>Rotate Image</h1><span class="badge Medium">Medium</span><span class="topic">Matrix</span><span class="vtag">v2 · Transpose + reverse rows</span>
+    <span class="hnum">#48</span><h1>Rotate Image</h1><span class="badge Medium">Medium</span><span class="topic">Matrix</span><span class="vtag">v1 · Copy into a new matrix</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/rotate-image/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1/animation/index.html">v1 · Copy into a new matrix</a><a class="on" href="../../v2/animation/index.html">v2 · Transpose + reverse rows</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="on" href="../../v1-copy-into-a-new-matrix/animation/index.html">v1 · Copy into a new matrix</a><a class="" href="../../v2-transpose-reverse-rows/animation/index.html">v2 · Transpose + reverse rows</a></nav>
   </nav>
 </header>
 <main>
@@ -202,11 +202,11 @@ Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]</code></pre>
 <ul><li><code>1 &lt;= n &lt;= 20</code>, <code>-1000 &lt;= matrix[i][j] &lt;= 1000</code></li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v2 · Transpose + reverse rows)</h3>
-          <div class="idea">A clockwise rotation equals a transpose followed by reversing every row.</div>
-          <p><strong>Transpose, then mirror.</strong> Swap <code>a[i][j]</code> with <code>a[j][i]</code> for <code>j &gt; i</code> (transpose), then reverse each row. Element <code>(i, j)</code> ends at <code>(j, n-1-i)</code>, which is exactly the clockwise rotation.</p>
-<ul><li>Time: <strong>O(n²)</strong> — every cell is swapped a constant number of times.</li><li>Space: <strong>O(1)</strong> — swaps in place.</li></ul>
-          <div class="chips"><span class="chip">⏱ O(n²)</span><span class="chip">🧠 O(1)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
+          <h3>💡 Key idea (v1 · Copy into a new matrix)</h3>
+          <div class="idea">Cell (i, j) moves to (j, n−1−i); fill a copy, then copy it back.</div>
+          <p><strong>Extra matrix.</strong> Write <code>rotated[j][n-1-i] = matrix[i][j]</code> for every cell, then copy <code>rotated</code> back row by row. Easy to reason about, but it breaks the in-place requirement.</p>
+<ul><li>Time: <strong>O(n²)</strong> — each cell is copied twice.</li><li>Space: <strong>O(n²)</strong> — the second matrix.</li></ul>
+          <div class="chips"><span class="chip">⏱ O(n²)</span><span class="chip">🧠 O(n²)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
           <button class="cta" data-goto="walk">▶ Start the animated walkthrough</button>
         </div>
       </div>
@@ -231,7 +231,7 @@ Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]</code></pre>
     <div id="timeline" title="Jump to a step"></div>
     <div class="legend"><span style="--c:var(--cur)">current</span><span style="--c:var(--sel)">selected / window</span><span style="--c:var(--ok)">done / match</span><span style="--c:var(--bad)">rejected</span><span style="--c:var(--alt)">special</span></div>
     <div class="kbd"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>1</kbd>–<kbd>9</kbd> pick scenario</div>
-    <details class="code card"><summary>☕ Java solution (v2)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0048.v2;
+    <details class="code card"><summary>☕ Java solution (v1)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0048.v1;
 
 import java.util.*;
 
@@ -239,19 +239,14 @@ public class RotateImage {
 
     public void rotate(int[][] matrix) {
         int n = matrix.length;
+        int[][] rotated = new int[n][n];
         for (int i = 0; i &lt; n; i++) {
-            for (int j = i + 1; j &lt; n; j++) {
-                int t = matrix[i][j];
-                matrix[i][j] = matrix[j][i];
-                matrix[j][i] = t;
+            for (int j = 0; j &lt; n; j++) {
+                rotated[j][n - 1 - i] = matrix[i][j];
             }
         }
-        for (int[] row : matrix) {
-            for (int l = 0, r = n - 1; l &lt; r; l++, r--) {
-                int t = row[l];
-                row[l] = row[r];
-                row[r] = t;
-            }
+        for (int i = 0; i &lt; n; i++) {
+            matrix[i] = rotated[i].clone();
         }
     }
 }
@@ -260,13 +255,13 @@ public class RotateImage {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1/animation/index.html">v1</a></td><td>Copy into a new matrix</td><td><code>O(n²)</code></td><td><code>O(n²)</code></td></tr><tr class="on"><td><a href="../../v2/animation/index.html">v2</a></td><td>Transpose + reverse rows</td><td><code>O(n²)</code></td><td><code>O(1)</code></td></tr></table></div>
-    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Transpose, then mirror.</strong> Swap <code>a[i][j]</code> with <code>a[j][i]</code> for <code>j &gt; i</code> (transpose), then reverse each row. Element <code>(i, j)</code> ends at <code>(j, n-1-i)</code>, which is exactly the clockwise rotation.</p>
-<ul><li>Time: <strong>O(n²)</strong> — every cell is swapped a constant number of times.</li><li>Space: <strong>O(1)</strong> — swaps in place.</li></ul></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class="on"><td><a href="../../v1-copy-into-a-new-matrix/animation/index.html">v1</a></td><td>Copy into a new matrix</td><td><code>O(n²)</code></td><td><code>O(n²)</code></td></tr><tr class=""><td><a href="../../v2-transpose-reverse-rows/animation/index.html">v2</a></td><td>Transpose + reverse rows</td><td><code>O(n²)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Extra matrix.</strong> Write <code>rotated[j][n-1-i] = matrix[i][j]</code> for every cell, then copy <code>rotated</code> back row by row. Easy to reason about, but it breaks the in-place requirement.</p>
+<ul><li>Time: <strong>O(n²)</strong> — each cell is copied twice.</li><li>Space: <strong>O(n²)</strong> — the second matrix.</li></ul></div>
   </section>
 </main>
 <script>
-window.PROBLEM = {"num": 48, "title": "Rotate Image", "idea": "A clockwise rotation equals a transpose followed by reversing every row.", "time": "O(n\u00b2)", "timeWhy": "every cell is swapped a constant number of times.", "space": "O(1)", "spaceWhy": "swaps in place.", "tc": "n2", "sc": "1"};
+window.PROBLEM = {"num": 48, "title": "Rotate Image", "idea": "Cell (i, j) moves to (j, n\u22121\u2212i); fill a copy, then copy it back.", "time": "O(n\u00b2)", "timeWhy": "each cell is copied twice.", "space": "O(n\u00b2)", "spaceWhy": "the second matrix.", "tc": "n2", "sc": "n2"};
 /*
  * Step-by-step algorithm animator with spoken narration.
  *
@@ -601,18 +596,12 @@ window.PROBLEM = {"num": 48, "title": "Rotate Image", "idea": "A clockwise rotat
 <script>
 function trace(A) {
 function run(m) {
-  const n = m.length;
-  A.step('Step 1: transpose. Swap each cell above the diagonal with its mirror below it.', A.grid('matrix', m, { hl: m.flatMap((r, i) => r.map((_, j) => [`${i},${j}`, i === j ? 'alt' : ''])) }));
-  for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
-    [m[i][j], m[j][i]] = [m[j][i], m[i][j]];
-    A.step(`Swap (${i},${j}) with (${j},${i}).`, A.grid('matrix', m, { hl: { [`${i},${j}`]: 'cur', [`${j},${i}`]: 'cur' } }));
-  }
-  A.step('The matrix is transposed: rows have become columns. Step 2: reverse every row.', A.grid('matrix', m));
-  m.forEach((row, i) => { row.reverse(); A.step(`Reverse row ${i}.`, A.grid('matrix', m, { hl: row.map((_, j) => [`${i},${j}`, 'ok']) })); });
-  A.step('The matrix is rotated 90° clockwise, using no extra matrix.', A.grid('matrix', m, { hl: m.flatMap((r, i) => r.map((_, j) => [`${i},${j}`, 'ok'])) }));
+  const n = m.length, out = Array.from({ length: n }, () => new Array(n).fill(''));
+  A.step('Cell (i, j) moves to (j, n − 1 − i). Fill a new matrix.', A.grid('matrix', m), A.grid('rotated', out));
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { out[j][n - 1 - i] = m[i][j]; A.step(`(${i},${j}) = ${m[i][j]} goes to (${j},${n - 1 - i}).`, A.grid('matrix', m, { hl: { [`${i},${j}`]: 'cur' } }), A.grid('rotated', out, { hl: { [`${j},${n - 1 - i}`]: 'ok' } })); }
+  A.step('Copy it back. This needs a second n × n matrix.', A.grid('matrix', out, { hl: out.flatMap((r, i) => r.map((_, j) => [`${i},${j}`, 'ok'])) }));
 }
 A.scenario('3 × 3', 'matrix = [[1,2,3],[4,5,6],[7,8,9]]', () => run([[1, 2, 3], [4, 5, 6], [7, 8, 9]]));
-A.scenario('4 × 4', 'the second example', () => run([[5, 1, 9, 11], [2, 4, 8, 10], [13, 3, 6, 7], [15, 14, 12, 16]]));
 }
 </script>
 </body>
