@@ -604,3 +604,13 @@ includeBuild("1700-number-of-students-unable-to-eat-lunch/v1-count-preferences")
 includeBuild("1710-maximum-units-on-a-truck/v1-greedy-by-units-per-box") { name = "1710-maximum-units-on-a-truck-v1-greedy-by-units-per-box" }
 includeBuild("1721-swapping-nodes-in-a-linked-list/v1-two-pointers-swap-values") { name = "1721-swapping-nodes-in-a-linked-list-v1-two-pointers-swap-values" }
 includeBuild("1791-find-center-of-star-graph/v1-compare-two-edges") { name = "1791-find-center-of-star-graph-v1-compare-two-edges" }
+includeBuild("1838-frequency-of-the-most-frequent-element/v1-sort-sliding-window") { name = "1838-frequency-of-the-most-frequent-element-v1-sort-sliding-window" }
+includeBuild("1929-concatenation-of-array/v1-write-both-copies") { name = "1929-concatenation-of-array-v1-write-both-copies" }
+includeBuild("1971-find-if-path-exists-in-graph/v1-union-find") { name = "1971-find-if-path-exists-in-graph-v1-union-find" }
+includeBuild("2108-find-first-palindromic-string-in-the-array/v1-two-pointer-check-per-word") { name = "2108-find-first-palindromic-string-in-the-array-v1-two-pointer-check-per-word" }
+includeBuild("1029-two-city-scheduling/v1-sort-by-cost-difference") { name = "1029-two-city-scheduling-v1-sort-by-cost-difference" }
+includeBuild("1094-car-pooling/v1-difference-array-sweep") { name = "1094-car-pooling-v1-difference-array-sweep" }
+includeBuild("1110-delete-nodes-and-return-forest/v1-post-order-with-a-delete-set") { name = "1110-delete-nodes-and-return-forest-v1-post-order-with-a-delete-set" }
+includeBuild("1155-number-of-dice-rolls-with-target-sum/v1-dp-over-dice-and-sums") { name = "1155-number-of-dice-rolls-with-target-sum-v1-dp-over-dice-and-sums" }
+includeBuild("1209-remove-all-adjacent-duplicates-in-string-ii/v1-stack-of-runs") { name = "1209-remove-all-adjacent-duplicates-in-string-ii-v1-stack-of-runs" }
+includeBuild("1249-minimum-remove-to-make-valid-parentheses/v1-stack-of-open-indices") { name = "1249-minimum-remove-to-make-valid-parentheses-v1-stack-of-open-indices" }
