@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#68</span><h1>Text Justification</h1><span class="badge Hard">Hard</span><span class="topic">Array / String</span><span class="vtag">v1 · Optimal</span>
+    <span class="hnum">#68</span><h1>Text Justification</h1><span class="badge Hard">Hard</span><span class="topic">Array / String</span><span class="vtag">v1 · Greedy line packing</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/text-justification/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -202,7 +202,7 @@ Output: [&quot;This    is    an&quot;,
 <ul><li><code>1 &lt;= words.length &lt;= 300</code>, <code>1 &lt;= words[i].length &lt;= 20</code></li><li><code>words[i].length &lt;= maxWidth &lt;= 100</code></li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Optimal)</h3>
+          <h3>💡 Key idea (v1 · Greedy line packing)</h3>
           <div class="idea">Greedily pack words per line, then spread the spare spaces across gaps, giving the extra ones to the leftmost gaps.</div>
           <p><strong>Greedy lines + space distribution.</strong> Starting at word <code>i</code>, extend <code>j</code> while <code>lettersLength + (j - i) &lt;= maxWidth</code>. For a normal line with <code>gaps = j - i - 1</code>, total spaces = <code>maxWidth - letters</code>; each gap gets <code>spaces / gaps</code> and the first <code>spaces % gaps</code> gaps get one more. The last line and single-word lines are joined with one space and right-padded.</p>
 <ul><li>Time: <strong>O(L)</strong> — L is the total number of output characters (lines × maxWidth); each is written once.</li><li>Space: <strong>O(maxWidth)</strong> — the builder for the current line, apart from the output.</li></ul>
