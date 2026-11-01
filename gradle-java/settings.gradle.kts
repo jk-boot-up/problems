@@ -551,3 +551,15 @@ includeBuild("0581-shortest-unsorted-continuous-subarray/v2-two-passes-with-runn
 includeBuild("0583-delete-operation-for-two-strings/v1-longest-common-subsequence") { name = "0583-delete-operation-for-two-strings-v1-longest-common-subsequence" }
 includeBuild("0589-n-ary-tree-preorder-traversal/v1-iterative-with-a-stack") { name = "0589-n-ary-tree-preorder-traversal-v1-iterative-with-a-stack" }
 includeBuild("0559-maximum-depth-of-n-ary-tree/v1-recursive-depth") { name = "0559-maximum-depth-of-n-ary-tree-v1-recursive-depth" }
+includeBuild("0622-design-circular-queue/v1-array-with-head-and-size") { name = "0622-design-circular-queue-v1-array-with-head-and-size" }
+includeBuild("0650-2-keys-keyboard/v1-dynamic-programming-over-divisors") { name = "0650-2-keys-keyboard-v1-dynamic-programming-over-divisors" }
+includeBuild("0650-2-keys-keyboard/v2-sum-of-prime-factors") { name = "0650-2-keys-keyboard-v2-sum-of-prime-factors" }
+includeBuild("0673-number-of-longest-increasing-subsequence/v1-length-and-count-dp") { name = "0673-number-of-longest-increasing-subsequence-v1-length-and-count-dp" }
+includeBuild("0687-longest-univalue-path/v1-dfs-returning-arm-lengths") { name = "0687-longest-univalue-path-v1-dfs-returning-arm-lengths" }
+includeBuild("0712-minimum-ascii-delete-sum-for-two-strings/v1-dp-over-suffixes") { name = "0712-minimum-ascii-delete-sum-for-two-strings-v1-dp-over-suffixes" }
+includeBuild("0752-open-the-lock/v1-bfs-over-combinations") { name = "0752-open-the-lock-v1-bfs-over-combinations" }
+includeBuild("0767-reorganize-string/v1-fill-even-slots-then-odd") { name = "0767-reorganize-string-v1-fill-even-slots-then-odd" }
+includeBuild("0779-k-th-symbol-in-grammar/v1-recursion-on-the-parent") { name = "0779-k-th-symbol-in-grammar-v1-recursion-on-the-parent" }
+includeBuild("0779-k-th-symbol-in-grammar/v2-parity-of-the-bits-of-k-1") { name = "0779-k-th-symbol-in-grammar-v2-parity-of-the-bits-of-k-1" }
+includeBuild("0863-all-nodes-distance-k-in-binary-tree/v1-parent-map-bfs") { name = "0863-all-nodes-distance-k-in-binary-tree-v1-parent-map-bfs" }
+includeBuild("0931-minimum-falling-path-sum/v1-row-by-row-dp") { name = "0931-minimum-falling-path-sum-v1-row-by-row-dp" }
