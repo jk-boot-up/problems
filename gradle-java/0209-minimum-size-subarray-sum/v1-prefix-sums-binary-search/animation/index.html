@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>209. Minimum Size Subarray Sum (v2) · Animated walkthrough</title>
+<title>209. Minimum Size Subarray Sum (v1) · Animated walkthrough</title>
 <style>
 /* ---------- themes ---------- */
 :root,[data-theme="dark"]{
@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#209</span><h1>Minimum Size Subarray Sum</h1><span class="badge Medium">Medium</span><span class="topic">Sliding Window</span><span class="vtag">v2 · Sliding window</span>
+    <span class="hnum">#209</span><h1>Minimum Size Subarray Sum</h1><span class="badge Medium">Medium</span><span class="topic">Sliding Window</span><span class="vtag">v1 · Prefix sums + binary search</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/minimum-size-subarray-sum/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1/animation/index.html">v1 · Prefix sums + binary search</a><a class="on" href="../../v2/animation/index.html">v2 · Sliding window</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="on" href="../../v1-prefix-sums-binary-search/animation/index.html">v1 · Prefix sums + binary search</a><a class="" href="../../v2-sliding-window/animation/index.html">v2 · Sliding window</a></nav>
   </nav>
 </header>
 <main>
@@ -202,11 +202,11 @@ Output: 0</code></pre>
 <ul><li><code>1 &lt;= target &lt;= 10^9</code></li><li><code>1 &lt;= nums.length &lt;= 10^5</code>, <code>1 &lt;= nums[i] &lt;= 10^4</code></li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v2 · Sliding window)</h3>
-          <div class="idea">Grow the window to the right until the sum reaches the target, then shrink it from the left while it still does.</div>
-          <p><strong>Sliding window.</strong> Extend <code>right</code> and add <code>nums[right]</code> to <code>sum</code>. While <code>sum &gt;= target</code>, record the window length and remove <code>nums[left]</code>, moving <code>left</code> forward. All values are positive, so shrinking always lowers the sum.</p>
-<ul><li>Time: <strong>O(n)</strong> — each index enters and leaves the window at most once.</li><li>Space: <strong>O(1)</strong> — the window bounds and the running sum.</li></ul>
-          <div class="chips"><span class="chip">⏱ O(n)</span><span class="chip">🧠 O(1)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
+          <h3>💡 Key idea (v1 · Prefix sums + binary search)</h3>
+          <div class="idea">With prefix sums, for each start binary-search the first end whose window sum reaches the target.</div>
+          <p><strong>Prefix sums.</strong> <code>pre[i]</code> = sum of the first <code>i</code> values (increasing, since all values are positive). For each <code>i</code>, binary-search the smallest <code>j</code> with <code>pre[j] - pre[i] &gt;= target</code>; the window length is <code>j - i</code>.</p>
+<ul><li>Time: <strong>O(n log n)</strong> — n binary searches.</li><li>Space: <strong>O(n)</strong> — the prefix-sum array.</li></ul>
+          <div class="chips"><span class="chip">⏱ O(n log n)</span><span class="chip">🧠 O(n)</span><span class="chip">🎬 <span id="scount"></span>&nbsp;scenarios</span></div>
           <button class="cta" data-goto="walk">▶ Start the animated walkthrough</button>
         </div>
       </div>
@@ -231,20 +231,24 @@ Output: 0</code></pre>
     <div id="timeline" title="Jump to a step"></div>
     <div class="legend"><span style="--c:var(--cur)">current</span><span style="--c:var(--sel)">selected / window</span><span style="--c:var(--ok)">done / match</span><span style="--c:var(--bad)">rejected</span><span style="--c:var(--alt)">special</span></div>
     <div class="kbd"><kbd>Space</kbd> play/pause · <kbd>←</kbd> <kbd>→</kbd> step · <kbd>1</kbd>–<kbd>9</kbd> pick scenario</div>
-    <details class="code card"><summary>☕ Java solution (v2)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0209.v2;
+    <details class="code card"><summary>☕ Java solution (v1)</summary><pre class="java"><code id="javacode">package com.jk.explore.problems.leetcode.p0209.v1;
 
 import java.util.*;
 
 public class MinimumSizeSubarraySum {
 
     public int minSubArrayLen(int target, int[] nums) {
-        int left = 0, sum = 0, best = Integer.MAX_VALUE;
-        for (int right = 0; right &lt; nums.length; right++) {
-            sum += nums[right];
-            while (sum &gt;= target) {
-                best = Math.min(best, right - left + 1);
-                sum -= nums[left++];
+        int n = nums.length;
+        int[] pre = new int[n + 1];
+        for (int i = 0; i &lt; n; i++) pre[i + 1] = pre[i] + nums[i];
+        int best = Integer.MAX_VALUE;
+        for (int i = 0; i &lt; n; i++) {
+            int lo = i + 1, hi = n;
+            while (lo &lt; hi) {
+                int mid = (lo + hi) &gt;&gt;&gt; 1;
+                if (pre[mid] - pre[i] &gt;= target) hi = mid; else lo = mid + 1;
             }
+            if (pre[lo] - pre[i] &gt;= target) best = Math.min(best, lo - i);
         }
         return best == Integer.MAX_VALUE ? 0 : best;
     }
@@ -254,13 +258,13 @@ public class MinimumSizeSubarraySum {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1/animation/index.html">v1</a></td><td>Prefix sums + binary search</td><td><code>O(n log n)</code></td><td><code>O(n)</code></td></tr><tr class="on"><td><a href="../../v2/animation/index.html">v2</a></td><td>Sliding window</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
-    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Sliding window.</strong> Extend <code>right</code> and add <code>nums[right]</code> to <code>sum</code>. While <code>sum &gt;= target</code>, record the window length and remove <code>nums[left]</code>, moving <code>left</code> forward. All values are positive, so shrinking always lowers the sum.</p>
-<ul><li>Time: <strong>O(n)</strong> — each index enters and leaves the window at most once.</li><li>Space: <strong>O(1)</strong> — the window bounds and the running sum.</li></ul></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class="on"><td><a href="../../v1-prefix-sums-binary-search/animation/index.html">v1</a></td><td>Prefix sums + binary search</td><td><code>O(n log n)</code></td><td><code>O(n)</code></td></tr><tr class=""><td><a href="../../v2-sliding-window/animation/index.html">v2</a></td><td>Sliding window</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Prefix sums.</strong> <code>pre[i]</code> = sum of the first <code>i</code> values (increasing, since all values are positive). For each <code>i</code>, binary-search the smallest <code>j</code> with <code>pre[j] - pre[i] &gt;= target</code>; the window length is <code>j - i</code>.</p>
+<ul><li>Time: <strong>O(n log n)</strong> — n binary searches.</li><li>Space: <strong>O(n)</strong> — the prefix-sum array.</li></ul></div>
   </section>
 </main>
 <script>
-window.PROBLEM = {"num": 209, "title": "Minimum Size Subarray Sum", "idea": "Grow the window to the right until the sum reaches the target, then shrink it from the left while it still does.", "time": "O(n)", "timeWhy": "each index enters and leaves the window at most once.", "space": "O(1)", "spaceWhy": "the window bounds and the running sum.", "tc": "n", "sc": "1"};
+window.PROBLEM = {"num": 209, "title": "Minimum Size Subarray Sum", "idea": "With prefix sums, for each start binary-search the first end whose window sum reaches the target.", "time": "O(n log n)", "timeWhy": "n binary searches.", "space": "O(n)", "spaceWhy": "the prefix-sum array.", "tc": "nlogn", "sc": "n"};
 /*
  * Step-by-step algorithm animator with spoken narration.
  *
@@ -595,22 +599,20 @@ window.PROBLEM = {"num": 209, "title": "Minimum Size Subarray Sum", "idea": "Gro
 <script>
 function trace(A) {
 function run(target, a) {
-  let left = 0, sum = 0, best = Infinity;
-  A.step(`Find the shortest window whose sum is at least ${target}. The window grows on the right and shrinks on the left.`, A.arr('nums', a), A.vars({ target, sum, best: '∞' }));
-  for (let right = 0; right < a.length; right++) {
-    sum += a[right];
-    A.step(`Add nums[${right}] = ${a[right]}. The window sum is ${sum}.${sum >= target ? ' That reaches the target.' : ''}`, A.arr('nums', a, { range: [left, right], ptr: [[left, 'L'], [right, 'R']], hl: { [right]: 'cur' } }), A.vars({ target, sum, best: best === Infinity ? '∞' : best }));
-    while (sum >= target) {
-      best = Math.min(best, right - left + 1);
-      A.step(`The window from ${left} to ${right} has length ${right - left + 1}, so best is ${best}. Try shrinking: remove ${a[left]}.`, A.arr('nums', a, { range: [left, right], ptr: [[left, 'L'], [right, 'R']], hl: { [left]: 'bad' } }), A.vars({ target, sum, best }));
-      sum -= a[left++];
-    }
+  const n = a.length, pre = [0];
+  a.forEach(x => pre.push(pre[pre.length - 1] + x));
+  A.step('Build prefix sums: pre[j] − pre[i] is the sum of nums[i..j−1]. They only increase, so we can binary-search them.', A.arr('nums', a), A.arr('pre', pre));
+  let best = Infinity;
+  for (let i = 0; i < n; i++) {
+    let lo = i + 1, hi = n;
+    while (lo < hi) { const mid = (lo + hi) >> 1; if (pre[mid] - pre[i] >= target) hi = mid; else lo = mid + 1; }
+    const ok = pre[lo] - pre[i] >= target;
+    if (ok) best = Math.min(best, lo - i);
+    A.step(ok ? `Starting at ${i}, the first end that reaches ${target} is ${lo}, a window of length ${lo - i}.` : `Starting at ${i}, no window reaches ${target}.`, A.arr('pre', pre, { hl: { [i]: 'sel', [lo]: ok ? 'ok' : 'bad' } }), A.arr('nums', a, { range: ok ? [i, lo - 1] : [i, n - 1] }), A.vars({ best: best === Infinity ? '∞' : best }));
   }
-  const res = best === Infinity ? 0 : best;
-  A.step(res ? `The minimal length is ${res}.` : `No window ever reaches ${target}, so the answer is 0.`, A.arr('nums', a), A.text('Result', res, res ? 'ok' : 'bad'));
+  A.step(`Minimal length: ${best === Infinity ? 0 : best}.`, A.text('Result', best === Infinity ? 0 : best, 'ok'));
 }
 A.scenario('Classic', 'target = 7, nums = [2,3,1,2,4,3]', () => run(7, [2, 3, 1, 2, 4, 3]));
-A.scenario('Edge: impossible', 'target = 11, nums = [1,1,1,1,1]', () => run(11, [1, 1, 1, 1, 1]));
 }
 </script>
 </body>
