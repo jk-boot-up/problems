@@ -176,7 +176,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
 <body>
 <header>
   <div class="hwrap">
-    <span class="hnum">#55</span><h1>Jump Game</h1><span class="badge Medium">Medium</span><span class="topic">Array / String</span><span class="vtag">v1 · Optimal</span>
+    <span class="hnum">#55</span><h1>Jump Game</h1><span class="badge Medium">Medium</span><span class="topic">Array / String</span><span class="vtag">v1 · Greedy reach</span>
     <span class="spacer"></span>
     <a class="lc" href="https://leetcode.com/problems/jump-game/" target="_blank" rel="noopener">LeetCode ↗</a>
     <div class="themes" role="group" aria-label="Theme"><button data-theme="light">☀ Light</button><button data-theme="medium">◐ Medium</button><button data-theme="dark">☾ Dark</button></div>
@@ -202,7 +202,7 @@ Output: false  (every path gets stuck at index 3)</code></pre>
 <ul><li><code>1 &lt;= nums.length &lt;= 10^4</code></li><li><code>0 &lt;= nums[i] &lt;= 10^5</code></li></ul></div>
       <div>
         <div class="card md">
-          <h3>💡 Key idea (v1 · Optimal)</h3>
+          <h3>💡 Key idea (v1 · Greedy reach)</h3>
           <div class="idea">Track the farthest index reachable so far; if you ever stand beyond it, you are stuck.</div>
           <p><strong>Greedy reach.</strong> Keep <code>reach</code>, the farthest index reachable so far. Walk <code>i</code> left to right. If <code>i &gt; reach</code> you can't get here, so return <code>false</code>. Otherwise update <code>reach = max(reach, i + nums[i])</code>. Return <code>true</code> once <code>reach</code> covers the last index.</p>
 <ul><li>Time: <strong>O(n)</strong> — each index is visited at most once.</li><li>Space: <strong>O(1)</strong> — a single reach variable.</li></ul>
