@@ -185,7 +185,7 @@ table.cmp tr.on td{background:var(--panel2);font-weight:700}
     <button data-tab="problem" class="on"><span class="n">1</span>Problem</button>
     <button data-tab="walk"><span class="n">2</span>Walkthrough</button>
     <button data-tab="cx"><span class="n">3</span>Complexity</button>
-    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1/animation/index.html">v1 · Extra array</a><a class="on" href="../../v2/animation/index.html">v2 · Triple reversal</a></nav>
+    <span class="spacer"></span><nav class="variants" aria-label="Solution variants"><a class="" href="../../v1-extra-array/animation/index.html">v1 · Extra array</a><a class="on" href="../../v2-triple-reversal/animation/index.html">v2 · Triple reversal</a></nav>
   </nav>
 </header>
 <main>
@@ -259,7 +259,7 @@ public class RotateArray {
 
   <section class="tab" id="tab-cx">
     <div class="cxgrid" id="cx-cards"></div>
-    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1/animation/index.html">v1</a></td><td>Extra array</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr><tr class="on"><td><a href="../../v2/animation/index.html">v2</a></td><td>Triple reversal</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
+    <div class="card md" style="margin-top:18px"><h3>All variants of this problem</h3><table class="cmp"><tr><th>Version</th><th>Approach</th><th>Time</th><th>Space</th></tr><tr class=""><td><a href="../../v1-extra-array/animation/index.html">v1</a></td><td>Extra array</td><td><code>O(n)</code></td><td><code>O(n)</code></td></tr><tr class="on"><td><a href="../../v2-triple-reversal/animation/index.html">v2</a></td><td>Triple reversal</td><td><code>O(n)</code></td><td><code>O(1)</code></td></tr></table></div>
     <div class="card md" style="margin-top:18px"><h3>How the cost adds up</h3><p><strong>Triple reversal.</strong> Let <code>k = k % n</code>. Reverse the whole array: the last <code>k</code> values move to the front, but in reverse order. Then reverse the first <code>k</code> values and the remaining <code>n - k</code> values to restore their order.</p>
 <ul><li>Time: <strong>O(n)</strong> — every element is swapped at most twice.</li><li>Space: <strong>O(1)</strong> — swaps happen in place.</li></ul></div>
   </section>

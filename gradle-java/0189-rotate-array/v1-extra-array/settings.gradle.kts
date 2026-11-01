@@ -3,8 +3,4 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "0189-rotate-array"
-
-// Each solution variant (v1 = simplest ... vN = most efficient) is its own subproject.
-include("v1")
-include("v2")
+rootProject.name = "0189-rotate-array-v1-extra-array"
