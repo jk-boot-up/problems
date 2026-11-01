@@ -5,7 +5,7 @@ import java.util.*;
 public class RandomizedSet {
 
     private final List<Integer> values = new ArrayList<>();
-    private final Map<Integer, Integer> indexOf = new HashMap<>();
+    private final MyHashMap<Integer, Integer> indexOf = new MyHashMap<>();
     private final Random random;
 
     public RandomizedSet() {
